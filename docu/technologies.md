@@ -9,6 +9,12 @@ Mongodb
 ## Interface for Database
 Mongoose
 
+## manage dependencies
+node/npm
+
+## Server
+express
+
 ## CI/CD
 tests via chai -> connect with actions for automated testings
 gitlab pages
