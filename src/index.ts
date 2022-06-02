@@ -1,11 +1,13 @@
-import * as express from "express";
+import {Application, NextFunction, Request, Response} from "express";
+
+const express = require('express');
 
 // Boot express
-const app: express.Application = express();
+const app: Application = express();
 const port = 5000;
 
 // Application routing
-app.use('/', (req: express.Request, res: express.Response, next: express.NextFunction ) => {
+app.use('/', (req: Request, res: Response, next: NextFunction ) => {
     res.status(200).send({data: 'Hello from Ornio AS'});
 });
 
