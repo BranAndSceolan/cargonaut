@@ -1,4 +1,5 @@
-import {Application, NextFunction, Request, Response} from "express";
+import {Application, Request, Response} from "express";
+import * as path from "path";
 
 const express = require('express');
 
@@ -8,7 +9,7 @@ const port = 5000;
 
 // Application routing
 app.use('/', (req: Request, res: Response) => {
-    res.status(200).send({data: 'Hello from Cargonaut'});
+    res.status(200).sendFile(path.join(__dirname, "/public/index.html"))
 });
 
 // Start server
