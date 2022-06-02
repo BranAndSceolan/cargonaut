@@ -207,13 +207,13 @@ m2=1
     <coordinates>
       <x>600</x>
       <y>120</y>
-      <w>180</w>
+      <w>140</w>
       <h>180</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
 m2=*
-is evaluated &gt;</panel_attributes>
+writes &gt;</panel_attributes>
     <additional_attributes>110.0;10.0;10.0;160.0</additional_attributes>
   </element>
   <element>
