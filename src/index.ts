@@ -15,4 +15,4 @@ app.use('/', (_req: Request, res: Response) => {
 });
 
 // Start server
-app.listen(port, () => console.log(`Server is listening on http://localhost:${port}`));
+app.listen(port, () => console.log(`Server is listening on ${port}`));
