@@ -1,3 +1,22 @@
-# Plain HTML Pages Template
+# Cargonaut
 
-This is a template that uses plain HTML to create a static web page that is published at git-pages.thm.de.
+In this project, we will create a Browserapp that enables prople to offer and accept rides.
+
+Other than Uber, we put a lot of emphasis on not only the transport of passengers but also cargo of all types.
+
+## Strukture
+Go to [docu](docu) for non-code elements of the project.
+
+[src](src) contains the code, while [config](config) adds some values needed for docker.
+
+## Build
+
+### localy:
+``npm start`
+
+(starts only the docker, not the database)
+
+### in docker-compose
+``sudo docker-compose up -d``
+
+(starts server and database)
