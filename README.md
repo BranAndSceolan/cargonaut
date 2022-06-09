@@ -16,7 +16,10 @@ Go to [docu](docu) for non-code elements of the project.
 
 (starts only the docker, not the database)
 
-### in docker-compose
-``sudo docker-compose up -d``
+### Start mongo and node server
+``sudo NODE_ENV=docker_dev docker-compose up --build --detach``
 
-(starts server and database)
+
+``sudo docker-compose exec mongo bash``
+
+(get access to mongoDB-bash in terminal)
