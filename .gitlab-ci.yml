@@ -1,3 +1,8 @@
+stages:
+  - build
+  - deploy
+  - deploy2
+
 docker-build:
   # Use the official docker image.
   image: docker:latest
@@ -79,7 +84,7 @@ build-test:
 
 
 pages:
-  stage: deploy
+  stage: deploy2
   tags:
     - alpine
   script:
