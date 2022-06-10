@@ -1,0 +1,6 @@
+{
+  "Database": {
+    "mongoURL": "mongodb://pbl_mongo:8080"
+  },
+  "disableAuth": "true"
+}
