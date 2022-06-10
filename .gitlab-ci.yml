@@ -49,7 +49,7 @@ publish:
           echo "${CI_API_V4_URL#http*:}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=\${CI_JOB_TOKEN}"
         } >> .npmrc
       fi
-    - echo "Created the following .npmrc:"; cat .npmrc
+- echo "Created the following .npmrc:"; cat .npmrc
 
     # Extract a few values from package.json
     - NPM_PACKAGE_NAME=$(node -p "require('./package.json').name")
