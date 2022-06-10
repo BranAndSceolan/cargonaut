@@ -1,6 +1,6 @@
 docker build:
   stage: build
-  image: npm:latest
+  image: node:latest
   script: NODE_ENV=test npm run tes
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
