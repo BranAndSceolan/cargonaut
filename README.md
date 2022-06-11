@@ -12,7 +12,7 @@ Go to [docu](docu) for non-code elements of the project.
 ## Build
 
 ### locally:
-``npm start`
+``npm start``
 
 (starts only the docker, not the database)
 
