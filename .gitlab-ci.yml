@@ -85,7 +85,7 @@ build-test:
 pages:
   stage: deploy2
   tags:
-    - alpine
+    - npm
   script:
     - echo 'Just declare artifact...'
   artifacts:
