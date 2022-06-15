@@ -1,11 +1,12 @@
-pages:
-  stage: deploy
-  tags:
-    - alpine
+stages:
+  - build-frontend
+
+build-frontend:
+  image: node:16.15.1
+  stage: build-frontend
+  before_script:
+    - cd frontend
   script:
-    - echo 'Just declare artifact...'
+    - npm install
   artifacts:
-    paths:
-    - src/public
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    when: always
