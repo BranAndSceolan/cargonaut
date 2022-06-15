@@ -2,7 +2,6 @@ stages:
   - build-frontend
 
 build-frontend:
-  image: node:12
   stage: build-frontend
   before_script:
     - cd frontend
