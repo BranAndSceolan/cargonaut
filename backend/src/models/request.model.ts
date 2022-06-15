@@ -34,13 +34,13 @@ export class RequestClss implements Request {
 
 }
 
-enum requestStatus {
+export enum requestStatus {
     accepted = 0,
     pending =1,
     denied =2
 }
 
-enum trackingStatus{
+export enum trackingStatus{
     // waiting for passengers or cargo
     waiting = 0,
     left = 1,
