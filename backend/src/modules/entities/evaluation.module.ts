@@ -49,22 +49,22 @@ export class LabelModule extends EntityModule {
     }
 
     /**
-     * calls deleteEvaluation() method of mongo.module, to delete a vehicle specified by id
+     * calls deleteEvaluation() method of mongo.module, to delete an evaluation specified by id
      * @param {mongoose.Types.ObjectId} id
      * @return {Vehicle|null} deleted vehicle
      */
-    async deleteVehicle(id: mongoose.Types.ObjectId): Promise<Vehicle | null> {
-        return this.mongo.deleteVehicle(id);
+    async deleteEvaluation(id: mongoose.Types.ObjectId): Promise<Evaluation | null> {
+        return this.mongo.deleteEvaluation(id);
     }
 
 
     /**
-     * calls deleteAllVehicles() method of mongo.module, to delete all vehicles
+     * calls deleteAllEvaluations() method of mongo.module, to delete all evaluations
      */
-    async deleteAllLabels() {
-        await this.mongo.deleteAllVehicles()
+    async deleteAllEvaluations() {
+        await this.mongo.deleteAllEvaluations()
             .then(() => {
-                printToConsole("[-] Deleted all vehicles")
+                printToConsole("[-] Deleted all evaluations")
             })
             .catch(err => {
                 printToConsole(err)
