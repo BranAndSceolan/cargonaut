@@ -89,9 +89,45 @@ export class MongoModule {
         return schemes.requestModel.deleteMany({})
     }
 
+    async findVehicle(filter: any): Promise<Vehicle | null> {
+        return schemes.vehicleModel.findOne(filter);
+    }
 
+    async findUser(filter: any): Promise<User | null> {
+        return schemes.userModel.findOne(filter);
+    }
 
+    async findRide(filter: any): Promise<Ride | null> {
+        return schemes.rideModel.findOne(filter);
+    }
 
+    async findEvaluation(filter: any): Promise<Evaluation | null> {
+        return schemes.evaluationModel.findOne(filter);
+    }
+
+    async findRequest(filter: any): Promise<Request | null> {
+        return schemes.requestModel.findOne(filter);
+    }
+
+    async findVehicles(filter: any): Promise<Vehicle[]> {
+        return schemes.vehicleModel.find(filter);
+    }
+
+    async findUsers(filter: any): Promise<User[]> {
+        return schemes.userModel.find(filter);
+    }
+
+    async findRides(filter: any): Promise<Ride[]> {
+        return schemes.rideModel.find(filter);
+    }
+
+    async findEvaluations(filter: any): Promise<Evaluation[]> {
+        return schemes.evaluationModel.find(filter);
+    }
+
+    async findrequests(filter: any): Promise<Request[]> {
+        return schemes.requestModel.find(filter);
+    }
 
 }
 
