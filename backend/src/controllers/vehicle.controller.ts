@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {MongoModule} from "../modules/mongo/mongo.module";
 import mongoose from "mongoose";
 import {VehicleModule} from "../modules/entities/vehicle.module";
-import {Vehicle} from "../models/vehicle.model";
+import {VehicleClass} from "../models/vehicle.model";
 
 /**
  * Controller for all labelIds, providing all functionalities e.g. (create, read, update, delete)
@@ -22,12 +22,34 @@ export class VehicleController {
      * @param res
      */
     public create(req: Request, res: Response): void {
-        let vehicle: Vehicle;
+        if ( req.body && req.body.type && req.body.numberOfSeats && req.body.notes){
+            let width: number | undefined = undefined;
+            let height: number | undefined = undefined;
+            let length: number | undefined = undefined;
+            if (req.body.spaceWidth && typeof req.body.spaceWidth == 'number'){
+                width = req.body.spaceWidth
+            }
+            if (req.body.spaceHeight && typeof req.body.spaceHeight == 'number'){
+                height = req.body.spaceHeight
+            }
+            if (req.body.spaceLength && typeof req.body.spaceLength == 'number'){
+                length = req.body.spaceLength
+            }
+            this.vehicleModule.createVehicle(new VehicleClass(req.body.type, req.body.numberOfSeats, req.body.notes, width, height, length)).then( result =>{
+                if (result) {
+                    res.status(200).send(result);
+                } else {
+                    res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+                }
+            });
+        } else {
+            res.status(400).send("Bad Request")
+        }
 
     }
 
     /**
-     *  get all vehicleIds
+     *  get all vehicles
      * @param _req
      * @param res
      */
@@ -48,7 +70,7 @@ export class VehicleController {
      * @param res
      */
     public delete(req: Request, res: Response): void {
-        let id: string = req.params.id;
+        const id: string | undefined = req.params.id;
         this.vehicleModule.deleteVehicle(new mongoose.Types.ObjectId(id)).then((result: any) => {
             if (result) {
                 res.status(200).send(result); //deleted Entity
