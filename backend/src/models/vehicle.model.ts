@@ -10,7 +10,7 @@ export interface Vehicle {
     spaceHeight?: number,
     spaceLength?: number,
     numberOfSeats: number,
-    notes?: string
+    notes: string
 }
 
 /** Evaluation Class
@@ -23,9 +23,9 @@ export class vehicleClass implements Vehicle {
     spaceHeight?: number;
     spaceLength?: number;
     numberOfSeats: number;
-    notes?: string;
+    notes: string;
 
-    constructor(type: vehicleType, numberOfSeats: number, notes?: string, spaceWidth?: number, spaceHeight?: number, spaceLength?: number, _id?: mongoose.Types.ObjectId) {
+    constructor(type: vehicleType, numberOfSeats: number, notes: string, spaceWidth?: number, spaceHeight?: number, spaceLength?: number, _id?: mongoose.Types.ObjectId) {
         this._id = _id;
         this.notes = notes;
         this.type = type;
