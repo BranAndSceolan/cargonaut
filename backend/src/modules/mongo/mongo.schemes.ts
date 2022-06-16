@@ -43,7 +43,7 @@ export const rideSchema = new Schema<Ride>({
 });
 
 export const userSchema = new Schema<User>({
-    name: {type: String, required: true},
+    name: {type: String, required: true, unique: true},
     birthdate: {type: Date, required: true},
     email: {type: String, required: true},
     password: {type: String, required: true},
