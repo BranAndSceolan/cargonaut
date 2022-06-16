@@ -48,6 +48,16 @@ export class VehicleController {
 
     }
 
+    public get(req: Request, res: Response) {
+        const id = req.params.id;
+        this.vehicleModule.findVehicleById(new mongoose.Types.ObjectId(id)).then((result: any) => {
+            if (result) {
+                res.status(200).send(result);
+            } else {
+                res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+            }
+        }).catch(() => res.status(500).send("Internal Server Error"));
+    }
     /**
      *  get all vehicles
      * @param _req
