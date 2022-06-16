@@ -2,14 +2,14 @@ version: '3.0'
 services:
   mongo:
     image: mongo
-    container_name: pbl_mongo
+    container_name: cargonaut_mongo
     ports:
-      - "27017:27017"
+      - "8080:8080"
   node:
     build: .
     container_name: cargonaut
     ports:
-      - "3000:3000"
+      - "8008:8008"
     depends_on:
       - mongo
     environment:
