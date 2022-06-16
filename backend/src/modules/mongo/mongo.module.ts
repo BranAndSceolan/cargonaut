@@ -48,5 +48,25 @@ export class MongoModule {
         const i = await request.save();
         return i._id
     }
+
+    async deleteVehicle(id: mongoose.Types.ObjectId): Promise<Vehicle | null> {
+        return schemes.vehicleModel.findByIdAndDelete(id);
+    }
+
+    async deleteUser(id: mongoose.Types.ObjectId): Promise<User | null> {
+        return schemes.userModel.findByIdAndDelete(id);
+    }
+
+    async deleteRide(id: mongoose.Types.ObjectId): Promise<Ride | null> {
+        return schemes.rideModel.findByIdAndDelete(id);
+    }
+
+    async deleteEvaluation(id: mongoose.Types.ObjectId): Promise<Evaluation | null> {
+        return schemes.evaluationModel.findByIdAndDelete(id);
+    }
+
+    async deleteRequest(id: mongoose.Types.ObjectId): Promise<Request | null> {
+        return schemes.requestModel.findByIdAndDelete(id);
+    }
 }
 
