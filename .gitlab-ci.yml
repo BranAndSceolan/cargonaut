@@ -1,13 +1,6 @@
 docker build:
   stage: build
-  before_script:
-    - whoami
-    - pwd
-    - locate npm
-    - echo ${PATH}
-    - which npm
-    - ls -lh $(which npm)
-  script: NODE_ENV=test npm run test
+  script: NODE_ENV=docker_dev docker-compose up --build --detach
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
 
