@@ -68,5 +68,30 @@ export class MongoModule {
     async deleteRequest(id: mongoose.Types.ObjectId): Promise<Request | null> {
         return schemes.requestModel.findByIdAndDelete(id);
     }
+
+    async deleteAllVehicles() {
+        return schemes.vehicleModel.deleteMany({})
+    }
+
+    async deleteAllUsers() {
+        return schemes.userModel.deleteMany({})
+    }
+
+    async deleteAllRides() {
+        return schemes.rideModel.deleteMany({})
+    }
+
+    async deleteAllEvaluations() {
+        return schemes.evaluationModel.deleteMany({})
+    }
+
+    async deleteAllRequests() {
+        return schemes.requestModel.deleteMany({})
+    }
+
+
+
+
+
 }
 
