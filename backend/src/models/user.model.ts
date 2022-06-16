@@ -10,7 +10,8 @@ export interface User {
     "birthdate": Date,
     "email": String,
     "password": String,
-    "averageEvalOfRides": Number
+    "averageEvalOfRides": Number,
+    "vehicles": mongoose.Types.ObjectId[]
 }
 
 /** Evaluation Class
@@ -23,14 +24,16 @@ export class UserClass implements User {
     email: string;
     password: string;
     averageEvalOfRides: number;
+    vehicles: mongoose.Types.ObjectId[];
 
-    constructor(name: string, birthdate: Date, email: string, password: string, averageEvalOfRides: number, _id?: mongoose.Types.ObjectId) {
+    constructor(name: string, birthdate: Date, email: string, password: string, vehicles: mongoose.Types.ObjectId[] , averageEvalOfRides: number, _id?: mongoose.Types.ObjectId) {
         this._id = _id;
         this.name = name;
         this.birthdate = birthdate;
         this.email = email;
         this.password = password;
         this.averageEvalOfRides = averageEvalOfRides;
+        this.vehicles = vehicles
     }
 
 }
