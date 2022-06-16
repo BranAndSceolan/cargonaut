@@ -125,7 +125,7 @@ export class MongoModule {
         return schemes.evaluationModel.find(filter);
     }
 
-    async findrequests(filter: any): Promise<Request[]> {
+    async findRequests(filter: any): Promise<Request[]> {
         return schemes.requestModel.find(filter);
     }
 
