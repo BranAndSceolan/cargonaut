@@ -1,8 +1,6 @@
 import mongoose, {Schema} from "mongoose";
 import {Evaluation} from "../../models/evaluation.model";
 import {Request} from "../../models/request.model";
-import {requestStatus} from "../../models/request.model";
-import {trackingStatus} from "../../models/request.model";
 import {Ride} from "../../models/ride.model";
 
 /**
@@ -20,11 +18,11 @@ export const evaluationSchema = new Schema<Evaluation>({
  * create a requestSchema corresponding to the document Request interface
  */
 export const requestSchema = new Schema<Request>({
-    requestStatus: {type: requestStatus, required: true},
+    requestStatus: {type: Number, enum: [0, 1, 2], required: true},
     date: {type: String, required: true},
     user: {type: mongoose.Types.ObjectId, required: true},
     cargo: {type: mongoose.Types.ObjectId, required: false},
-    trackingStatus: {type: trackingStatus, required: true}
+    trackingStatus: {type: Number, enum: [0, 1, 2], required: true}
 });
 
 /**

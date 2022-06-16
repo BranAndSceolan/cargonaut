@@ -15,7 +15,7 @@ export interface Request {
 /** Request Class
  */
 
-export class RequestClss implements Request {
+export class RequestClass implements Request {
     _id?: mongoose.Types.ObjectId;
     requestStatus: requestStatus;
     user: mongoose.Types.ObjectId;
