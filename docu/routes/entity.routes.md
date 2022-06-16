@@ -83,9 +83,33 @@ type: delete <br>
 route: /eval/:id <br>
 returns: Evaluation (JSON) <br>
 success status: 200 <br>
-fail status: 404, 
+fail status: 404, 401 (if not authorized), 403 (if you are authorized, but it is not yours)
+#### Request
+type: delete <br>
+route: /req/:id <br>
+returns: Request (JSON) <br>
+success status: 200 <br>
+fail status: 404, 401 (if not authorized), 403 (if you are authorized, but it is not yours)
+#### Ride
+type: delete <br>
+route: /ride/:id <br>
+returns: Ride (JSON) <br>
+success status: 200 <br>
+fail status: 404, 401 (if not authorized), 403 (if you are authorized, but it is not yours)
+#### Vehicle
+type: delete <br>
+route: /vehicle/:id <br>
+returns: Request (JSON) <br>
+success status: 200 <br>
+fail status: 404, 401 (if not authorized), 403 (if you are authorized, but it is not yours)
+
 ## Nice to have
 
 ### update
+#### Evaluation
+#### Request
+#### Ride
+#### Vehicle
 
-### tracking only if logged in and involved in the ride (accepted request)
+
+### tracking Requests only if logged in and involved in the ride (accepted request)
