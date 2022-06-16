@@ -27,5 +27,7 @@ Vue
 
 ## Optional (Only if everything else works already)
 Paypal-Integration
+
 Google-Login
-Google-maps for tracking
+
+Google-maps for Tracking
