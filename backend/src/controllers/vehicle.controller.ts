@@ -23,16 +23,15 @@ export class VehicleController {
      */
     public create(req: Request, res: Response): void {
         let vehicle: Vehicle;
-        }
 
     }
 
     /**
      *  get all vehicleIds
-     * @param req
+     * @param _req
      * @param res
      */
-    public getAll(req: Request, res: Response) {
+    public getAll(_req: Request, res: Response) {
         this.vehicleModule.getAllVehicles().then((result: any) => {
             if (result) {
                 res.status(200).send(result);
