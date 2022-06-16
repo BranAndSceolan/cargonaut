@@ -2,6 +2,8 @@ import {Schema} from "mongoose";
 import {Evaluation} from "../../models/evaluation.model";
 import {Request} from "../../models/request.model";
 import {Ride} from "../../models/ride.model";
+import {User} from "../../models/user.model";
+import {Vehicle} from "../../models/vehicle.model";
 
 const mongoose = require('mongoose')
 
@@ -39,3 +41,20 @@ export const rideSchema = new Schema<Ride>({
     pendingReqs: {type: [mongoose.Types.ObjectId], required: false},
     accReqs: {type: [mongoose.Types.ObjectId], required: false}
 });
+
+export const userSchema = new Schema<User>({
+    name: {type: String, required: true},
+    birthdate: {type: Date, required: true},
+    email: {type: String, required: true},
+    password: {type: String, required: true},
+    averageEvalOfRides: {type: Number, required: false}
+})
+
+export const vehicleSchema = new Schema<Vehicle>({
+    type: {type: Number, enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], required: true},
+    spaceLength: {type: Number, required: false},
+    spaceWidth: {type: Number, required: false},
+    spaceHeight: {type: Number, required: false},
+    numberOfSeats: {type: Number, required: true},
+    notes: {type: String, required: false}
+})
