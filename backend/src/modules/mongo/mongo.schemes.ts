@@ -4,6 +4,7 @@ import {Request} from "../../models/request.model";
 import {Ride} from "../../models/ride.model";
 
 const mongoose = require('mongoose')
+
 /**
  * Evaluation
  * create a evaluationSchema corresponding to the document Evaluation interface
