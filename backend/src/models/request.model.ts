@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 /** Request Interface
  */
-export interface Request {
+export interface Req {
     "_id"?: mongoose.Types.ObjectId,
     "requestStatus": requestStatus
     "date": string,
@@ -15,7 +15,7 @@ export interface Request {
 /** Request Class
  */
 
-export class RequestClass implements Request {
+export class RequestClass implements Req {
     _id?: mongoose.Types.ObjectId;
     requestStatus: requestStatus;
     user: mongoose.Types.ObjectId;

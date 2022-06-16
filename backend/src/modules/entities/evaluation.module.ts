@@ -51,7 +51,7 @@ export class LabelModule extends EntityModule {
     /**
      * calls deleteEvaluation() method of mongo.module, to delete an evaluation specified by id
      * @param {mongoose.Types.ObjectId} id
-     * @return {Vehicle|null} deleted vehicle
+     * @return {Evaluation|null} deleted evaluation
      */
     async deleteEvaluation(id: mongoose.Types.ObjectId): Promise<Evaluation | null> {
         return this.mongo.deleteEvaluation(id);
