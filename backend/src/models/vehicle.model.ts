@@ -39,14 +39,14 @@ export class vehicleClass implements Vehicle {
 
 export enum vehicleType{
     pickupTruck = 0,
-    carWithHorseTrailer,
-    carWithBikeRack,
-    standardCar,
-    truck,
-    caravan,
-    carWithOpenTrailer,
-    carWithCoveredTrailer,
-    bus,
-    motorcycle,
-    other
+    carWithHorseTrailer = 1,
+    carWithBikeRack = 2,
+    standardCar = 3,
+    truck = 4,
+    caravan = 5,
+    carWithOpenTrailer = 6,
+    carWithCoveredTrailer = 7,
+    bus = 8,
+    motorcycle = 9,
+    other = 10
 }
