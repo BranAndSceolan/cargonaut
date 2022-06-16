@@ -1,7 +1,5 @@
 import {Request, Response} from "express";
-import {LabelModule} from "../modules/entities/label.module";
 import {MongoModule} from "../modules/mongo/mongo.module";
-import {printToConsole} from"../modules/util/util.module";
 import mongoose from "mongoose";
 import {VehicleModule} from "../modules/entities/vehicle.module";
 import {Vehicle} from "../models/vehicle.model";
@@ -11,7 +9,7 @@ import {Vehicle} from "../models/vehicle.model";
  *     for the label router using methods of label module.
  */
 export class VehicleController {
-    vehicleModule: LabelModule;
+    vehicleModule: VehicleModule;
 
 
     constructor(mongo: MongoModule) {
@@ -35,7 +33,7 @@ export class VehicleController {
      * @param res
      */
     public getAll(req: Request, res: Response) {
-        this.vehicleModule.getAllLabels().then((result: any) => {
+        this.vehicleModule.getAllVehicles().then((result: any) => {
             if (result) {
                 res.status(200).send(result);
             } else {
@@ -52,7 +50,7 @@ export class VehicleController {
      */
     public delete(req: Request, res: Response): void {
         let id: string = req.params.id;
-        this.vehicleModule.deleteLabel(new mongoose.Types.ObjectId(id)).then((result: any) => {
+        this.vehicleModule.deleteVehicle(new mongoose.Types.ObjectId(id)).then((result: any) => {
             if (result) {
                 res.status(200).send(result); //deleted Entity
             } else {
