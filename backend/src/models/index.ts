@@ -19,4 +19,4 @@ export const rideModel = mongoose.model<Ride>('Ride', schemes.rideSchema)
 export const requestModel = mongoose.model<Request>('Request', schemes.requestSchema)
 
 // create a shelfModel with specific shelfSchema
-export const evaluationfModel = mongoose.model<Evaluation>('Evaluation', schemes.evaluationSchema);
+export const evaluationModel = mongoose.model<Evaluation>('Evaluation', schemes.evaluationSchema);
