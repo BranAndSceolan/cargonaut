@@ -22,11 +22,11 @@ export const evaluationSchema = new Schema<Evaluation>({
  * create a requestSchema corresponding to the document Request interface
  */
 export const requestSchema = new Schema<Request>({
-    requestStatus: {type: Number, enum: [0, 1, 2], required: true},
+    requestStatus: {type: String, enum: ['pending', 'accepted', 'denied'], required: true},
     date: {type: String, required: true},
     user: {type: mongoose.Types.ObjectId, required: true},
     cargo: {type: mongoose.Types.ObjectId, required: false},
-    trackingStatus: {type: Number, enum: [0, 1, 2], required: true}
+    trackingStatus: {type: String, enum: ['pending', 'departed', 'arrived'], required: true}
 });
 
 /**
@@ -51,7 +51,19 @@ export const userSchema = new Schema<User>({
 })
 
 export const vehicleSchema = new Schema<Vehicle>({
-    type: {type: Number, enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], required: true},
+    type: {type: String, enum: [
+            'pick up truck',
+            'car with horse trailer',
+            'car with bike rack',
+            'standard car',
+            'truck',
+            'caravan',
+            'car with open trailer',
+            'car with covered trailer',
+            'bus',
+            'motorcycle',
+            'other'],
+        required: true},
     spaceLength: {type: Number, required: false},
     spaceWidth: {type: Number, required: false},
     spaceHeight: {type: Number, required: false},

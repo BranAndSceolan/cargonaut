@@ -35,14 +35,14 @@ export class RequestClass implements Request {
 }
 
 export enum requestStatus {
-    accepted = 0,
-    pending =1,
-    denied =2
+    accepted = 'accepted',
+    pending = 'pending',
+    denied = 'denied'
 }
 
 export enum trackingStatus{
     // waiting for passengers or cargo
-    waiting = 0,
-    left = 1,
-    arrived = 2
+    pending = 'pending',
+    departed = 'departed',
+    arrived = 'arrived'
 }

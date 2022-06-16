@@ -38,15 +38,15 @@ export class vehicleClass implements Vehicle {
 }
 
 export enum vehicleType{
-    pickupTruck = 0,
-    carWithHorseTrailer = 1,
-    carWithBikeRack = 2,
-    standardCar = 3,
-    truck = 4,
-    caravan = 5,
-    carWithOpenTrailer = 6,
-    carWithCoveredTrailer = 7,
-    bus = 8,
-    motorcycle = 9,
-    other = 10
+    pickupTruck = 'pick up truck',
+    carWithHorseTrailer = 'car with horse trailer',
+    carWithBikeRack = 'car with bike rack',
+    standardCar = 'standard car',
+    truck = 'truck',
+    caravan = 'caravan',
+    carWithOpenTrailer = 'car with open trailer',
+    carWithCoveredTrailer = 'car with covered trailer',
+    bus = 'bus',
+    motorcycle = 'motorcycle',
+    other = 'other'
 }
