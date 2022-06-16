@@ -1,3 +1,18 @@
+docker build:
+  stage: build
+  before_script:
+    - whoami
+    - pwd
+    - locate npm
+    - echo ${PATH}
+    - which npm
+    - ls -lh $(which npm)
+  script: NODE_ENV=test npm run test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+
+
+
 pages:
   stage: deploy
   tags:
