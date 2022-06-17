@@ -15,6 +15,12 @@ npm run serve
 npm run build
 ```
 
+### IN CASE OF PROBLEMS
+```
+npm --legacy-peer-deps install    -> version to new
+vue add eslint                    -> eslint not found
+```
+
 ### Run your unit tests
 ```
 npm run test:unit
@@ -27,10 +33,3 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-### IN CASE OF PROBLEMS
-```
-
-npm --legacy-peer-deps install    -> version to new
-vue add eslint                    -> eslint not found
-```
