@@ -8,7 +8,7 @@ import {printToConsole} from "../util/util.module";
  * Module for evaluations, providing all label functionalities
  *     for evaluation controller using methods of mongo module.
  */
-export class LabelModule extends EntityModule {
+export class EvaluationModule extends EntityModule {
     constructor(mongo: MongoModule) {
         super(mongo);
     }
