@@ -2,11 +2,9 @@
 
 docker build:
   stage: build
-  only:
-    - dev
   script: NODE_ENV=docker_dev docker-compose up --build --detach
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "def"
 
 
 pages:
