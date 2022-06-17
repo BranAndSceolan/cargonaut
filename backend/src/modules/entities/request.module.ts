@@ -8,7 +8,7 @@ import {printToConsole} from "../util/util.module";
  * Module for evaluations, providing all label functionalities
  *     for evaluation controller using methods of mongo module.
  */
-export class LabelModule extends EntityModule {
+export class RequestModule extends EntityModule {
     constructor(mongo: MongoModule) {
         super(mongo);
     }
@@ -18,7 +18,7 @@ export class LabelModule extends EntityModule {
      * @param {Request}
      * @return {mongoose.Types.ObjectId|null} id for created evaluation
      */
-    async createEvaluation(requestData: Req): Promise<mongoose.Types.ObjectId | null> {
+    async createRequest(requestData: Req): Promise<mongoose.Types.ObjectId | null> {
         let requestId;
         if (requestData && requestData.requestStatus && requestData.date && requestData.user && requestData.cargo && requestData.trackingStatus) {
             requestId = await this.mongo.addRequest(new RequestClass(requestData.requestStatus, requestData.date, requestData.user, requestData.cargo, requestData.trackingStatus));
