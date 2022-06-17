@@ -27,3 +27,10 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### IN CASE OF PROBLEMS
+```
+
+npm --legacy-peer-deps install    -> version to new
+vue add eslint                    -> eslint not found
+```
