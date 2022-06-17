@@ -1,9 +1,13 @@
+
+
 docker build:
   stage: build
+  only:
+    refs:
+      - dev
   script: NODE_ENV=docker_dev docker-compose up --build --detach
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
-
 
 
 pages:
@@ -15,7 +19,5 @@ pages:
   artifacts:
     paths:
     - src/public
-  only:
-   - dev
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
