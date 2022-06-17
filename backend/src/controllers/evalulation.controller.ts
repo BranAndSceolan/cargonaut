@@ -8,7 +8,7 @@ import {EvaluationClass} from "../models/evaluation.model";
  * Controller for all evaluations, providing all functionalities e.g. (create, read, update, delete)
  *     for the ecaluation router using methods of evaluation module.
  */
-export class EvalulationController {
+export class EvaluationController {
     evaluationModule: EvaluationModule;
 
 
