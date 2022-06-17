@@ -13,21 +13,18 @@ export class RideController {
 
 
     constructor(mongo: MongoModule) {
-        this.evaluationModule = new EvaluationModule(mongo);
+        this.rideModule = new RideModule(mongo);
     }
 
     /**
-     * calls createEvaluation() method of EvaluationModule, to create a new evaluation
+     * calls createRide() method of RideModule, to create a new ride
      * @param req
      * @param res
      */
     public create(req: Request, res: Response): void {
-        if (req.body && req.body.result && req.body.ride && req.body.user){
-            if (req.body.result > 5 || req.body.result < 0) {
-                req.body.result = -1;
-            }
+        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body. user && req.body.pendingReqs && req.body.accReqs){
 
-            this.evaluationModule.createEvaluation(new EvaluationClass(req.body.result, req.body.ride, req.body.user)).then(result =>{
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.user, req.body.pendingReqs, req.body.accReqs)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {
@@ -41,7 +38,7 @@ export class RideController {
 
     public get(req: Request, res: Response) {
         const id = req.params.id;
-        this.evaluationModule.findEvaluationById(new mongoose.Types.ObjectId(id)).then((result: any) => {
+        this.rideModule.findRideById(new mongoose.Types.ObjectId(id)).then((result: any) => {
             if (result) {
                 res.status(200).send(result);
             } else {
@@ -50,12 +47,12 @@ export class RideController {
         }).catch(() => res.status(500).send("Internal Server Error"));
     }
     /**
-     *  get all evaluatiions
+     *  get all rides
      * @param _req
      * @param res
      */
     public getAll(_req: Request, res: Response) {
-        this.evaluationModule.getAllEvaluations().then((result: any) => {
+        this.rideModule.getAllRides().then((result: any) => {
             if (result) {
                 res.status(200).send(result);
             } else {
@@ -66,13 +63,13 @@ export class RideController {
 
 
     /**
-     * calls deleteEvaluation() method of evaluation.module, to delete an evaluation specified by its id
+     * calls deleteRide() method of evaluation.module, to delete a ride specified by its id
      * @param req
      * @param res
      */
     public delete(req: Request, res: Response): void {
         const id: string | undefined = req.params.id;
-        this.evaluationModule.deleteEvaluation(new mongoose.Types.ObjectId(id)).then((result: any) => {
+        this.rideModule.deleteRide(new mongoose.Types.ObjectId(id)).then((result: any) => {
             if (result) {
                 res.status(200).send(result); //deleted Entity
             } else {
