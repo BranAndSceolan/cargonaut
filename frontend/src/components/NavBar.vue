@@ -6,6 +6,7 @@
     <b-navbar-nav>
       <!-- <b-nav-item href="/overview" class="link"> Angebote </b-nav-item> -->
       <router-link to="/overview" class="link">Overview</router-link>
+      <router-link to="/login" class="link">login</router-link>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">
       <div class="link">ICON</div>
@@ -23,6 +24,7 @@ export default {
 <style scoped>
 .navbar{
   background: #005b52;
+  margin-bottom: 2%;
 }
 .logo{
   height: 60px;
@@ -30,6 +32,7 @@ export default {
 .link{
   color: white;
   font-size: 25px;
+  margin-left: 10px;
 }
 
 </style>
