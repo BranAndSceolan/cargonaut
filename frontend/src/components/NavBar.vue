@@ -4,7 +4,8 @@
       <img src="../assets/cargonaut-white.png" class="logo" alt="Cargonaut Logo">
     </b-navbar-brand>
     <b-navbar-nav>
-      <b-nav-item href="#" class="link"> Angebote </b-nav-item>
+      <!-- <b-nav-item href="/overview" class="link"> Angebote </b-nav-item> -->
+      <router-link to="/overview" class="link">Overview</router-link>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">
       <div class="link">ICON</div>

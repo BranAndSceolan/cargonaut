@@ -2,7 +2,7 @@
   <div>
     <b-card
     :title=name
-    style="max-width: 20rem; min-width: 15rem"
+    style="width: 20rem"
     class="mb-2 text-left"
     >
       <b-card-text>
