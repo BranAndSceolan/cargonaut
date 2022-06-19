@@ -91,6 +91,7 @@
 
 <script>
 import travelCard from '@/components/travel-card'
+import axios from 'axios'
 
 export default {
   name: 'OverviewView',
@@ -106,6 +107,12 @@ export default {
         { name: '*nuscheln*', start: '???', stop: 'Bett', seats: '6', room: '8', price: '29,99' },
         { name: 'Wirres Zeug', start: 'Dusche', stop: 'Nobelpreis', seats: '6', room: '8', price: '29,99' },
         { name: 'Test', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' }]
+    }
+  },
+  methods: {
+    getOffers () {
+      // axios routes are in extra methods at the moment, because I can't test them atm
+      axios.get('/ride/getAll').then(response => (this.offers = response.data))
     }
   }
 }
