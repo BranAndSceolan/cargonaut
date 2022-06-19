@@ -54,12 +54,12 @@
       </div>
     </b-card-body>
     <b-card-footer class="foot">
-      <div>
-        <b-button id="create"> Create </b-button>
-        <b-input-group id="price">
-          <b-form-input placeholder="Preis" class="input shadow-sm"></b-form-input>
+        <b-input-group class="foot-template">
+          <b-button id="create" class="create"> Create </b-button>
+          <b-input-group-append>
+            <b-form-input placeholder="Preis" class="input shadow-sm price" id="price"></b-form-input>
+          </b-input-group-append>
         </b-input-group>
-      </div>
     </b-card-footer>
   </b-card>
 </template>
@@ -124,5 +124,9 @@ export default {
 .info .row {
   margin-left: 0;
   margin-bottom: 10px;
+}
+.foot-template {
+  width: 40%;
+  margin: auto;
 }
 </style>
