@@ -17,14 +17,6 @@
       <div>
         <b-card-group deck class="deck">
           <travel-card v-for="(offer, index) in offers" v-bind:key="index"  :name="offer.name" :start="offer.start" :stop="offer.stop" :seats="offer.seats" :room="offer.room" :price="offer.price"></travel-card>
-          <travel-card name="Ich entführe euch alle" start="???" stop="Polen" seats="2" room="8" price="0,00"></travel-card>
-          <travel-card name="Free Candy" start="Pausenhof" stop="???" seats="2" room="8" price="0,00"></travel-card>
-          <travel-card name="Pazifik fahrt" start="Irrenhaus" stop="Marianengraben" seats="2" room="8" price="0,00"></travel-card>
-          <travel-card name="Free Ethanol" start="Keller" stop="Krankenhaus" seats="1" room="2" price="15000,00"></travel-card>
-          <travel-card name="*nuscheln*" start="???" stop="Bett" seats="?" room="?" price="0,00"></travel-card>
-          <travel-card name="Wirres Zeug" start="Dusche" stop="Nobelpreis" seats="?" room="?" price="0,00"></travel-card>
-          <travel-card name="Test" start="Gießen" stop="Frankfurt" seats="3" room="2" price="19,99"></travel-card>
-          <travel-card name="Test" start="Gießen" stop="Frankfurt" seats="3" room="2" price="19,99"></travel-card>
         </b-card-group>
       </div>
       <div class="filter text-left">
@@ -105,8 +97,15 @@ export default {
   components: { travelCard },
   data () {
     return {
-      offers: [{ name: 'looper1', start: 'City1', stop: 'city2', seats: '5', room: '6', price: '19,99€' },
-        { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99€' }]
+      offers: [{ name: 'looper1', start: 'City1', stop: 'city2', seats: '5', room: '6', price: '19,99' },
+        { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' },
+        { name: 'Ich entführe euch alle', start: 'Pausenhof', stop: '???', seats: '6', room: '8', price: '29,99' },
+        { name: 'Free Candy', start: 'Pausenhof', stop: '???', seats: '6', room: '8', price: '29,99' },
+        { name: 'Pazifik fahrt', start: 'Irrenhaus', stop: 'Marianengraben', seats: '6', room: '8', price: '29,99' },
+        { name: 'Free Ethanol', start: 'Keller', stop: 'Krankenhaus', seats: '6', room: '8', price: '29,99' },
+        { name: '*nuscheln*', start: '???', stop: 'Bett', seats: '6', room: '8', price: '29,99' },
+        { name: 'Wirres Zeug', start: 'Dusche', stop: 'Nobelpreis', seats: '6', room: '8', price: '29,99' },
+        { name: 'Test', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' }]
     }
   }
 }
