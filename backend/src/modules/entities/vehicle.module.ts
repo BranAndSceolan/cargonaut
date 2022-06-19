@@ -1,6 +1,6 @@
 import {EntityModule} from "./entity.module";
 import {MongoModule} from "../mongo/mongo.module";
-import {Vehicle, vehicleClass} from "../../models/vehicle.model";
+import {Vehicle, VehicleClass} from "../../models/vehicle.model";
 import mongoose from "mongoose";
 import {printToConsole} from "../util/util.module";
 
@@ -8,7 +8,7 @@ import {printToConsole} from "../util/util.module";
  * Module for labelIds, providing all label functionalities
  *     for label controller using methods of mongo module.
  */
-export class LabelModule extends EntityModule {
+export class VehicleModule extends EntityModule {
     constructor(mongo: MongoModule) {
         super(mongo);
     }
@@ -18,7 +18,7 @@ export class LabelModule extends EntityModule {
      * @param {Vehicle}
      * @return {mongoose.Types.ObjectId|null} id for created label
      */
-    async createLabel(vehicleData: Vehicle): Promise<mongoose.Types.ObjectId | null> {
+    async createVehicle(vehicleData: Vehicle): Promise<mongoose.Types.ObjectId | null> {
         let vehicleId;
         if (vehicleData && vehicleData.type && vehicleData.numberOfSeats && vehicleData.notes){
             let width: number | undefined = undefined;
@@ -33,7 +33,7 @@ export class LabelModule extends EntityModule {
             if (vehicleData.spaceLength){
                 lenght = vehicleData.spaceLength
             }
-            vehicleId = await this.mongo.addVehicle(new vehicleClass(vehicleData.type, vehicleData.numberOfSeats, vehicleData.notes, width, height, lenght));
+            vehicleId = await this.mongo.addVehicle(new VehicleClass(vehicleData.type, vehicleData.numberOfSeats, vehicleData.notes, width, height, lenght));
         }
         if (vehicleId) {
             printToConsole('[+] New label with id ' + vehicleId.toString() + ' saved.');

@@ -75,7 +75,7 @@ export class UserController {
      * Returns a HTTP-Response containing a statuscode and, if successful, an array of all
      * Users saved in the DB in its body
      */
-    public getAllUsers(res: Response): void {
+    public getAllUsers(_req: Request, res: Response): void {
         this.userModule.getAllUsers().then((users: User[]) => {
             res.status(200).send(users);
         }).catch((err: Error) => {
@@ -90,7 +90,7 @@ export class UserController {
 
 
     /** GETBYNAME
-     * Finds and returns an User doc using its JWT
+     * Finds and returns an User doc
      * @param req : e.Request
      * HTTP-Request containing the id of the wanted User document in its params (in the URL)
      * @param res : e.Response
