@@ -25,15 +25,15 @@
           <div> Platz   v </div>
           <div>
             <div>
-              <input type="checkbox" aria-label="1m" class="checkbox">
+              <input type="radio" name="room" aria-label="1m" class="checkbox">
               <div> &#62;1m&sup3; </div>
             </div>
             <div>
-              <input type="checkbox" aria-label="<5m>" class="checkbox">
+              <input type="radio" name="room" aria-label="<5m>" class="checkbox">
               <div> &#60;5m&sup3; </div>
             </div>
             <div>
-              <input type="checkbox" aria-label=">5m" class="checkbox">
+              <input type="radio" name="room" aria-label=">5m" class="checkbox">
               <div> &#62;5m&sup3; </div>
             </div>
           </div>
@@ -42,19 +42,19 @@
           <div> Sitze   v </div>
           <div>
             <div>
-              <input type="checkbox" aria-label="1 Sitz" class="checkbox">
+              <input type="radio" name="seats" aria-label="1 Sitz" class="checkbox">
               <div> 1 Sitz </div>
             </div>
             <div>
-              <input type="checkbox" aria-label="2 Sitze" class="checkbox">
+              <input type="radio" name="seats" aria-label="2 Sitze" class="checkbox">
               <div> 2 Sitze </div>
             </div>
             <div>
-              <input type="checkbox" aria-label="3 Sitze" class="checkbox">
+              <input type="radio" name="seats" aria-label="3 Sitze" class="checkbox">
               <div> 3 Sitze </div>
             </div>
             <div>
-              <input type="checkbox" aria-label=">3 Sitze" class="checkbox">
+              <input type="radio" name="seats" aria-label=">3 Sitze" class="checkbox">
               <div> &#62;3 Sitze </div>
             </div>
           </div>
@@ -63,23 +63,23 @@
           <div> Preis   v </div>
           <div>
             <div>
-              <input type="checkbox" aria-label="Unter 5" class="checkbox">
+              <input type="radio" name="price" aria-label="Unter 5" class="checkbox">
               <div> Unter 5€ </div>
             </div>
             <div>
-              <input type="checkbox" aria-label="Unter 10" class="checkbox">
+              <input type="radio" name="price" aria-label="Unter 10" class="checkbox">
               <div> Unter 10€ </div>
             </div>
             <div>
-              <input type="checkbox" aria-label="Unter 15" class="checkbox">
+              <input type="radio" name="price" aria-label="Unter 15" class="checkbox">
               <div> Unter 15€ </div>
             </div>
             <div>
-              <input type="checkbox" aria-label="Unter 30" class="checkbox">
+              <input type="radio" name="price" aria-label="Unter 30" class="checkbox">
               <div> Unter 30€ </div>
             </div>
             <div>
-              <input type="checkbox" aria-label="Über 30" class="checkbox">
+              <input type="radio" name="price" aria-label="Über 30" class="checkbox">
               <div> Über 30€ </div>
             </div>
           </div>
