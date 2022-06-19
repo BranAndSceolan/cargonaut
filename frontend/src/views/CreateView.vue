@@ -54,7 +54,12 @@
       </div>
     </b-card-body>
     <b-card-footer class="foot">
-      <div></div>
+      <div>
+        <b-button id="create"> Create </b-button>
+        <b-input-group id="price">
+          <b-form-input placeholder="Preis" class="input shadow-sm"></b-form-input>
+        </b-input-group>
+      </div>
     </b-card-footer>
   </b-card>
 </template>
