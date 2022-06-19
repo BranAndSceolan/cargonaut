@@ -53,7 +53,9 @@
         </div>
       </div>
     </b-card-body>
-    <b-card-footer class="foot"></b-card-footer>
+    <b-card-footer class="foot">
+      <div></div>
+    </b-card-footer>
   </b-card>
 </template>
 
