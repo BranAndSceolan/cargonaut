@@ -1,18 +1,31 @@
 import express from 'express'
 import {Request, Response} from 'express'
-import {printToConsole} from"../modules/util/util.module";
+import {evaluationController} from '../controllers';
+
 export const router = express.Router({
     strict: true
 })
 
 /**
- * Item Routes
+ * Evaluation Routes
  */
 
-printToConsole("itemRouter in use");
-
 // POST Routes
-// @ts-ignore
 router.post('/create', (req: Request, res: Response) => {
-   //evaluationController.create(req, res)
+    evaluationController.create(req, res)
 })
+
+// GET Routes
+router.get('/getAll', (req: Request, res: Response) => {
+    evaluationController.getAll(req,res)
+})
+
+router.get('/getByName/:name', (req: Request, res: Response) => {
+    evaluationController.get(req,res)
+})
+
+// DELETE Routes
+router.delete('/delete/:id', (req: Request, res: Response) => {
+    evaluationController.delete(req, res)
+})
+
