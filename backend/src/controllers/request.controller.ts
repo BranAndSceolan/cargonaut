@@ -22,9 +22,9 @@ export class RequestController {
      * @param res
      */
     public create(req: Request, res: Response): void {
-        if (req.body && req.body.date && req.body.user && req.body.cargo && req.body.trackingStatus){
+        if (req.body && req.body.date && req.body.user && req.body.cargo){
 
-            this.requestModule.createRequest(new RequestClass(requestStatus.pending, req.body.date, req.body.user, req.body.user, req.body.cargo, req.body.trackingStatus)).then(result =>{
+            this.requestModule.createRequest(new RequestClass(requestStatus.pending, req.body.date, req.body.user, req.body.user, requestStatus.pending ,req.body.cargo)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {

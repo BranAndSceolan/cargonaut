@@ -6,25 +6,24 @@ cuid: system
 {
 "date": "1-12-2022",
 "user": "620cbeaecc90432d95b598a0",
-"cargo"
-
+"cargo": "I have only a sports bag with me."
 }
 
 ###
 
-GET http://localhost:8080/eval/getAll
+GET http://localhost:8080/req/getAll
 sessionid: 1111
 cuid: system
 
 ###
 
-GET http://localhost:8080/eval/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8080/req/findById/620cbeaecc90432d95b598a0
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8080/eval/delete/620cbeaecc90432d95b598a6
+DELETE http://localhost:8080/req/delete/620cbeaecc90432d95b598a6
 Content-Type: application/json
 sessionid: 1111
 cuid: system
