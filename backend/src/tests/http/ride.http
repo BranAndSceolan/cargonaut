@@ -13,6 +13,20 @@ cuid: system
 }
 
 ###
+POST http://localhost:8080/ride/update
+sessionid: 1111
+cuid: system
+
+{
+"date": "1-12-2022",
+"origin": "munich",
+"destination": "berlin",
+"user": "620cbeaecc90432d95b598a",
+"pendingReqs" : [620cbeaecc90432d95b598a0],
+"accReqs": []
+}
+
+###
 
 GET http://localhost:8080/ride/getAll
 sessionid: 1111

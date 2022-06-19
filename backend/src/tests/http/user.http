@@ -7,8 +7,23 @@ cuid: system
 "name": "musterfahrer",
 "birthdate": "1-1-2000",
 "email": "muster@gmail.de",
-"password": "willBeHashedAndSaltedInTheFuture"
+"password": "willBeHashedAndSaltedInTheFuture",
 "vehicles": []
+}
+
+###
+
+POST http://localhost:8080/user/update
+sessionid: 1111
+cuid: system
+
+{
+"name": "musterfahrer",
+"birthdate": "1-1-2000",
+"email": "muster@gmail.de",
+"password": "willBeHashedAndSaltedInTheFuture",
+"vehicles": [620cbeaecc90432d95b598a0],
+"averageEvalOfRides": 4
 }
 
 ###
