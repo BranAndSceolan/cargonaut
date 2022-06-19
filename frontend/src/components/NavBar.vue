@@ -8,6 +8,7 @@
       <router-link to="/overview" class="link">Overview</router-link>
       <router-link to="/login" class="link">login</router-link>
       <router-link to="/create" class="link">create</router-link>
+      <router-link to="/profile" class="link">profile</router-link>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">
       <div class="link">ICON</div>
