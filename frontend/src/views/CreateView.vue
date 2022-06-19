@@ -7,18 +7,18 @@
       <div class="info">
         <div class="head"> Create offer </div>
         <b-input-group id="title" class="title row">
-          <b-form-input placeholder="Title" class="input shadow-sm"></b-form-input>
+          <b-form-input v-model="title" placeholder="Title" class="input shadow-sm"></b-form-input>
         </b-input-group>
         <div class="row">
           <b-input-group id="sitze" class="seat">
-            <b-form-input placeholder="Sitze" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="seat" placeholder="Sitze" class="input shadow-sm"></b-form-input>
           </b-input-group>
           <b-input-group id="platz" class="space">
-            <b-form-input placeholder="Platz" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="space" placeholder="Platz" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
         <b-input-group id="desc" class="desc row">
-          <b-form-input placeholder="Beschreibung" class="input shadow-sm"></b-form-input>
+          <b-form-input v-model="desc" placeholder="Beschreibung" class="input shadow-sm"></b-form-input>
         </b-input-group>
       </div>
       <div class="data">
@@ -29,35 +29,35 @@
         </b-dropdown>
         <div class="row">
           <b-input-group id="herkunft" class="town">
-            <b-form-input placeholder="Herkunft" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="navData[0].town" placeholder="Herkunft" class="input shadow-sm"></b-form-input>
           </b-input-group>
           <b-input-group id="hdate" class="date">
-            <b-form-input placeholder="Datum" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="navData[0].date" placeholder="Datum" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
         <div class="row">
           <b-input-group id="platz" class="town">
-            <b-form-input placeholder="Zwischenstop" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="navData[1].town" placeholder="Zwischenstop" class="input shadow-sm"></b-form-input>
           </b-input-group>
           <b-input-group id="breakdate" class="date">
-            <b-form-input placeholder="Datum" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="navData[1].date" placeholder="Datum" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
         <div class="row">
           <b-input-group id="platz" class="town">
-            <b-form-input placeholder="Ziel" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="navData[2].town" placeholder="Ziel" class="input shadow-sm"></b-form-input>
           </b-input-group>
           <b-input-group id="zdate" class="date">
-            <b-form-input placeholder="Datum" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="navData[2].date" placeholder="Datum" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
       </div>
     </b-card-body>
     <b-card-footer class="foot">
         <b-input-group class="foot-template">
-          <b-button id="create" class="create"> Create </b-button>
+          <b-button id="create" v-on:click="create" class="create"> Create </b-button>
           <b-input-group-append>
-            <b-form-input placeholder="Preis" class="input shadow-sm price" id="price"></b-form-input>
+            <b-form-input v-model="price" placeholder="Preis" class="input shadow-sm price" id="price"></b-form-input>
           </b-input-group-append>
         </b-input-group>
     </b-card-footer>
@@ -65,8 +65,27 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'CreateView.vue'
+  name: 'CreateView.vue',
+  data () {
+    return {
+      title: '',
+      seat: '',
+      space: '',
+      desc: '',
+      navData: [{ town: '', date: '' }, { town: '', date: '' }, { town: '', date: '' }],
+      price: ''
+    }
+  },
+  methods: {
+    create () {
+      axios.post('/ride/create',
+        { title: this.title, seats: this.seats, space: this.space, desc: this.desc, navData: this.navData, price: this.price })
+        .then().catch(reason => { console.log(reason) })
+    }
+  }
 }
 </script>
 
