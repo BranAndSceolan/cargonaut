@@ -7,7 +7,7 @@ export const router = express.Router({
 })
 
 /**
- * User Routes
+ * Evaluation Routes
  */
 
 // POST Routes
