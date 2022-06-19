@@ -16,7 +16,7 @@ export interface Vehicle {
 /** Evaluation Class
  */
 
-export class vehicleClass implements Vehicle {
+export class VehicleClass implements Vehicle {
     _id?: mongoose.Types.ObjectId;
     type: vehicleType;
     spaceWidth?: number;
