@@ -6,6 +6,7 @@ import {Vehicle} from "../../models/vehicle.model";
 import {User} from "../../models/user.model";
 import {Ride} from "../../models/ride.model";
 import {Evaluation} from "../../models/evaluation.model";
+import {Req} from "../../models/request.model"
 
 /**
  * Basic functions for interacting with MongoDB
@@ -43,7 +44,7 @@ export class MongoModule {
         return i._id
     }
 
-    async addRequest(requestData: Request): Promise < mongoose.Types.ObjectId | undefined >{
+    async addRequest(requestData: Req): Promise < mongoose.Types.ObjectId | undefined >{
         const request = new schemes.requestModel(requestData);
         const i = await request.save();
         return i._id
@@ -65,7 +66,7 @@ export class MongoModule {
         return schemes.evaluationModel.findByIdAndDelete(id);
     }
 
-    async deleteRequest(id: mongoose.Types.ObjectId): Promise<Request | null> {
+    async deleteRequest(id: mongoose.Types.ObjectId): Promise<Req | null> {
         return schemes.requestModel.findByIdAndDelete(id);
     }
 
@@ -105,7 +106,7 @@ export class MongoModule {
         return schemes.evaluationModel.findOne(filter);
     }
 
-    async findRequest(filter: any): Promise<Request | null> {
+    async findRequest(filter: any): Promise<Req | null> {
         return schemes.requestModel.findOne(filter);
     }
 
@@ -125,7 +126,7 @@ export class MongoModule {
         return schemes.evaluationModel.find(filter);
     }
 
-    async findRequests(filter: any): Promise<Request[]> {
+    async findRequests(filter: any): Promise<Req[]> {
         return schemes.requestModel.find(filter);
     }
 
