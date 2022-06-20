@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <footer class="footer">
     <div><img src="../assets/cargonaut-white.png" class="logo" alt="Cargonaut logo"></div>
     <div class="text-white sitemap">
       <div class="headline">Sitemap</div>
@@ -19,7 +19,7 @@
       <div class="headline">Social Media</div>
       <div>icon icon icon</div>
     </div>
-  </div>
+  </footer>
 
 </template>
 
@@ -33,7 +33,6 @@ export default {
 .footer{
   display: flex;
   background: #005b52;
-  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;

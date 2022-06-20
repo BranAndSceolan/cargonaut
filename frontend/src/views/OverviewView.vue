@@ -16,7 +16,8 @@
       </b-input-group>
       <div>
         <b-card-group deck class="deck">
-          <travel-card v-for="(offer, index) in offers" v-bind:key="index"  :name="offer.name" :start="offer.start" :stop="offer.stop" :seats="offer.seats" :room="offer.room" :price="offer.price"></travel-card>
+          <travel-card v-for="(offer, index) in offers" v-bind:key="index"  :name="offer.name" :start="offer.start"
+                       :stop="offer.stop" :seats="offer.seats" :room="offer.room" :price="offer.price"></travel-card>
         </b-card-group>
       </div>
       <div class="filter text-left">

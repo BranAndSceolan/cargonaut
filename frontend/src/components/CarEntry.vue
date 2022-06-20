@@ -1,7 +1,7 @@
 <template>
-  <div class="row w-100 ml-5 mr-1 mt-1 entryContainer align-items-center">
+  <div class="row w-100 ml-2 mr-1 mt-1 entryContainer align-items-center">
     <div class="col col-xl-2 p-0">
-      <img src="https://i.auto-bild.de/mdb/extra_large/96/amarok-d8f.png">
+      <img class="float-left" src="https://i.auto-bild.de/mdb/extra_large/96/amarok-d8f.png">
     </div>
     <div class="col col-xl-2 ml-xl-4">
       <p class="mb-0"> {{name}}</p>
@@ -46,8 +46,8 @@ p, .icon{
   font-size: 2em;
 }
 img {
-  min-width: 100%;
-  width :240px;
+  max-width: 200px;
+  min-width: 100px;
   height: auto;
 }
 
