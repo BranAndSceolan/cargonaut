@@ -1,9 +1,10 @@
 import {Request, Response} from "express";
 import { User, UserClass} from "../models/user.model";
 import {MongoModule} from "../modules/mongo/mongo.module";
-import mongoose from "mongoose";
 import {UserModule} from "../modules/entities/user.module";
 import {printToConsole} from "../modules/util/util.module";
+import mongoose from "mongoose";
+
 
 
 /** USER CONTROLLER
@@ -27,10 +28,7 @@ export class UserController {
      * if successful, the id of the newly created User document.
      */
     public create(req: Request, res: Response): void {
-        console.log(req)
-        console.log(req.body)
         const userName = req.body.name
-        console.log(req.body.name)
         if (!userName || userName.trim() == ""){
             res.status(400).send("Username missing")
             return
@@ -50,6 +48,10 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
+        let vehicleIds: Array<mongoose.Types.ObjectId> | undefined = undefined
+        if (req.body.vehicles){
+            vehicleIds = req.body.vehicles
+        }
 
         this.userModule.createUser(
                 new UserClass(
@@ -57,7 +59,7 @@ export class UserController {
                     new Date(birthdate.trim()),
                     email.trim(),
                     password.trim(),
-                    []
+                    vehicleIds
                 )
         ).then((id: mongoose.Types.ObjectId | null) => {
             if (id) {
@@ -151,6 +153,63 @@ export class UserController {
             } else {
                 res.sendStatus(500);
             }
+        })
+    }
+
+    public update(req: Request, res: Response): void {
+        const userName = req.body.name
+        if (!userName || userName.trim() == ""){
+            res.status(400).send("Username missing")
+            return
+        }
+        const password = req.body.password
+        if (!password || password.trim() == ""){
+            res.status(400).send("Password missing")
+            return
+        }
+        const birthdate = req.body.birthdate
+        if (!birthdate || !( typeof birthdate == 'string') || birthdate.trim() == ""){
+            res.status(400).send("Birthdate missing")
+            return
+        }
+        const email = req.body.email
+        if (!email || email.trim() == ""){
+            res.status(400).send("Password missing")
+            return
+        }
+        let vehicleIds: Array<mongoose.Types.ObjectId> | undefined = undefined
+        if (req.body.vehicles){
+            vehicleIds = req.body.vehicles
+        }
+
+        // TODO : implement this
+        // TODO : make sure only those values we want to be able to be updated can be updated!
+         let avgEval: number= 3.5;
+        // if eval update:
+        // get number of evals regarding this driver as n and current eval v
+        // j new value
+        /*
+          ((v * n) +  j) / n + 1
+         */
+
+        this.userModule.updateUser(
+            new UserClass(
+                userName.trim(),
+                new Date(birthdate.trim()),
+                email.trim(),
+                password.trim(),
+                vehicleIds,
+                avgEval
+            )
+        ).then((id: mongoose.Types.ObjectId | null) => {
+            if (id) {
+                res.status(201).send(id)
+            } else {
+                res.sendStatus(500)
+            }
+        }).catch((err: Error) => {
+            res.sendStatus(500)
+            printToConsole(`Something went wrong updating an User. \nERROR: ${err}`)
         })
     }
 

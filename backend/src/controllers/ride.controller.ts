@@ -78,4 +78,26 @@ export class RideController {
         }).catch(() => res.status(500).send("Internal Server Error"));
     }
 
+    public update(req: Request, res: Response): void {
+        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body. user){
+            let accReq = undefined
+            let penReq = undefined
+            if (req.body.pendingReqs){
+                penReq = req.body.pendingReqs
+            }
+            if (req.body.accReqs){
+                accReq = req.body.accReqs
+            }
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.user, penReq, accReq)).then(result =>{
+                if (result) {
+                    res.status(200).send(result);
+                } else {
+                    res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+                }
+            });
+        } else {
+            res.status(400).send("Bad Request")
+        }
+    }
+
 }

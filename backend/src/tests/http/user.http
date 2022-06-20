@@ -6,16 +6,15 @@ cuid: system
 
 
 {
-  "name": "musterfahrer",
+  "name": "muster",
   "birthdate": "1-1-2000",
   "email": "muster@gmail.de",
-  "password": "willBeHashedAndSaltedInTheFuture",
-  "vehicles": []
+  "password": "willBeHashedAndSaltedInTheFuture"
 }
 
 ###
 
-POST http://localhost:8008/user/update
+POST http://localhost:8008/user/update/62b08e25d9dba55d32b507a7
 Content-Type: application/json
 sessionid: 1111
 cuid: system

@@ -77,4 +77,8 @@ export class RideModule extends EntityModule {
             })
     }
 
+    async updateRide(id: mongoose.Types.ObjectId, newRide: Ride): Promise< Ride | null> {
+        return this.mongo.updateRide(id, newRide)
+    }
+
 }

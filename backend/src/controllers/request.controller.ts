@@ -78,4 +78,24 @@ export class RequestController {
         }).catch(() => res.status(500).send("Internal Server Error"));
     }
 
+    public update(req: Request, res: Response): void {
+        const id: string | undefined = req.params.id;
+        if (req.body && req.body.date && req.body.user && req.body.cargo) {
+            let status = undefined
+            if(req.body.requestStatus){
+                status = req.body.requestStatus
+            }
+            let tStatus = undefined
+            if(req.body.trackingStatus){
+                tStatus = req.body.trackingStatus
+            }
+            this.requestModule.updateRequest(new mongoose.Types.ObjectId(id), new RequestClass(status, req.body.date, req.body.user, tStatus, req.body.cargo)).then((result: any) => {
+                if (result) {
+                    res.status(200).send(result); //deleted Entity
+                } else {
+                    res.status(500).send("Internal Server Error")
+                }
+            }).catch(() => res.status(500).send("Internal Server Error"));
+        }
+    }
 }

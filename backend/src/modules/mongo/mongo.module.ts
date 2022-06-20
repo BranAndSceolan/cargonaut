@@ -20,39 +20,39 @@ export class MongoModule {
         return connect(config.get('Database.mongoURL'), {dbName: dbName, serverSelectionTimeoutMS: 5000})
     }
 
-    async addVehicle(vehicleData: Vehicle): Promise < mongoose.Types.ObjectId | undefined >{
+    async addVehicle(vehicleData: Vehicle): Promise < mongoose.Types.ObjectId | null >{
         const vehicle = new schemes.vehicleModel(vehicleData);
         const i = await vehicle.save();
         return i._id
     }
 
-    async addUser(userData: User): Promise < mongoose.Types.ObjectId | undefined >{
+    async addUser(userData: User): Promise < mongoose.Types.ObjectId | null >{
         const user = new schemes.userModel(userData);
         const i = await user.save();
         return i._id
     }
 
-    async addRide(rideData: Ride): Promise < mongoose.Types.ObjectId | undefined >{
+    async addRide(rideData: Ride): Promise < mongoose.Types.ObjectId | null >{
         const ride = new schemes.rideModel(rideData);
         const i = await ride.save();
         return i._id
     }
 
-    async addEvaluation(evalData: Evaluation): Promise < mongoose.Types.ObjectId | undefined >{
+    async addEvaluation(evalData: Evaluation): Promise < mongoose.Types.ObjectId | null >{
         const evaluation = new schemes.evaluationModel(evalData);
         const i = await evaluation.save();
         return i._id
     }
 
-    async addRequest(requestData: Req): Promise < mongoose.Types.ObjectId | undefined >{
+    async addRequest(requestData: Req): Promise < mongoose.Types.ObjectId | null >{
         const request = new schemes.requestModel(requestData);
         const i = await request.save();
         return i._id
     }
 
     async deleteVehicle(id: mongoose.Types.ObjectId): Promise<Vehicle | null> {
-        return schemes.vehicleModel.findByIdAndDelete(id);
-    }
+        return schemes.vehicleModel.findByIdAndDelete({_id: id});
+        }
 
     async deleteUser(id: mongoose.Types.ObjectId): Promise<User | null> {
         return schemes.userModel.findByIdAndDelete(id);
@@ -143,6 +143,43 @@ export class MongoModule {
         }, {new: true})
     }
 
+    async updateRide(id: mongoose.Types.ObjectId, newRide: Ride): Promise<Ride | null> {
+        return schemes.rideModel.findOneAndUpdate({_id: id}, {
+            $set: {
+                date: newRide.date,
+                origin : newRide.origin,
+                destinantion: newRide.destination,
+                user: newRide.user,
+                pendingReqs: newRide.averageEvalOfRides,
+                accReqs: newRide.accReqs
+            }
+        }, {new: true})
+    }
+
+    async updateRide(id: mongoose.Types.ObjectId, newRide: Ride): Promise<Ride | null> {
+        return schemes.rideModel.findOneAndUpdate({_id: id}, {
+            $set: {
+                date: newRide.date,
+                origin : newRide.origin,
+                destinantion: newRide.destination,
+                user: newRide.user,
+                pendingReqs: newRide.averageEvalOfRides,
+                accReqs: newRide.accReqs
+            }
+        }, {new: true})
+    }
+
+    async updateReq(id: mongoose.Types.ObjectId, newReq: Req): Promise<Req | null> {
+        return schemes.requestModel.findOneAndUpdate({_id: id}, {
+            $set: {
+                requestStatus: newReq.requestStatus,
+                date : newReq.date,
+                user : newReq.user,
+                cargo: newReq.cargo,
+                trackingStatus: newReq.trackingStatus
+            }
+        }, {new: true})
+    }
 
 }
 
