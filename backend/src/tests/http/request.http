@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/req/create
+POST http://localhost:8008/req/create
 sessionid: 1111
 cuid: system
 
@@ -12,7 +12,7 @@ cuid: system
 ###
 
 ###
-POST http://localhost:8080/req/update
+POST http://localhost:8008/req/update
 sessionid: 1111
 cuid: system
 
@@ -25,13 +25,13 @@ cuid: system
 }
 
 ###
-GET http://localhost:8080/req/getAll
+GET http://localhost:8008/req/getAll
 sessionid: 1111
 cuid: system
 
 ###
 
-GET http://localhost:8080/req/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8008/req/findById/620cbeaecc90432d95b598a0
 sessionid: 1111
 cuid: system
 

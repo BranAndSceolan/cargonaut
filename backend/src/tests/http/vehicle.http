@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/vehicle/create
+POST http://localhost:8008/vehicle/create
 sessionid: 1111
 cuid: system
 
@@ -11,19 +11,19 @@ cuid: system
 
 ###
 
-GET http://localhost:8080/vehicle/getAll
+GET http://localhost:8008/vehicle/getAll
 sessionid: 1111
 cuid: system
 
 ###
 
-GET http://localhost:8080/vehicle/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8008/vehicle/findById/620cbeaecc90432d95b598a0
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8080/vehicle/delete/620cbeaecc90432d95b598a6
+DELETE http://localhost:8008/vehicle/delete/620cbeaecc90432d95b598a6
 Content-Type: application/json
 sessionid: 1111
 cuid: system

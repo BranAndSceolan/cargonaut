@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/ride/create
+POST http://localhost:8008/ride/create
 sessionid: 1111
 cuid: system
 
@@ -13,7 +13,7 @@ cuid: system
 }
 
 ###
-POST http://localhost:8080/ride/update
+POST http://localhost:8008/ride/update
 sessionid: 1111
 cuid: system
 
@@ -28,13 +28,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8080/ride/getAll
+GET http://localhost:8008/ride/getAll
 sessionid: 1111
 cuid: system
 
 ###
 
-GET http://localhost:8080/ride/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8008/ride/findById/620cbeaecc90432d95b598a0
 sessionid: 1111
 cuid: system
 
