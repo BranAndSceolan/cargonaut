@@ -30,6 +30,8 @@ export class RideController {
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
+            }).catch(err=>{
+                res.status(500).send(err)
             });
         } else {
             res.status(400).send("Bad Request")
