@@ -34,6 +34,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/CreateView.vue')
   },
   {
+    path: '/createVeh',
+    name: 'createVeh',
+    component: () => import('../views/CreateVehicleView.vue')
+  },
+  {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/ProfileView.vue')
