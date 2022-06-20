@@ -34,17 +34,16 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-
 // Application routing
-app.use('/', (_req: Request, res: Response) => {
-    res.status(200).sendFile(path.join(__dirname, "/public/index.html"))
-});
-
 app.use('/user', userRouter)
 app.use('/eval', evalRouter)
 app.use('/ride', rideRouter)
 app.use('/req', requestRouter)
 app.use('/vehicle', vehicleRouter)
+
+app.get('/', (_req: Request, res: Response) => {
+    res.status(200).sendFile(path.join(__dirname, "/public/index.html"))
+});
 
 // Start server
 app.listen(PORT, () => console.log(`Server is listening on http://localhost:${PORT}`));
