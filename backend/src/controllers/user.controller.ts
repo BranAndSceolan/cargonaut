@@ -21,12 +21,16 @@ export class UserController {
      * Creates and adds an User document to the DB.
      * @param req : e.Request
      * has to contain an Object in its body that fulfils the requirements of the User Interface (see: user.model.ts)
+
      * @param res : e.Response
      * A HTTP-Response which will be send containing a status code, and,
      * if successful, the id of the newly created User document.
      */
     public create(req: Request, res: Response): void {
+        console.log(req)
+        console.log(req.body)
         const userName = req.body.name
+        console.log(req.body.name)
         if (!userName || userName.trim() == ""){
             res.status(400).send("Username missing")
             return

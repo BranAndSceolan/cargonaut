@@ -1,19 +1,22 @@
 ###
 POST http://localhost:8008/user/create
+Content-Type: application/json
 sessionid: 1111
 cuid: system
 
+
 {
-"name": "musterfahrer",
-"birthdate": "1-1-2000",
-"email": "muster@gmail.de",
-"password": "willBeHashedAndSaltedInTheFuture",
-"vehicles": []
+    "name": "musterfahrer",
+    "birthdate": "1-1-2000",
+    "email": "muster@gmail.de",
+    "password": "willBeHashedAndSaltedInTheFuture",
+    "vehicles": []
 }
 
 ###
 
 POST http://localhost:8008/user/update
+Content-Type: application/json
 sessionid: 1111
 cuid: system
 
@@ -22,7 +25,7 @@ cuid: system
 "birthdate": "1-1-2000",
 "email": "muster@gmail.de",
 "password": "willBeHashedAndSaltedInTheFuture",
-"vehicles": [620cbeaecc90432d95b598a0],
+"vehicles": ["620cbeaecc90432d95b598a0"],
 "averageEvalOfRides": 4
 }
 

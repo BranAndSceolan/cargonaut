@@ -1,5 +1,6 @@
 ###
 POST http://localhost:8008/ride/create
+Content-Type: application/json
 sessionid: 1111
 cuid: system
 
@@ -14,6 +15,7 @@ cuid: system
 
 ###
 POST http://localhost:8008/ride/update
+Content-Type: application/json
 sessionid: 1111
 cuid: system
 
@@ -22,7 +24,7 @@ cuid: system
 "origin": "munich",
 "destination": "berlin",
 "user": "620cbeaecc90432d95b598a",
-"pendingReqs" : [620cbeaecc90432d95b598a0],
+"pendingReqs" : ["620cbeaecc90432d95b598a0"],
 "accReqs": []
 }
 
