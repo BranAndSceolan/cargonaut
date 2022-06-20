@@ -13,7 +13,7 @@ mongo.connectToMongo().then(mongoose => {
     console.log(`Is your Docker daemon running?`)
     console.log(`=> sudo systemctl start docker`)
     console.log(`Is your database running?`)
-    console.log(`=> docker start mongodb`)
+    console.log(`=> docker start cargonaut_mongo`)
     console.log(err)
     process.exit()
 })

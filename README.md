@@ -25,4 +25,4 @@ Go to [docu](docu) for non-code elements of the project.
 (get access to mongoDB-bash in terminal)
 
 ### start tests
-``sudo NODE_ENV=test npm run test``
+``NODE_ENV=test npm run test``

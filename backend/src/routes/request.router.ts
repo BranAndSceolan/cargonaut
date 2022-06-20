@@ -15,9 +15,9 @@ router.post('/create', (req: Request, res: Response) => {
     requestController.create(req, res)
 })
 
-router.post('/update', (req: Request, res: Response) => {
+//router.post('/update', (req: Request, res: Response) => {
    // requestController.update(req, res)
-})
+//})
 
 // GET Routes
 router.get('/getAll', (req: Request, res: Response) => {

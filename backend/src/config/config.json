@@ -1,4 +1,8 @@
 {
+  "Database": {
+    "mongoURL": "mongodb://localhost:8080"
+  },
+
   "dbName" : "cargonautDB",
   "PORT" : "8080",
   "debug": true
