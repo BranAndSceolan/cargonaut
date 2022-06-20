@@ -5,9 +5,9 @@ sessionid: 1111
 cuid: system
 
 {
-"type": "standard car",
-"numberOfSeats": 4,
-"notes": "looks ugly, but moves"
+  "type": "standard car",
+  "numberOfSeats": 4,
+  "notes": "looks ugly, but moves"
 }
 
 ###

@@ -6,11 +6,11 @@ cuid: system
 
 
 {
-    "name": "musterfahrer",
-    "birthdate": "1-1-2000",
-    "email": "muster@gmail.de",
-    "password": "willBeHashedAndSaltedInTheFuture",
-    "vehicles": []
+  "name": "musterfahrer",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "willBeHashedAndSaltedInTheFuture",
+  "vehicles": []
 }
 
 ###
@@ -21,12 +21,12 @@ sessionid: 1111
 cuid: system
 
 {
-"name": "musterfahrer",
-"birthdate": "1-1-2000",
-"email": "muster@gmail.de",
-"password": "willBeHashedAndSaltedInTheFuture",
-"vehicles": ["620cbeaecc90432d95b598a0"],
-"averageEvalOfRides": 4
+  "name": "musterfahrer",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "willBeHashedAndSaltedInTheFuture",
+  "vehicles": ["620cbeaecc90432d95b598a0"],
+  "averageEvalOfRides": 4
 }
 
 ###
