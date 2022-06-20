@@ -19,7 +19,7 @@ mongo.connectToMongo().then(mongoose => {
 })
 
 // Boot express
-const app: Application = express();
+export const app: Application = express();
 
 
 // Application routing
