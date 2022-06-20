@@ -15,13 +15,17 @@ export class RequestModule extends EntityModule {
 
     /**
      * calls addRequest() method of mongo.module, to create a new request
-     * @param {Request}
      * @return {mongoose.Types.ObjectId|null} id for created evaluation
+     * @param requestData
      */
     async createRequest(requestData: Req): Promise<mongoose.Types.ObjectId | null> {
         let requestId;
-        if (requestData && requestData.requestStatus && requestData.date && requestData.user && requestData.cargo && requestData.trackingStatus) {
-            requestId = await this.mongo.addRequest(new RequestClass(requestData.requestStatus, requestData.date, requestData.user, requestData.cargo, requestData.trackingStatus));
+        let cargo = undefined;
+        if (requestData && requestData.cargo){
+            cargo = requestData.cargo
+        }
+        if (requestData && requestData.requestStatus && requestData.date && requestData.user && requestData.trackingStatus) {
+            requestId = await this.mongo.addRequest(new RequestClass(requestData.requestStatus, requestData.date, requestData.user, requestData.trackingStatus, cargo));
         }
         if (requestId) {
             printToConsole('[+] New request with id ' + requestId.toString() + ' saved.');

@@ -1,6 +1,6 @@
 import {Schema} from "mongoose";
 import {Evaluation} from "../../models/evaluation.model";
-import {Request} from "../../models/request.model";
+import {Req} from "../../models/request.model";
 import {Ride} from "../../models/ride.model";
 import {User} from "../../models/user.model";
 import {Vehicle} from "../../models/vehicle.model";
@@ -21,11 +21,11 @@ export const evaluationSchema = new Schema<Evaluation>({
  * Request
  * create a requestSchema corresponding to the document Request interface
  */
-export const requestSchema = new Schema<Request>({
+export const requestSchema = new Schema<Req>({
     requestStatus: {type: String, enum: ['pending', 'accepted', 'denied'], required: true},
     date: {type: String, required: true},
     user: {type: mongoose.Types.ObjectId, required: true},
-    cargo: {type: mongoose.Types.ObjectId, required: false},
+    cargo: {type: String, required: false},
     trackingStatus: {type: String, enum: ['pending', 'departed', 'arrived'], required: true}
 });
 

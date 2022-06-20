@@ -1,6 +1,6 @@
 {
   "Database": {
-    "mongoURL": "mongodb://pbl_mongo:8080"
+    "mongoURL": "mongodb://cargonaut_mongo:27017"
   },
   "disableAuth": "false"
 }

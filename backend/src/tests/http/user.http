@@ -1,0 +1,49 @@
+###
+POST http://localhost:8008/user/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+
+{
+  "name": "musterfahrer",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "willBeHashedAndSaltedInTheFuture",
+  "vehicles": []
+}
+
+###
+
+POST http://localhost:8008/user/update
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "musterfahrer",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "willBeHashedAndSaltedInTheFuture",
+  "vehicles": ["620cbeaecc90432d95b598a0"],
+  "averageEvalOfRides": 4
+}
+
+###
+
+GET http://localhost:8008/user/getAll
+sessionid: 1111
+cuid: system
+
+###
+
+GET http://localhost:8008/user/findById/620cbeaecc90432d95b598a0
+sessionid: 1111
+cuid: system
+
+###
+
+DELETE http://localhost:8008/user/delete/620cbeaecc90432d95b598a6
+Content-Type: application/json
+sessionid: 1111
+cuid: system
