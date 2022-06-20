@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon",
     "build": "tsc",
-    "test": "mocha -r ts-node/register src/tests/chai/index.ts"
+    "test": "mocha -r ts-node/register backend/src/tests/chai/index.ts"
   },
   "repository": {
     "type": "git",

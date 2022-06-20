@@ -130,5 +130,19 @@ export class MongoModule {
         return schemes.requestModel.find(filter);
     }
 
+    async updateUser(id: mongoose.Types.ObjectId, newUser: User): Promise<User | null> {
+        return schemes.userModel.findOneAndUpdate({_id: id}, {
+            $set: {
+                name: newUser.name,
+                birthdate: newUser.birthdate,
+                email: newUser.email,
+                password: newUser.password,
+                averageEvalOfRides: newUser.averageEvalOfRides,
+                vehicles: newUser.vehicles
+            }
+        }, {new: true})
+    }
+
+
 }
 
