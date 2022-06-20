@@ -101,13 +101,13 @@ export default {
     return {
       offers: [{ name: 'looper1', start: 'City1', stop: 'city2', seats: '5', room: '6', price: '19,99' },
         { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' },
-        { name: 'Ich entführe euch alle', start: 'Pausenhof', stop: '???', seats: '6', room: '8', price: '29,99' },
-        { name: 'Free Candy', start: 'Pausenhof', stop: '???', seats: '6', room: '8', price: '29,99' },
-        { name: 'Pazifik fahrt', start: 'Irrenhaus', stop: 'Marianengraben', seats: '6', room: '8', price: '29,99' },
-        { name: 'Free Ethanol', start: 'Keller', stop: 'Krankenhaus', seats: '6', room: '8', price: '29,99' },
-        { name: '*nuscheln*', start: '???', stop: 'Bett', seats: '6', room: '8', price: '29,99' },
-        { name: 'Wirres Zeug', start: 'Dusche', stop: 'Nobelpreis', seats: '6', room: '8', price: '29,99' },
-        { name: 'Test', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' }]
+        { name: 'looper1', start: 'City1', stop: 'city2', seats: '5', room: '6', price: '19,99' },
+        { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' },
+        { name: 'looper1', start: 'City1', stop: 'city2', seats: '5', room: '6', price: '19,99' },
+        { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' },
+        { name: 'looper1', start: 'City1', stop: 'city2', seats: '5', room: '6', price: '19,99' },
+        { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' },
+        { name: 'looper1', start: 'City1', stop: 'city2', seats: '5', room: '6', price: '19,99' }]
     }
   },
   methods: {
