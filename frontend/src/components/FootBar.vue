@@ -17,7 +17,17 @@
     </div>
     <div class="text-white socials">
       <div class="headline">Social Media</div>
-      <div>icon icon icon</div>
+      <div class="ml-4 mt-0">
+        <a class="socialIcons mx-2" href="https://www.Twitter.com/">
+          <font-awesome-icon icon="fa-brands fa-twitter" />
+        </a>
+        <a class="socialIcons mx-2" href="https://www.Youtube.com/">
+          <font-awesome-icon icon="fa-brands fa-youtube" />
+        </a>
+        <a class="socialIcons mx-2" href="https://www.Facebook.com/">
+          <font-awesome-icon icon="fa-brands fa-facebook" />
+        </a>
+      </div>
     </div>
   </footer>
 
@@ -33,6 +43,7 @@ export default {
 .footer{
   display: flex;
   background: #005b52;
+  position: sticky;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -75,7 +86,10 @@ a{
 .about-us .content{
   text-align: left;
 }
-.socials div{
+div{
   margin-left: 150px;
+}
+.socialIcons {
+  font-size: 2em;
 }
 </style>

@@ -21,7 +21,7 @@
       <div class="row mx-4">
         <OverBar class="mb-4" title="Angebote" v-on:contentHidden="offersHidden = $event"></OverBar>
         <div class="col w-100">
-          <b-card-group deck class="deck">
+          <b-card-group v-if="!offersHidden" deck class="deck">
             <travel-card class="mb-4" v-for="(offer, index) in offers" v-bind:key="index"  :name="offer.name" :start="offer.start"
                          :stop="offer.stop" :seats="offer.seats" :room="offer.room" :price="offer.price"></travel-card>
           </b-card-group>
@@ -63,6 +63,7 @@ export default {
 </script>
 
 <style scoped>
+
 .profilePic {
   height: 200px;
   width: 200px;

@@ -8,10 +8,11 @@
       <router-link to="/overview" class="link">Overview</router-link>
       <router-link to="/login" class="link">login</router-link>
       <router-link to="/create" class="link">create</router-link>
-      <router-link to="/profile" class="link">profile</router-link>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">
-      <div class="link">ICON</div>
+      <router-link to="/profile">
+        <font-awesome-icon icon="fa-solid fa-user" class="link icon mr-5"></font-awesome-icon>
+      </router-link>
     </b-navbar-nav>
   </b-navbar>
 
@@ -35,6 +36,9 @@ export default {
   color: white;
   font-size: 25px;
   margin-left: 10px;
+}
+.icon {
+  font-size: 2.2em;
 }
 
 </style>
