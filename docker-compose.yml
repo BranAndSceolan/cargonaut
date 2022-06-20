@@ -4,7 +4,7 @@ services:
     image: mongo
     container_name: cargonaut_mongo
     ports:
-      - "8080:8080"
+      - "27017:27017"
   node:
     build: .
     container_name: cargonaut
