@@ -13,16 +13,36 @@
         </div>
       </div>
       <div class="row">
-        <OverBar title="Fahrzeuge"></OverBar>
+        <OverBar title="Fahrzeuge" v-on:contentHidden="carsHidden = $event"></OverBar>
+        <div class="w-100 mr-5" v-if="!carsHidden">
+          <CarEntry v-for="(car, index) in cars" v-bind:key="index" :name="car.name" :seats="car.seats" :room="car.room"></CarEntry>
+        </div>
       </div>
     </div>
 </template>
 
 <script>
 import OverBar from '../components/OverBar'
+import CarEntry from '../components/CarEntry'
+import axios from 'axios'
 export default {
   name: 'ProfileView',
-  components: { OverBar }
+  components: { CarEntry, OverBar },
+  data () {
+    return {
+      cars: [{ name: 'VW Amarok', seats: '2', room: '6' },
+        { name: 'Wroom Wroom', seats: '2', room: '1' }],
+      carsHidden: false
+    }
+  },
+  mounted () {
+    /*
+    axios.get('/vehicle/getAll').then(response => (this.cars = response.data)).catch((reason) => {
+      console.log(reason)
+    })
+
+     */
+  }
 }
 </script>
 

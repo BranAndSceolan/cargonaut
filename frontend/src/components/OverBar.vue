@@ -1,12 +1,25 @@
 <template>
-  <div class="block col-12 my-5 m-4">
-    <p class="ml-4 my-2"> {{title}}</p>
+  <div class="block col-12 mt-5 mx-4 row align-items-center">
+    <div class="col-11">
+      <p class="ml-4 my-2"> {{title}}</p>
+    </div>
+    <div class="col-1 iconContainer">
+      <font-awesome-icon class="icon mr-3" icon="fa-solid fa-plus" ></font-awesome-icon>
+      <button class="iconButton ml-3" v-on:click="contentHidden=!contentHidden, $emit('contentHidden', contentHidden)">
+        <font-awesome-icon class="icon" icon="fa-solid fa-angle-down"></font-awesome-icon>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'OverBar',
+  data () {
+    return {
+      contentHidden: false
+    }
+  },
   props: {
     title: String
   }
@@ -19,10 +32,21 @@ export default {
     border-radius: 15px;
     box-shadow: 2px 2px 4px;
   }
-  p {
+  p, .icon{
     color: white;
     text-align: left;
     font-size: 1.7em;
     font-weight: bold;
+  }
+  .icon {
+    font-size: 2.2em;
+  }
+  .iconContainer {
+    text-align: right;
+  }
+  .iconButton {
+    border: none;
+    background-color: transparent;
+    padding: 0;
   }
 </style>

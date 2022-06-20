@@ -37,7 +37,7 @@ app.use(express.urlencoded({
 
 // Application routing
 app.use('/', (_req: Request, res: Response) => {
-    res.status(200).sendFile(path.join(__dirname, "/public/index.html"))
+    res.status(200).sendFile(path.join(__dirname, "/../../frontend/dist/index.html"))
 });
 
 app.use('/user', userRouter)
