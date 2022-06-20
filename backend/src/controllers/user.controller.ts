@@ -156,43 +156,54 @@ export class UserController {
         })
     }
 
-    public update(req: Request, res: Response): void {
+    public async update(req: Request, res: Response): void {
         const userName = req.body.name
-        if (!userName || userName.trim() == ""){
+        if (!req.body.id ) {
+            res.status(400).send("id missing")
+            return
+        }
+        if (!userName || userName.trim() == "") {
             res.status(400).send("Username missing")
             return
         }
         const password = req.body.password
-        if (!password || password.trim() == ""){
+        if (!password || password.trim() == "") {
             res.status(400).send("Password missing")
             return
         }
         const birthdate = req.body.birthdate
-        if (!birthdate || !( typeof birthdate == 'string') || birthdate.trim() == ""){
+        if (!birthdate || !(typeof birthdate == 'string') || birthdate.trim() == "") {
             res.status(400).send("Birthdate missing")
             return
         }
         const email = req.body.email
-        if (!email || email.trim() == ""){
+        if (!email || email.trim() == "") {
             res.status(400).send("Password missing")
             return
         }
         let vehicleIds: Array<mongoose.Types.ObjectId> | undefined = undefined
-        if (req.body.vehicles){
+        if (req.body.vehicles) {
             vehicleIds = req.body.vehicles
         }
 
+        const user: User | null = await this.userModule.getUserByName(req.body.name)
+        let avgEval: number = 0;
+        if( user?.averageEvalOfRides) {
+            avgEval = user.averageEvalOfRides
+        }
         // TODO : implement this
         // TODO : make sure only those values we want to be able to be updated can be updated!
-         let avgEval: number= 3.5;
+        // There should be a easi request possible that couts all evals with the given id
+
         // if eval update:
         // get number of evals regarding this driver as n and current eval v
         // j new value
         /*
-          ((v * n) +  j) / n + 1
+        avgEval =  (( avgEval  * n)+  j) / n + 1
          */
 
         this.userModule.updateUser(
+            req.body.id,
             new UserClass(
                 userName.trim(),
                 new Date(birthdate.trim()),
@@ -201,9 +212,9 @@ export class UserController {
                 vehicleIds,
                 avgEval
             )
-        ).then((id: mongoose.Types.ObjectId | null) => {
-            if (id) {
-                res.status(201).send(id)
+        ).then((result: User | null) => {
+            if (result) {
+                res.status(201).send(result)
             } else {
                 res.sendStatus(500)
             }
