@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
-    "build": "tsc",
-    "test": "mocha -r ts-node/register backend/src/tests/chai/index.ts"
+    "build": "npx tsc",
+    "test": "mocha -r ts-node/register src/tests/chai/index.ts"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "mocha": "^10.0.0",
     "mongoose": "^6.4.0",
     "vue": "^3.2.37",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.0.16",
+    "vue-types": "^4.1.1"
   }
 }
