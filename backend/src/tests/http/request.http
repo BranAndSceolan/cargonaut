@@ -13,7 +13,7 @@ cuid: system
 ###
 
 ###
-POST http://localhost:8008/req/update
+POST http://localhost:8008/req/update/62b1b8fbd87d2267525e9e65
 Content-Type: application/json
 sessionid: 1111
 cuid: system
@@ -33,13 +33,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/req/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8008/req/findById/62b16edc16d1c177592f1851
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8080/req/delete/620cbeaecc90432d95b598a6
+DELETE http://localhost:8008/req/delete/62b16edc16d1c177592f1851
 Content-Type: application/json
 sessionid: 1111
 cuid: system
