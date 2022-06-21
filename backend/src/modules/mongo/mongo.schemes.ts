@@ -48,7 +48,7 @@ export const userSchema = new Schema<User>({
     email: {type: String, required: true},
     password: {type: String, required: true},
     averageEvalOfRides: {type: Number, required: false},
-    vehicles: {type: mongoose.Types.ObjectId, required: false}
+    vehicles: {type: [mongoose.Types.ObjectId], required: false}
 })
 
 export const vehicleSchema = new Schema<Vehicle>({
