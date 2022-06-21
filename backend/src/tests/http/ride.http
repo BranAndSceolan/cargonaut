@@ -5,12 +5,12 @@ sessionid: 1111
 cuid: system
 
 {
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a",
-  "pendingReqs" : [],
-  "accReqs": []
+"date": "1-12-2022",
+"origin": "munich",
+"destination": "berlin",
+"user": "620cbeaecc90432d95b598a",
+"pendingReqs" : [],
+"accReqs": []
 }
 
 ###
@@ -20,12 +20,12 @@ sessionid: 1111
 cuid: system
 
 {
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a",
-  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
-  "accReqs": []
+"date": "1-12-2022",
+"origin": "munich",
+"destination": "berlin",
+"user": "620cbeaecc90432d95b598a",
+"pendingReqs" : ["620cbeaecc90432d95b598a0"],
+"accReqs": []
 }
 
 ###
@@ -42,7 +42,7 @@ cuid: system
 
 ###
 
-DELETE http://localhost:8008/ride/delete/620cbeaecc90432d95b598a6
+DELETE http://localhost:8080/ride/delete/620cbeaecc90432d95b598a6
 Content-Type: application/json
 sessionid: 1111
 cuid: system

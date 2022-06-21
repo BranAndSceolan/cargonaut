@@ -5,25 +5,25 @@ sessionid: 1111
 cuid: system
 
 {
-  "date": "1-12-2022",
-  "user": "620cbeaecc90432d95b598a0",
-  "cargo": "I have only a sports bag with me."
+"date": "1-12-2022",
+"user": "620cbeaecc90432d95b598a0",
+"cargo": "I have only a sports bag with me."
 }
 
 ###
 
 ###
-POST http://localhost:8008/req/update/62b1b8fbd87d2267525e9e65
+POST http://localhost:8008/req/update
 Content-Type: application/json
 sessionid: 1111
 cuid: system
 
 {
-  "date": "1-12-2022",
-  "user": "620cbeaecc90432d95b598a0",
-  "cargo": "I have only a sports bag with me.",
-  "requestStatus": "accepted",
-  "trackingStatus": "pending"
+"date": "1-12-2022",
+"user": "620cbeaecc90432d95b598a0",
+"cargo": "I have only a sports bag with me."
+"requestStatus": "accepted"
+"trackingStatus": "pending"
 }
 
 ###
@@ -33,13 +33,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/req/findById/62b16edc16d1c177592f1851
+GET http://localhost:8008/req/findById/620cbeaecc90432d95b598a0
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8008/req/delete/62b16edc16d1c177592f1851
+DELETE http://localhost:8080/req/delete/620cbeaecc90432d95b598a6
 Content-Type: application/json
 sessionid: 1111
 cuid: system

@@ -1,13 +1,12 @@
 ###
 POST http://localhost:8008/eval/create
-Content-Type: application/json
 sessionid: 1111
 cuid: system
 
 {
-  "result": 5,
-  "ride": "620cbeaecc90432d95b598a0",
-  "user": "620cbeaecc90432d95b598a7"
+"result": 5,
+"ride": 620cbeaecc90432d95b598a0,
+"user": 620cbeaecc90432d95b598a7
 }
 
 ###
@@ -18,13 +17,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/eval/findById/62b1b8d4d87d2267525e9e61
+GET http://localhost:8008/eval/findById/620cbeaecc90432d95b598a0
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8008/eval/delete/62b171510a464557aae2fb5c
+DELETE http://localhost:8008/eval/delete/620cbeaecc90432d95b598a6
 Content-Type: application/json
 sessionid: 1111
 cuid: system
