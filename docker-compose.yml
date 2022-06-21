@@ -6,7 +6,7 @@ services:
     ports:
       - "27017:27017"
   node:
-    build: .
+    build: ./backend
     container_name: cargonaut
     ports:
       - "8008:8008"
