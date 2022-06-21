@@ -17,13 +17,12 @@ Go to [docu](docu) for non-code elements of the project.
 (starts only the docker, not the database)
 
 ### Start mongo and node server
-``sudo NODE_ENV=docker_dev docker-compose up --build --detach``
+``NODE_ENV=docker_dev docker-compose up --build --detach``
 
-<<<<<<<<< Temporary merge branch 1
 
 ``sudo docker-compose exec mongo bash``
 
 (get access to mongoDB-bash in terminal)
 
 ### start tests
-``sudo NODE_ENV=test npm run test``
+``NODE_ENV=test npm run test``

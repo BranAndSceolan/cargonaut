@@ -103,13 +103,33 @@ returns: Request (JSON) <br>
 success status: 200 <br>
 fail status: 404, 401 (if not authorized), 403 (if you are authorized, but it is not yours)
 
-## Nice to have
-
 ### update
-#### Evaluation
+#### User
+type: post <br>
+route: .../update/:id <br>
+body: new values <br>
+returns: ? <br>
+success status: 200 <br>
+fail status: 404, 401 (if not authorized), 403 (if you are authorized, but it is not yours)
 #### Request
+type: post <br>
+route: .../update/:id <br>
+body: new values <br>
+returns: ? <br>
+success status: 200 <br>
 #### Ride
+type: post <br>
+route: .../update/:id <br>
+body: new values <br>
+returns: ? <br>
+success status: 200 <br>
+fail status: 404, 401 (if not authorized), 403 (if you are authorized, but it is not yours)
+
+## N**i**ce to have
+
+## update
 #### Vehicle
+#### Evaluation
 
 
 ### tracking Requests only if logged in and involved in the ride (accepted request)

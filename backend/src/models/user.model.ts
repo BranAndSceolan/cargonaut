@@ -6,12 +6,12 @@ import mongoose from "mongoose";
 export interface User {
     "_id"?: mongoose.Types.ObjectId,
     // Note that result may only be within a range of 0 to 5
-    "name": String,
+    "name": string,
     "birthdate": Date,
-    "email": String,
-    "password": String,
-    "averageEvalOfRides"?: Number,
-    "vehicles": mongoose.Types.ObjectId[]
+    "email": string,
+    "password": string,
+    "averageEvalOfRides"?: number,
+    "vehicles"?: mongoose.Types.ObjectId[]
 }
 
 /** Evaluation Class
@@ -24,9 +24,9 @@ export class UserClass implements User {
     email: string;
     password: string;
     averageEvalOfRides?: number;
-    vehicles: mongoose.Types.ObjectId[];
+    vehicles?: mongoose.Types.ObjectId[];
 
-    constructor(name: string, birthdate: Date, email: string, password: string, vehicles: mongoose.Types.ObjectId[] , averageEvalOfRides?: number, _id?: mongoose.Types.ObjectId) {
+    constructor(name: string, birthdate: Date, email: string, password: string, vehicles?: mongoose.Types.ObjectId[] , averageEvalOfRides?: number, _id?: mongoose.Types.ObjectId) {
         this._id = _id;
         this.name = name;
         this.birthdate = birthdate;

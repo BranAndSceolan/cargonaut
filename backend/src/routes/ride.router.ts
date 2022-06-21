@@ -15,6 +15,10 @@ router.post('/create', (req: Request, res: Response) => {
     rideController.create(req, res)
 })
 
+router.post('/update', (req: Request, res: Response) => {
+     rideController.update(req, res)
+})
+
 // GET Routes
 router.get('/getAll', (req: Request, res: Response) => {
     rideController.getAll(req,res)
