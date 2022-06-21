@@ -156,7 +156,7 @@ export class UserController {
         })
     }
 
-    public async update(req: Request, res: Response): void {
+    public async update(req: Request, res: Response): Promise<void> {
         const userName = req.body.name
         if (!req.body.id ) {
             res.status(400).send("id missing")

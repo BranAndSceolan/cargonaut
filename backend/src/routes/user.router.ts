@@ -16,7 +16,7 @@ router.post('/create', (req: Request, res: Response) => {
 })
 
 router.post('/update', (req: Request, res: Response) => {
-    // userController.update(req, res)
+    userController.update(req, res)
 })
 
 // GET Routes

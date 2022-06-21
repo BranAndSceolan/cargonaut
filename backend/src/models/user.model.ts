@@ -6,11 +6,11 @@ import mongoose from "mongoose";
 export interface User {
     "_id"?: mongoose.Types.ObjectId,
     // Note that result may only be within a range of 0 to 5
-    "name": String,
+    "name": string,
     "birthdate": Date,
-    "email": String,
-    "password": String,
-    "averageEvalOfRides"?: Number,
+    "email": string,
+    "password": string,
+    "averageEvalOfRides"?: number,
     "vehicles"?: mongoose.Types.ObjectId[]
 }
 

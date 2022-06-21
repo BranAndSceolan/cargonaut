@@ -150,20 +150,7 @@ export class MongoModule {
                 origin : newRide.origin,
                 destinantion: newRide.destination,
                 user: newRide.user,
-                pendingReqs: newRide.averageEvalOfRides,
-                accReqs: newRide.accReqs
-            }
-        }, {new: true})
-    }
-
-    async updateRide(id: mongoose.Types.ObjectId, newRide: Ride): Promise<Ride | null> {
-        return schemes.rideModel.findOneAndUpdate({_id: id}, {
-            $set: {
-                date: newRide.date,
-                origin : newRide.origin,
-                destinantion: newRide.destination,
-                user: newRide.user,
-                pendingReqs: newRide.averageEvalOfRides,
+                pendingReqs: newRide.pendingReqs,
                 accReqs: newRide.accReqs
             }
         }, {new: true})
