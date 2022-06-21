@@ -40,6 +40,13 @@ export class EvaluationModule extends EntityModule {
         return this.mongo.findEvaluation({_id: id});
     }
 
+    async findEvaluationsByDriver(userId: mongoose.Types.ObjectId): Promise <Evaluation[]>{
+        return this.mongo.findEvaluations({user: userId})
+    }
+    async findNumberOfEvaluationsByDriver(userId: mongoose.Types.ObjectId): Promise <number>{
+        return this.mongo.findEvaluationsNumber({user: userId})
+    }
+
     /**
      *  calls findEvaluations() method of mongo.module, to get all evaluations
      *  @return {Evaluation[]} evaluations

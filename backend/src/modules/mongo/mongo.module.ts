@@ -168,5 +168,8 @@ export class MongoModule {
         }, {new: true})
     }
 
+    async findEvaluationsNumber(filter: any): Promise<number>{
+        return schemes.evaluationModel.find(filter).count()
+    }
 }
 
