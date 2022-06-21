@@ -36,7 +36,7 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/ride/findById/62b1f2c87c2fa447f0ca3b62
+GET http://localhost:8008/ride/findById/62b1f4d1e01df875512d2e2a
 sessionid: 1111
 cuid: system
 

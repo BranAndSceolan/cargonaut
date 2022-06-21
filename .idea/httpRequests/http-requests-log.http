@@ -1,3 +1,55 @@
+GET http://localhost:8008/ride/findById/62b1f4d1e01df875512d2e2a
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T184204.200.json
+
+###
+
+POST http://localhost:8008/ride/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "user": "620cbeaecc90432d95b598a0",
+  "pendingReqs" : [],
+  "accReqs": []
+}
+
+<> 2022-06-21T184153.200.json
+
+###
+
+GET http://localhost:8008/ride/findById/62b1f2c87c2fa447f0ca3b62
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T184143.500.html
+
+###
+
+POST http://localhost:8008/ride/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "user": "620cbeaecc90432d95b598a0",
+  "pendingReqs" : [],
+  "accReqs": []
+}
+
+<> 2022-06-21T184139.200.json
+
+###
+
 POST http://localhost:8008/user/update/62b1b922d87d2267525e9e69
 Content-Type: application/json
 sessionid: 1111
@@ -505,55 +557,6 @@ sessionid: 1111
 cuid: system
 
 <> 2022-06-21T090322.200.json
-
-###
-
-GET http://localhost:8008/ride/getAll
-sessionid: 1111
-cuid: system
-
-###
-
-POST http://localhost:8008/ride/update
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a",
-  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
-  "accReqs": []
-}
-
-###
-
-POST http://localhost:8008/ride/create
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a",
-  "pendingReqs" : [],
-  "accReqs": []
-}
-
-<> 2022-06-21T083052.500.json
-
-###
-
-DELETE http://localhost:8008/user/delete/62b09ed0ac53f8f52347a7eb
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T082920.200.json
 
 ###
 
