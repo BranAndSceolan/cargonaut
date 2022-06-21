@@ -39,7 +39,7 @@ cuid: system
 
 ###
 
-DELETE http://localhost:8080/req/delete/62b16edc16d1c177592f1851
+DELETE http://localhost:8008/req/delete/62b16edc16d1c177592f1851
 Content-Type: application/json
 sessionid: 1111
 cuid: system

@@ -1,3 +1,84 @@
+DELETE http://localhost:8008/req/delete/62b16edc16d1c177592f1851
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T092337.200.json
+
+###
+
+DELETE http://localhost:8080/req/delete/62b16edc16d1c177592f1851
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+###
+
+GET http://localhost:8008/req/findById/62b16edc16d1c177592f1851
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T092314.200.json
+
+###
+
+POST http://localhost:8008/req/update/62b16edc16d1c177592f1851
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "user": "620cbeaecc90432d95b598a0",
+  "cargo": "I have only a sports bag with me.",
+  "requestStatus": "accepted",
+  "trackingStatus": "pending"
+}
+
+<> 2022-06-21T092246.200.json
+
+###
+
+GET http://localhost:8008/req/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T092230.200.json
+
+###
+
+DELETE http://localhost:8008/eval/delete/62b171510a464557aae2fb5c
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T092108.200.json
+
+###
+
+GET http://localhost:8008/eval/findById/62b171510a464557aae2fb5c
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T092059.200.json
+
+###
+
+POST http://localhost:8008/eval/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "result": 5,
+  "ride": "620cbeaecc90432d95b598a0",
+  "user": "620cbeaecc90432d95b598a7"
+}
+
+<> 2022-06-21T092049.200.json
+
+###
+
 DELETE http://localhost:8008/eval/delete/62b1701816d1c177592f1855
 Content-Type: application/json
 sessionid: 1111
@@ -491,108 +572,6 @@ sessionid: 1111
 cuid: system
 
 <> 2022-06-20T193256.404.html
-
-###
-
-GET http://localhost:8008/user/getAll
-sessionid: 1111
-cuid: system
-
-<> 2022-06-20T193245.200.json
-
-###
-
-GET http://localhost:8008/user/findById/62b09ed0ac53f8f52347a7eb
-sessionid: 1111
-cuid: system
-
-<> 2022-06-20T193150.404.html
-
-###
-
-GET http://localhost:8008/user/getAll
-sessionid: 1111
-cuid: system
-
-<> 2022-06-20T193135.200.json
-
-###
-
-POST http://localhost:8008/user/create
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "name": "muster",
-  "birthdate": "1-1-2000",
-  "email": "muster@gmail.de",
-  "password": "willBeHashedAndSaltedInTheFuture"
-}
-
-<> 2022-06-20T193128.500.txt
-
-###
-
-POST http://localhost:8008/user/update/62b08e25d9dba55d32b507a7
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "name": "musterfahrer",
-  "birthdate": "1-1-2000",
-  "email": "muster@gmail.de",
-  "password": "willBeHashedAndSaltedInTheFuture",
-  "vehicles": ["620cbeaecc90432d95b598a0"],
-  "averageEvalOfRides": 4
-}
-
-<> 2022-06-20T193121.404.html
-
-###
-
-POST http://localhost:8008/user/update/62b08e25d9dba55d32b507a7
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "name": "musterfahrer",
-  "birthdate": "1-1-2000",
-  "email": "muster@gmail.de",
-  "password": "willBeHashedAndSaltedInTheFuture",
-  "vehicles": ["620cbeaecc90432d95b598a0"],
-  "averageEvalOfRides": 4
-}
-
-<> 2022-06-20T193059.404.html
-
-###
-
-GET http://localhost:8008/user/getAll
-sessionid: 1111
-cuid: system
-
-<> 2022-06-20T182307.200.json
-
-###
-
-POST http://localhost:8008/user/update/62b08e25d9dba55d32b507a7
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "name": "musterfahrer",
-  "birthdate": "1-1-2000",
-  "email": "muster@gmail.de",
-  "password": "willBeHashedAndSaltedInTheFuture",
-  "vehicles": ["620cbeaecc90432d95b598a0"],
-  "averageEvalOfRides": 4
-}
-
-<> 2022-06-20T182246.404.html
 
 ###
 
