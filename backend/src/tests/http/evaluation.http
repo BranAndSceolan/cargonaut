@@ -24,7 +24,7 @@ cuid: system
 
 ###
 
-DELETE http://localhost:8008/eval/delete/62b171510a464557aae2fb5c
+DELETE http://localhost:8008/eval/delete/62b1ecdfcdb97271b8fe0bf6
 Content-Type: application/json
 sessionid: 1111
 cuid: system
