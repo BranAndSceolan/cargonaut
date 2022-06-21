@@ -18,13 +18,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/vehicle/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8008/vehicle/findById/62b16d73aecbfb1e10ca2e67
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8008/vehicle/delete/620cbeaecc90432d95b598a6
+DELETE http://localhost:8008/vehicle/delete/62b16d73aecbfb1e10ca2e67
 Content-Type: application/json
 sessionid: 1111
 cuid: system

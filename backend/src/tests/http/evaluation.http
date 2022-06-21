@@ -18,13 +18,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/eval/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8008/eval/findById/62b171510a464557aae2fb5c
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8008/eval/delete/620cbeaecc90432d95b598a6
+DELETE http://localhost:8008/eval/delete/62b171510a464557aae2fb5c
 Content-Type: application/json
 sessionid: 1111
 cuid: system

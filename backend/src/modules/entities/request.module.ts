@@ -75,4 +75,7 @@ export class RequestModule extends EntityModule {
             })
     }
 
+    async updateRequest(id: mongoose.Types.ObjectId, newReq: Req): Promise<Req | null> {
+        return this.mongo.updateReq(id, newReq)
+    }
 }
