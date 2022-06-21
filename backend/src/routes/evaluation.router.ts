@@ -20,7 +20,7 @@ router.get('/getAll', (req: Request, res: Response) => {
     evaluationController.getAll(req,res)
 })
 
-router.get('/getByName/:name', (req: Request, res: Response) => {
+router.get('/findById/:id', (req: Request, res: Response) => {
     evaluationController.get(req,res)
 })
 

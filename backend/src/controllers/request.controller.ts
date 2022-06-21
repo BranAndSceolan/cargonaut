@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {MongoModule} from "../modules/mongo/mongo.module";
 import mongoose from "mongoose";
 import {RequestModule} from "../modules/entities/request.module";
-import {RequestClass, requestStatus} from "../models/request.model";
+import {RequestClass, requestStatus, trackingStatus} from "../models/request.model";
 
 /**
  * Controller for all requests, providing all functionalities e.g. (create, read, update, delete)
@@ -23,8 +23,12 @@ export class RequestController {
      */
     public create(req: Request, res: Response): void {
         if (req.body && req.body.date && req.body.user && req.body.cargo){
+            let cargo = undefined
+            if (req.body.cargo){
+                cargo = req.body.cargo
+            }
 
-            this.requestModule.createRequest(new RequestClass(requestStatus.pending, req.body.date, req.body.user, req.body.user, requestStatus.pending ,req.body.cargo)).then(result =>{
+            this.requestModule.createRequest(new RequestClass(requestStatus.pending, req.body.date, req.body.user, trackingStatus.pending ,cargo)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {

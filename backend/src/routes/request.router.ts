@@ -15,7 +15,7 @@ router.post('/create', (req: Request, res: Response) => {
     requestController.create(req, res)
 })
 
-router.post('/update', (req: Request, res: Response) => {
+router.post('/update/:id', (req: Request, res: Response) => {
     requestController.update(req, res)
 })
 
@@ -24,7 +24,7 @@ router.get('/getAll', (req: Request, res: Response) => {
     requestController.getAll(req,res)
 })
 
-router.get('/getByName/:name', (req: Request, res: Response) => {
+router.get('/findById/:id', (req: Request, res: Response) => {
     requestController.get(req,res)
 })
 
