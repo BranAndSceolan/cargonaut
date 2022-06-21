@@ -1,5 +1,4 @@
-{
-  "compilerOptions": {
+{"compilerOptions": {
     // project options
     "lib": [
       "ESNext",
