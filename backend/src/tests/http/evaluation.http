@@ -1,12 +1,13 @@
 ###
 POST http://localhost:8008/eval/create
+Content-Type: application/json
 sessionid: 1111
 cuid: system
 
 {
 "result": 5,
-"ride": 620cbeaecc90432d95b598a0,
-"user": 620cbeaecc90432d95b598a7
+"ride": "620cbeaecc90432d95b598a0",
+"user": "620cbeaecc90432d95b598a7"
 }
 
 ###

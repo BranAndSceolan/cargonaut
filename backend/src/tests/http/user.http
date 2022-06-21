@@ -1,10 +1,11 @@
 ###
 POST http://localhost:8008/user/create
+Content-Type: application/json
 sessionid: 1111
 cuid: system
 
 {
-"name": "musterfahrer",
+"name": "test1",
 "birthdate": "1-1-2000",
 "email": "muster@gmail.de",
 "password": "willBeHashedAndSaltedInTheFuture",
@@ -14,6 +15,7 @@ cuid: system
 ###
 
 POST http://localhost:8008/user/update
+Content-Type: application/json
 sessionid: 1111
 cuid: system
 
