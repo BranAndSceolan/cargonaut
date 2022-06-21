@@ -158,7 +158,7 @@ export class UserController {
 
     public async update(req: Request, res: Response): Promise<void> {
         const userName = req.body.name
-        if (!req.body.id ) {
+        if (!req.params.id ) {
             res.status(400).send("id missing")
             return
         }
@@ -186,7 +186,7 @@ export class UserController {
             vehicleIds = req.body.vehicles
         }
 
-        const user: User | null = await this.userModule.getUserByName(req.body.name)
+        const user: User | null = await this.userModule.getUserById(req.params.id)
         let avgEval: number = 0;
         if( user?.averageEvalOfRides) {
             avgEval = user.averageEvalOfRides

@@ -6,7 +6,7 @@ cuid: system
 
 
 {
-  "name": "muster",
+  "name": "musterMann",
   "birthdate": "1-1-2000",
   "email": "muster@gmail.de",
   "password": "willBeHashedAndSaltedInTheFuture"
@@ -14,7 +14,7 @@ cuid: system
 
 ###
 
-POST http://localhost:8008/user/update/62b08e25d9dba55d32b507a7
+POST http://localhost:8008/user/update/62b162ea81920fa257dd5f35
 Content-Type: application/json
 sessionid: 1111
 cuid: system
@@ -36,13 +36,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/user/findById/62b09ed0ac53f8f52347a7eb
+GET http://localhost:8008/user/getByName/muster
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8008/user/delete/620cbeaecc90432d95b598a6
+DELETE http://localhost:8008/user/delete/62b09ed0ac53f8f52347a7eb
 Content-Type: application/json
 sessionid: 1111
 cuid: system
