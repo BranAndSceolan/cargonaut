@@ -1,267 +1,3 @@
-DELETE http://localhost:8008/ride/delete/62b1f2c87c2fa447f0ca3b62
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T183452.200.json
-
-###
-
-GET http://localhost:8008/ride/findById/62b1f2c87c2fa447f0ca3b62
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T183439.200.json
-
-###
-
-GET http://localhost:8008/ride/getAll
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T183423.200.json
-
-###
-
-GET http://localhost:8008/ride/findById/62b1f2af7c2fa447f0ca3b60
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T183323.404.html
-
-###
-
-POST http://localhost:8008/ride/update
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a0",
-  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
-  "accReqs": []
-}
-
-<> 2022-06-21T183312.200.json
-
-###
-
-GET http://localhost:8008/ride/findById/62b1f2af7c2fa447f0ca3b60
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T183305.404.html
-
-###
-
-POST http://localhost:8008/ride/create
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a0",
-  "pendingReqs" : [],
-  "accReqs": []
-}
-
-<> 2022-06-21T183247.200.json
-
-###
-
-POST http://localhost:8008/ride/create
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a",
-  "pendingReqs" : [],
-  "accReqs": []
-}
-
-<> 2022-06-21T183156.500.json
-
-###
-
-GET http://localhost:8008/ride/findById/62b1f2060e7fbee03d81a361
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T183052.404.html
-
-###
-
-GET http://localhost:8008/ride/getAll
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T183033.200.json
-
-###
-
-GET http://localhost:8008/ride/findById/62b1f2060e7fbee03d81a361
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T183027.404.html
-
-###
-
-GET http://localhost:8008/ride/getAll
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T183010.200.json
-
-###
-
-POST http://localhost:8008/ride/update
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a0",
-  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
-  "accReqs": []
-}
-
-<> 2022-06-21T182958.200.json
-
-###
-
-POST http://localhost:8008/eval/create
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "result": 5,
-  "ride": "620cbeaecc90432d95b598a0",
-  "user": "620cbeaecc90432d95b598a7"
-}
-
-<> 2022-06-21T182915.200.json
-
-###
-
-POST http://localhost:8008/ride/update
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a",
-  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
-  "accReqs": []
-}
-
-###
-
-POST http://localhost:8008/ride/update
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a",
-  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
-  "accReqs": []
-}
-
-###
-
-POST http://localhost:8008/ride/update
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a",
-  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
-  "accReqs": []
-}
-
-###
-
-POST http://localhost:8008/ride/update
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a",
-  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
-  "accReqs": []
-}
-
-###
-
-POST http://localhost:8008/ride/update
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a",
-  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
-  "accReqs": []
-}
-
-###
-
-DELETE http://localhost:8008/eval/delete/62b1ecdfcdb97271b8fe0bf6
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T180848.200.json
-
-###
-
-POST http://localhost:8008/eval/create
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "result": 5,
-  "ride": "620cbeaecc90432d95b598a0",
-  "user": "620cbeaecc90432d95b598a7"
-}
-
-<> 2022-06-21T180759.200.json
-
-###
-
 POST http://localhost:8008/user/update/62b1b922d87d2267525e9e69
 Content-Type: application/json
 sessionid: 1111
@@ -276,15 +12,12 @@ cuid: system
   "averageEvalOfRides": 4
 }
 
-<> 2022-06-21T151351.500.txt
-
 ###
 
 GET http://localhost:8008/user/getAll
 sessionid: 1111
 cuid: system
 
-<> 2022-06-21T151334.200.json
 
 ###
 
@@ -292,7 +25,6 @@ GET http://localhost:8008/user/getByName/muster
 sessionid: 1111
 cuid: system
 
-<> 2022-06-21T151326.500.txt
 
 ###
 
@@ -308,7 +40,6 @@ cuid: system
   "password": "willBeHashedAndSaltedInTheFuture"
 }
 
-<> 2022-06-21T151307.500.txt
 
 ###
 
@@ -326,7 +57,6 @@ cuid: system
   "averageEvalOfRides": 4
 }
 
-<> 2022-06-21T151218.500.txt
 
 ###
 
@@ -344,7 +74,6 @@ cuid: system
   "averageEvalOfRides": 4
 }
 
-<> 2022-06-21T142740.500.txt
 
 ###
 
@@ -362,7 +91,6 @@ cuid: system
   "averageEvalOfRides": 4
 }
 
-<> 2022-06-21T142727.500.txt
 
 ###
 
@@ -378,7 +106,6 @@ cuid: system
   "password": "willBeHashedAndSaltedInTheFuture"
 }
 
-<> 2022-06-21T142714.201.json
 
 ###
 
@@ -386,7 +113,6 @@ GET http://localhost:8008/req/getAll
 sessionid: 1111
 cuid: system
 
-<> 2022-06-21T142657.200.json
 
 ###
 
@@ -403,7 +129,6 @@ cuid: system
   "trackingStatus": "pending"
 }
 
-<> 2022-06-21T142651.200.json
 
 ###
 
@@ -418,7 +143,6 @@ cuid: system
   "cargo": "I have only a sports bag with me."
 }
 
-<> 2022-06-21T142635.200.json
 
 ###
 
@@ -426,7 +150,6 @@ GET http://localhost:8008/eval/getAll
 sessionid: 1111
 cuid: system
 
-<> 2022-06-21T142619.200.json
 
 ###
 
@@ -434,7 +157,6 @@ GET http://localhost:8008/eval/findById/62b1b8d4d87d2267525e9e61
 sessionid: 1111
 cuid: system
 
-<> 2022-06-21T142616.200.json
 
 ###
 
@@ -449,7 +171,6 @@ cuid: system
   "user": "620cbeaecc90432d95b598a7"
 }
 
-<> 2022-06-21T142556.200.json
 
 ###
 
@@ -596,6 +317,243 @@ sessionid: 1111
 cuid: system
 
 <> 2022-06-21T091612.404.html
+
+###
+
+GET http://localhost:8008/eval/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T091554.200.json
+
+###
+
+POST http://localhost:8008/eval/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "result": 5,
+  "ride": "620cbeaecc90432d95b598a0",
+  "user": "620cbeaecc90432d95b598a7"
+}
+
+<> 2022-06-21T091536.200.json
+
+###
+
+DELETE http://localhost:8080/req/delete/62b16edc16d1c177592f1851
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+###
+
+GET http://localhost:8008/req/findById/62b16edc16d1c177592f1851
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T091429.404.html
+
+###
+
+GET http://localhost:8008/req/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T091406.200.json
+
+###
+
+POST http://localhost:8008/req/update/62b16edc16d1c177592f1851
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "user": "620cbeaecc90432d95b598a0",
+  "cargo": "I have only a sports bag with me.",
+  "requestStatus": "accepted",
+  "trackingStatus": "pending"
+}
+
+<> 2022-06-21T091203.404.html
+
+###
+
+GET http://localhost:8008/req/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T091142.200.json
+
+###
+
+POST http://localhost:8008/req/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "user": "620cbeaecc90432d95b598a0",
+  "cargo": "I have only a sports bag with me."
+}
+
+<> 2022-06-21T091020.200.json
+
+###
+
+POST http://localhost:8008/vehicle/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "type": "standard car",
+  "numberOfSeats": 4,
+  "notes": "looks ugly, but moves"
+}
+
+<> 2022-06-21T091011.200.json
+
+###
+
+POST http://localhost:8008/req/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "user": "620cbeaecc90432d95b598a0",
+  "cargo": "I have only a sports bag with me."
+}
+
+###
+
+GET http://localhost:8008/vehicle/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T090526.200.json
+
+###
+
+DELETE http://localhost:8008/vehicle/delete/62b16d73aecbfb1e10ca2e67
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T090516.200.json
+
+###
+
+GET http://localhost:8008/vehicle/findById/62b16d73aecbfb1e10ca2e67
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T090457.200.json
+
+###
+
+GET http://localhost:8008/vehicle/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T090440.200.json
+
+###
+
+POST http://localhost:8008/vehicle/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "type": "standard car",
+  "numberOfSeats": 4,
+  "notes": "looks ugly, but moves"
+}
+
+<> 2022-06-21T090419.200.json
+
+###
+
+POST http://localhost:8008/ride/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "user": "620cbeaecc90432d95b598a",
+  "pendingReqs" : [],
+  "accReqs": []
+}
+
+<> 2022-06-21T090353.500.json
+
+###
+
+GET http://localhost:8008/ride/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T090322.200.json
+
+###
+
+GET http://localhost:8008/ride/getAll
+sessionid: 1111
+cuid: system
+
+###
+
+POST http://localhost:8008/ride/update
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "user": "620cbeaecc90432d95b598a",
+  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
+  "accReqs": []
+}
+
+###
+
+POST http://localhost:8008/ride/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "user": "620cbeaecc90432d95b598a",
+  "pendingReqs" : [],
+  "accReqs": []
+}
+
+<> 2022-06-21T083052.500.json
+
+###
+
+DELETE http://localhost:8008/user/delete/62b09ed0ac53f8f52347a7eb
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+<> 2022-06-21T082920.200.json
 
 ###
 

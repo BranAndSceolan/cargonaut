@@ -202,7 +202,7 @@ export class UserController {
             res.status(500).send("Sure that is a valid user?")
         }
         this.userModule.updateUser(
-            req.body.id,
+            new mongoose.Types.ObjectId(req.body.id),
             new UserClass(
                 userName.trim(),
                 new Date(birthdate.trim()),
@@ -211,11 +211,9 @@ export class UserController {
                 vehicleIds,
                 avgEval
             )
-        ).then((result: User | null) => {
+        ).then(( result: User | null) => {
             if (result) {
                 res.status(201).send(result)
-            } else {
-                res.sendStatus(500)
             }
         }).catch((err: Error) => {
             res.sendStatus(500)
