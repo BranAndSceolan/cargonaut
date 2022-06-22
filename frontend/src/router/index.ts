@@ -42,6 +42,11 @@ const routes: Array<RouteConfig> = [
     path: '/profile',
     name: 'profile',
     component: () => import('../views/ProfileView.vue')
+  },
+  {
+    path: '/detail',
+    name: 'detail',
+    component: () => import('../views/DetailView.vue')
   }
 ]
 
