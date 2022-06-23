@@ -12,6 +12,7 @@ import {
     userRouter,
     vehicleRouter
 } from "./routes/index"
+import session from "express-session";
 
 const mongo: MongoModule = new MongoModule();
 mongo.connectToMongo().then(mongoose => {
@@ -28,6 +29,15 @@ mongo.connectToMongo().then(mongoose => {
 
 // Boot express
 export const app: Application = express();
+app.use(express.urlencoded({extended: false}));
+app.use(session({
+    resave: true, // save session even if not modified
+    saveUninitialized: true, // save session even if not used
+    rolling: true, // forces cookie set on every response needed to set expiration
+    secret: "laöfjkdsölfjöfoi", // encrypt session-id in cookie using "secret" as modifier
+    name: "myawesomecookie", // name of the cookie set is set by the server
+    cookie: {maxAge: 20 * 1000}
+}));
 app.use(express.json())
 app.use(cors())
 app.use(express.urlencoded({
