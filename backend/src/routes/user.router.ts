@@ -1,6 +1,7 @@
 import express from 'express'
 import {Request, Response} from 'express'
 import {userController} from '../controllers';
+import {authModule} from "../modules/auth";
 
 export const router = express.Router({
     strict: true
@@ -10,31 +11,39 @@ export const router = express.Router({
  * User Routes
  */
 
-router.post("/register", (req: express.Request, res: express.Response) => {
-
+router.post("/create", (req: express.Request, res: express.Response) => {
+        authModule.register(req, res)
 });
 
+router.post("/login", (req: express.Request, res: express.Response) => {
+    authModule.login(req, res)
+});
 
-// POST Routes
+router.post("/logout", (req: express.Request, res: express.Response) => {
+    authModule.checkLogin(req, res, authModule.logOut(req, res))
+});
+
+/* // POST Routes
 router.post('/create', (req: Request, res: Response) => {
      userController.create(req, res)
 })
+*/
 
 router.post('/update/:id', (req: Request, res: Response) => {
-    userController.update(req, res)
+    authModule.checkLogin(req, res, userController.update(req, res))
 })
 
 // GET Routes
 router.get('/getAll', (req: Request, res: Response) => {
-    userController.getAllUsers(req,res)
+    authModule.checkLogin(res, req, userController.getAllUsers(req,res))
 })
 
 router.get('/getByName/:name', (req: Request, res: Response) => {
-   userController.getByName(req,res)
+   authModule.checkLogin(req, res, userController.getByName(req,res))
 })
 
 // DELETE Routes
 router.delete('/delete/:id', (req: Request, res: Response) => {
-    userController.delete(req, res)
+    authModule.checkLogin(req, res, userController.delete(req, res))
 })
 
