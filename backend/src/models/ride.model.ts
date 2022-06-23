@@ -6,12 +6,11 @@ import mongoose from "mongoose";
 export interface Ride {
     "_id"?: mongoose.Types.ObjectId,
     "date": string,
-    "origin": string
+    "origin": string,
     "destination": string,
-    "user": mongoose.Types.ObjectId
+    "user": mongoose.Types.ObjectId,
     "pendingReqs"?: mongoose.Types.ObjectId[],
     "accReqs"?: mongoose.Types.ObjectId[]
-
 }
 
 /** Ride Class

@@ -24,7 +24,7 @@ router.get('/getAll', (req: Request, res: Response) => {
     rideController.getAll(req,res)
 })
 
-router.get('/getByName/:name', (req: Request, res: Response) => {
+router.get('/findById/:id', (req: Request, res: Response) => {
     rideController.get(req,res)
 })
 

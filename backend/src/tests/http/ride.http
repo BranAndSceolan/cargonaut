@@ -8,7 +8,7 @@ cuid: system
 "date": "1-12-2022",
 "origin": "munich",
 "destination": "berlin",
-"user": "620cbeaecc90432d95b598a",
+"user": "620cbeaecc90432d95b598a0",
 "pendingReqs" : [],
 "accReqs": []
 }
@@ -23,7 +23,7 @@ cuid: system
 "date": "1-12-2022",
 "origin": "munich",
 "destination": "berlin",
-"user": "620cbeaecc90432d95b598a",
+"user": "620cbeaecc90432d95b598a0",
 "pendingReqs" : ["620cbeaecc90432d95b598a0"],
 "accReqs": []
 }
@@ -36,13 +36,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/ride/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8008/ride/findById/62b1f2c87c2fa447f0ca3b62
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8080/ride/delete/620cbeaecc90432d95b598a6
+DELETE http://localhost:8080/ride/delete/62b1f2c87c2fa447f0ca3b62
 Content-Type: application/json
 sessionid: 1111
 cuid: system
