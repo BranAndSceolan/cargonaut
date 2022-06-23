@@ -75,8 +75,8 @@ export class UserController {
 
     /** ALL
      * Finds all User documents in the DB and returns them
-     * @param req : e.Request
      * needs no further params or body
+     * @param _req
      * @param res : e.Response
      * Returns a HTTP-Response containing a statuscode and, if successful, an array of all
      * Users saved in the DB in its body
@@ -90,9 +90,6 @@ export class UserController {
         })
     }
 
-    /** READ
-     * TODO: how do we get users?
-   */
 
 
     /** GETBYNAME
@@ -197,28 +194,31 @@ export class UserController {
         }
         if (user && user._id) {
             const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(new mongoose.Types.ObjectId(user._id))
-            avgEval = ((avgEval * evalsN) + newEval) / evalsN + 1
+            avgEval = ((avgEval * evalsN) + newEval) / (evalsN + 1)
         } else{
             res.status(500).send("Sure that is a valid user?")
         }
-        this.userModule.updateUser(
-            new mongoose.Types.ObjectId(req.body.id),
-            new UserClass(
-                userName.trim(),
-                new Date(birthdate.trim()),
-                email.trim(),
-                password.trim(),
-                vehicleIds,
-                avgEval
-            )
-        ).then(( result: User | null) => {
-            if (result) {
-                res.status(201).send(result)
-            }
-        }).catch((err: Error) => {
-            res.sendStatus(500)
-            printToConsole(`Something went wrong updating an User. \nERROR: ${err}`)
-        })
+        if (user?._id) {
+            this.userModule.updateUser(
+               user._id,
+                new UserClass(
+                    userName.trim(),
+                    new Date(birthdate.trim()),
+                    email.trim(),
+                    password.trim(),
+                    vehicleIds,
+                    avgEval
+                )
+            ).then((result: User | null) => {
+                console.log(result)
+                if (result) {
+                    res.status(201).send(result)
+                }
+            }).catch((err: Error) => {
+                res.sendStatus(500)
+                printToConsole(`Something went wrong updating an User. \nERROR: ${err}`)
+            })
+        }
     }
 
 }

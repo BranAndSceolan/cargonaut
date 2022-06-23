@@ -5,10 +5,11 @@ sessionid: 1111
 cuid: system
 
 {
-  "name": "musterMann",
-  "birthdate": "1-1-2000",
-  "email": "muster@gmail.de",
-  "password": "willBeHashedAndSaltedInTheFuture"
+"name": "test1",
+"birthdate": "1-1-2000",
+"email": "muster@gmail.de",
+"password": "willBeHashedAndSaltedInTheFuture",
+"vehicles": []
 }
 
 ###
@@ -19,7 +20,7 @@ sessionid: 1111
 cuid: system
 
 {
-"name": "musterfahrer",
+"name": "test1",
 "birthdate": "1-1-2000",
 "email": "muster@gmail.de",
 "password": "willBeHashedAndSaltedInTheFuture",
@@ -35,7 +36,7 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/user/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8008/user/findById/62b4622328ed0b0006bdba40
 sessionid: 1111
 cuid: system
 
