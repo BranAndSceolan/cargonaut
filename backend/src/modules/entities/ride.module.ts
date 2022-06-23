@@ -23,11 +23,11 @@ export class RideModule extends EntityModule {
         if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.user && rideData.pendingReqs && rideData.accReqs) {
             rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, rideData.pendingReqs, rideData.accReqs));
         } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.user) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, [], []));
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, undefined, undefined));
         } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.user && rideData.pendingReqs) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, rideData.pendingReqs, []));
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, rideData.pendingReqs, undefined));
         } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.user && rideData.accReqs) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, [], rideData.accReqs));
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, undefined, rideData.accReqs));
         }
         if (rideId) {
             printToConsole('[+] New ride with id ' + rideId.toString() + ' saved.');
