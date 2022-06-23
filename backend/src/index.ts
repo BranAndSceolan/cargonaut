@@ -27,14 +27,23 @@ mongo.connectToMongo().then(mongoose => {
     process.exit()
 })
 
+// add "signInName" to session store
+declare module "express-session" {
+    interface Session {
+        signInName: string;
+    }
+}
+
+
 // Boot express
 export const app: Application = express();
 app.use(express.urlencoded({extended: false}));
+
 app.use(session({
     resave: true, // save session even if not modified
     saveUninitialized: true, // save session even if not used
     rolling: true, // forces cookie set on every response needed to set expiration
-    secret: "laöfjkdsölfjöfoi", // encrypt session-id in cookie using "secret" as modifier
+    secret: Math.random().toString(), // encrypt session-id in cookie using "secret" as modifier
     name: "myawesomecookie", // name of the cookie set is set by the server
     cookie: {maxAge: 20 * 1000}
 }));

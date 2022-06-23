@@ -10,6 +10,11 @@ export const router = express.Router({
  * User Routes
  */
 
+router.post("/register", (req: express.Request, res: express.Response) => {
+
+});
+
+
 // POST Routes
 router.post('/create', (req: Request, res: Response) => {
      userController.create(req, res)
