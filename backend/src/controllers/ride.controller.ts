@@ -22,7 +22,7 @@ export class RideController {
      * @param res
      */
     public create(req: Request, res: Response): void {
-        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body. user && req.body.pendingReqs && req.body.accReqs){
+        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.user && req.body.pendingReqs && req.body.accReqs){
 
             this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.user, req.body.pendingReqs, req.body.accReqs)).then(result =>{
                 if (result) {

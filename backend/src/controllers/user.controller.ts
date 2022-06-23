@@ -4,7 +4,7 @@ import {MongoModule} from "../modules/mongo/mongo.module";
 import {UserModule} from "../modules/entities/user.module";
 import {printToConsole} from "../modules/util/util.module";
 import mongoose from "mongoose";
-
+import {evaluationController} from "./index";
 
 
 /** USER CONTROLLER
@@ -181,6 +181,10 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
+        let newEval : number = 0;
+        if(req.body.averageEvalOfRides){
+            newEval = req.body.averageEvalOfRides
+        }
         let vehicleIds: Array<mongoose.Types.ObjectId> | undefined = undefined
         if (req.body.vehicles) {
             vehicleIds = req.body.vehicles
@@ -191,19 +195,14 @@ export class UserController {
         if( user?.averageEvalOfRides) {
             avgEval = user.averageEvalOfRides
         }
-        // TODO : implement this
-        // TODO : make sure only those values we want to be able to be updated can be updated!
-        // There should be a easi request possible that couts all evals with the given id
-
-        // if eval update:
-        // get number of evals regarding this driver as n and current eval v
-        // j new value
-        /*
-        avgEval =  (( avgEval  * n)+  j) / n + 1
-         */
-
+        if (user && user._id) {
+            const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(new mongoose.Types.ObjectId(user._id))
+            avgEval = ((avgEval * evalsN) + newEval) / evalsN + 1
+        } else{
+            res.status(500).send("Sure that is a valid user?")
+        }
         this.userModule.updateUser(
-            req.body.id,
+            new mongoose.Types.ObjectId(req.body.id),
             new UserClass(
                 userName.trim(),
                 new Date(birthdate.trim()),
@@ -212,11 +211,9 @@ export class UserController {
                 vehicleIds,
                 avgEval
             )
-        ).then((result: User | null) => {
+        ).then(( result: User | null) => {
             if (result) {
                 res.status(201).send(result)
-            } else {
-                res.sendStatus(500)
             }
         }).catch((err: Error) => {
             res.sendStatus(500)

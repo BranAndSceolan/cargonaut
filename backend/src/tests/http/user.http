@@ -4,9 +4,8 @@ Content-Type: application/json
 sessionid: 1111
 cuid: system
 
-
 {
-  "name": "test1",
+  "name": "musterMann",
   "birthdate": "1-1-2000",
   "email": "muster@gmail.de",
   "password": "willBeHashedAndSaltedInTheFuture"
@@ -14,18 +13,18 @@ cuid: system
 
 ###
 
-POST http://localhost:8008/user/update/62b162ea81920fa257dd5f35
+POST http://localhost:8008/user/update/62b1b922d87d2267525e9e69
 Content-Type: application/json
 sessionid: 1111
 cuid: system
 
 {
-  "name": "musterfahrer",
-  "birthdate": "1-1-2000",
-  "email": "muster@gmail.de",
-  "password": "willBeHashedAndSaltedInTheFuture",
-  "vehicles": ["620cbeaecc90432d95b598a0"],
-  "averageEvalOfRides": 4
+"name": "musterfahrer",
+"birthdate": "1-1-2000",
+"email": "muster@gmail.de",
+"password": "willBeHashedAndSaltedInTheFuture",
+"vehicles": ["620cbeaecc90432d95b598a0"],
+"averageEvalOfRides": 4
 }
 
 ###
@@ -36,13 +35,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/user/getByName/muster
+GET http://localhost:8008/user/findById/620cbeaecc90432d95b598a0
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8008/user/delete/62b09ed0ac53f8f52347a7eb
+DELETE http://localhost:8008/user/delete/620cbeaecc90432d95b598a6
 Content-Type: application/json
 sessionid: 1111
 cuid: system
