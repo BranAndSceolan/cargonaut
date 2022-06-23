@@ -20,12 +20,12 @@ sessionid: 1111
 cuid: system
 
 {
-"date": "1-12-2022",
-"origin": "munich",
-"destination": "berlin",
-"user": "620cbeaecc90432d95b598a0",
-"pendingReqs" : ["620cbeaecc90432d95b598a0"],
-"accReqs": []
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "user": "620cbeaecc90432d95b598a",
+  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
+  "accReqs": []
 }
 
 ###

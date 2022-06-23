@@ -14,7 +14,7 @@ cuid: system
 
 ###
 
-POST http://localhost:8008/user/update/62b4622328ed0b0006bdba40
+POST http://localhost:8008/user/update/62b1b922d87d2267525e9e69
 Content-Type: application/json
 sessionid: 1111
 cuid: system
