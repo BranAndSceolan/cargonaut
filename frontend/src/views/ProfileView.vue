@@ -2,7 +2,9 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-2">
-          <img class="profilePic" src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Helmut_Kohl_%281996%29.jpg">
+          <div class="picContainer">
+            <img class="profilePic" alt="Profile pic" src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Helmut_Kohl_%281996%29.jpg">
+          </div>
         </div>
         <div class="col-xl-10">
           <p class="name m-3">Mike Jefferson</p>
@@ -65,9 +67,15 @@ export default {
 <style scoped>
 
 .profilePic {
+  height: auto;
+  width: 100%;
+}
+.picContainer {
+  overflow: hidden;
   height: 200px;
   width: 200px;
   border-radius: 50%;
+  box-shadow: 0 0 8px #BBBBBB;
 }
 .container {
   max-width: 1500px!important;

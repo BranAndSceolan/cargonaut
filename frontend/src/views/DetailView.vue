@@ -102,8 +102,7 @@ export default {
 }
 .area {
   width: 84%;
-  margin: auto;
-  margin-bottom: 3rem;
+  margin: auto auto 3rem;
 }
 .title{
   font-size: 2rem;

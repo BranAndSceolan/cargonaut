@@ -1,7 +1,7 @@
 <template>
   <div class="row w-100 ml-2 mr-1 mt-1 entryContainer align-items-center">
     <div class="col col-xl-2 p-0">
-      <img class="float-left" src="https://i.auto-bild.de/mdb/extra_large/96/amarok-d8f.png">
+      <img class="float-left" alt="Car picture" src="https://i.auto-bild.de/mdb/extra_large/96/amarok-d8f.png">
     </div>
     <div class="col col-xl-2 ml-xl-4">
       <p class="mb-0"> {{name}}</p>
@@ -33,7 +33,7 @@ export default {
 <style scoped>
 
 .entryContainer {
-  box-shadow: 2px 2px 4px;
+  box-shadow: 0 0 8px #BBBBBB;
 }
 p, .icon{
   color: #707070;
