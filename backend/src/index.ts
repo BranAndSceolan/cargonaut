@@ -15,36 +15,35 @@ import {
 
 const mongo: MongoModule = new MongoModule();
 mongo.connectToMongo().then(mongoose => {
-    console.log(`Connected to MongoDB at ${config.get('Database.mongoURL')}, database: ${mongoose.connection.db.databaseName}\n`)
+    console.log(`Connected to MongoDB at ${config.get('Database.mongoURL')}, database: ${mongoose.connection?.db.databaseName}\n`)
 }).catch((err:any) => {
     console.log(`Error: Couldn't establish connection to MongoDB at ${config.get('Database.mongoURL')}`)
     console.log(`Is your Docker daemon running?`)
     console.log(`=> sudo systemctl start docker`)
     console.log(`Is your database running?`)
-    console.log(`=> docker start mongodb`)
+    console.log(`=> docker start cargonaut_mongo`)
     console.log(err)
     process.exit()
 })
 
 // Boot express
-const app: Application = express();
+export const app: Application = express();
 app.use(express.json())
 app.use(cors())
 app.use(express.urlencoded({
     extended: true
 }));
 
-
 // Application routing
-app.use('/', (_req: Request, res: Response) => {
-    res.status(200).sendFile(path.join(__dirname, "/../../frontend/dist/index.html"))
-});
-
 app.use('/user', userRouter)
 app.use('/eval', evalRouter)
 app.use('/ride', rideRouter)
 app.use('/req', requestRouter)
 app.use('/vehicle', vehicleRouter)
+
+app.get('/', (_req: Request, res: Response) => {
+    res.status(200).sendFile(path.join(__dirname, "/public/index.html"))
+});
 
 // Start server
 app.listen(PORT, () => console.log(`Server is listening on http://localhost:${PORT}`));

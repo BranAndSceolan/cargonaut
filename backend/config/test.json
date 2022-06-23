@@ -1,6 +1,6 @@
 {
   "Database": {
-    "mongoURL": "mongodb://pbl_mongo:8080"
+    "mongoURL": "mongodb://localhost:27017"
   },
   "disableAuth": "true"
 }

@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {MongoModule} from "../modules/mongo/mongo.module";
 import mongoose from "mongoose";
 import {RequestModule} from "../modules/entities/request.module";
-import {RequestClass} from "../models/request.model";
+import {RequestClass, requestStatus, trackingStatus} from "../models/request.model";
 
 /**
  * Controller for all requests, providing all functionalities e.g. (create, read, update, delete)
@@ -22,9 +22,13 @@ export class RequestController {
      * @param res
      */
     public create(req: Request, res: Response): void {
-        if (req.body && req.body.requestStatus && req.body.date && req.body.user && req.body.cargo && req.body.trackingStatus){
+        if (req.body && req.body.date && req.body.user && req.body.cargo){
+            let cargo = undefined
+            if (req.body.cargo){
+                cargo = req.body.cargo
+            }
 
-            this.requestModule.createRequest(new RequestClass(req.body.requestStatus, req.body.date, req.body.user, req.body.user, req.body.cargo, req.body.trackingStatus)).then(result =>{
+            this.requestModule.createRequest(new RequestClass(requestStatus.pending, req.body.date, req.body.user, trackingStatus.pending ,cargo)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {
@@ -78,4 +82,24 @@ export class RequestController {
         }).catch(() => res.status(500).send("Internal Server Error"));
     }
 
+    public update(req: Request, res: Response): void {
+        const id: string | undefined = req.params.id;
+        if (req.body && req.body.date && req.body.user && req.body.cargo) {
+            let status = undefined
+            if(req.body.requestStatus){
+                status = req.body.requestStatus
+            }
+            let tStatus = undefined
+            if(req.body.trackingStatus){
+                tStatus = req.body.trackingStatus
+            }
+            this.requestModule.updateRequest(new mongoose.Types.ObjectId(id), new RequestClass(status, req.body.date, req.body.user, tStatus, req.body.cargo)).then((result: any) => {
+                if (result) {
+                    res.status(200).send(result); //deleted Entity
+                } else {
+                    res.status(500).send("Internal Server Error")
+                }
+            }).catch(() => res.status(500).send("Internal Server Error"));
+        }
+    }
 }

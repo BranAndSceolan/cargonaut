@@ -18,7 +18,7 @@ export class UserModule extends EntityModule {
      * @param user
      */
     async createUser(user: User): Promise<mongoose.Types.ObjectId | null> {
-        const userId: mongoose.Types.ObjectId | undefined = await this.mongo.addUser(user)
+        const userId: mongoose.Types.ObjectId | null = await this.mongo.addUser(user)
         printToConsole('[+] New user with id ' + userId + 'saved.');
         if (userId) {
             return userId;
@@ -97,6 +97,15 @@ export class UserModule extends EntityModule {
             return null;
         })
         return null;
+    }
+
+    async updateUser(id: mongoose.Types.ObjectId, newUser: User): Promise< User | null> {
+        const user: User | null = await this.mongo.updateUser(id, newUser)
+        if (user) {
+            return user;
+        } else {
+            return null
+        }
     }
 
 }

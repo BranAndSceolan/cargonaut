@@ -8,7 +8,7 @@ export interface Req {
     "requestStatus": requestStatus
     "date": string,
     "user": mongoose.Types.ObjectId,
-    "cargo": mongoose.Types.ObjectId,
+    "cargo"?: string,
     "trackingStatus": trackingStatus
 }
 
@@ -20,15 +20,15 @@ export class RequestClass implements Req {
     requestStatus: requestStatus;
     user: mongoose.Types.ObjectId;
     date: string;
-    cargo: mongoose.Types.ObjectId;
+    cargo?: string;
     trackingStatus: trackingStatus;
 
-    constructor(requestStatus: requestStatus, date: string, user: mongoose.Types.ObjectId, cargo: mongoose.Types.ObjectId, trackingStatus: trackingStatus, _id?: mongoose.Types.ObjectId) {
+    constructor(requestStatus: requestStatus, date: string, user: mongoose.Types.ObjectId,trackingStatus: trackingStatus,  cargo?: string, _id?: mongoose.Types.ObjectId) {
         this._id = _id;
         this.requestStatus = requestStatus;
         this.date = date;
         this.user = user;
-        this.cargo = cargo;
+        this.cargo = cargo
         this.trackingStatus = trackingStatus;
     }
 

@@ -1,6 +1,0 @@
-{
-  "Database": {
-    "mongoURL": "mongodb://localhost:8080"
-  },
-  "disableAuth": "true"
-}
