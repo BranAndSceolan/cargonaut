@@ -9,15 +9,15 @@ Go to [docu](docu) for non-code elements of the project.
 
 [src](backend/src) contains the code, while [config](config) adds some values needed for docker.
 
-## Build
+#
 
-### locally:
+## Build
+(in backend)
 ``npm start``
 
-(starts only the docker, not the database)
-
-### Start mongo and node server
-``NODE_ENV=docker_dev docker-compose up --build --detach``
+### mongo and node server
+(in root)
+``NODE_ENV=docker_dev docker-compose up --build``
 
 
 ``sudo docker-compose exec mongo bash``

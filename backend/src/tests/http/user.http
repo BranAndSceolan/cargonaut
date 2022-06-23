@@ -14,17 +14,17 @@ cuid: system
 
 ###
 
-POST http://localhost:8008/user/update
+POST http://localhost:8008/user/update/62b4622328ed0b0006bdba40
 Content-Type: application/json
 sessionid: 1111
 cuid: system
 
 {
-"name": "musterfahrer",
+"name": "test1",
 "birthdate": "1-1-2000",
 "email": "muster@gmail.de",
 "password": "willBeHashedAndSaltedInTheFuture",
-"vehicles": [620cbeaecc90432d95b598a0],
+"vehicles": ["620cbeaecc90432d95b598a0"],
 "averageEvalOfRides": 4
 }
 
@@ -36,7 +36,7 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/user/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8008/user/findById/62b4622328ed0b0006bdba40
 sessionid: 1111
 cuid: system
 
