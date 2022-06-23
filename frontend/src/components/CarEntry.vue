@@ -46,6 +46,7 @@ p, .icon{
   font-size: 2em;
 }
 img {
+  object-fit: cover;
   max-width: 200px;
   min-width: 100px;
   height: auto;

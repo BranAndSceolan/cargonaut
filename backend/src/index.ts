@@ -41,8 +41,10 @@ app.use('/ride', rideRouter)
 app.use('/req', requestRouter)
 app.use('/vehicle', vehicleRouter)
 
+
+app.use(express.static(path.join(__dirname, "./public")))
 app.get('/', (_req: Request, res: Response) => {
-    res.status(200).sendFile(path.join(__dirname, "/public/index.html"))
+    res.status(200).sendFile(path.join(__dirname, "./public/index.html"))
 });
 
 // Start server

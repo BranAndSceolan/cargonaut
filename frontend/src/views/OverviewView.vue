@@ -115,6 +115,9 @@ export default {
       // axios routes are in extra methods at the moment, because I can't test them atm
       axios.get('/ride/getAll').then(response => (this.offers = response.data))
     }
+  },
+  mounted () {
+    this.getOffers()
   }
 }
 </script>

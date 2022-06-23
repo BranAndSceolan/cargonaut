@@ -2,7 +2,10 @@
   <div>
     <b-card
     :title=name
-    style="width: 20rem"
+    img-src="https://i.auto-bild.de/mdb/extra_large/96/amarok-d8f.png"
+    img-top
+    img-height="130px"
+    style="width: 20rem;"
     class="mb-2 text-left"
     >
       <b-card-text>

@@ -50,7 +50,7 @@ import OverBar from '@/components/OverBar'
 
 export default {
   name: 'DetailView',
-  components: {  CarEntry, OverBar },
+  components: { CarEntry, OverBar },
   data () {
     return {
       title: 'Schnelle fahrt nach Gießen',
@@ -62,7 +62,7 @@ export default {
         'Snacks gibt es auch und zudem noch ausreichend Stauraum für Gepäck egal ob klein oder groß.',
       cars: [{ name: 'VW Amarok', seats: '2', room: '6' }]
     }
-}
+  }
 }
 </script>
 
