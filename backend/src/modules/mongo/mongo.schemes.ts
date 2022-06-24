@@ -4,7 +4,7 @@ import {Req} from "../../models/request.model";
 import {Ride} from "../../models/ride.model";
 import {User} from "../../models/user.model";
 import {Vehicle} from "../../models/vehicle.model";
-import {number} from "vue-types";
+
 
 const mongoose = require('mongoose')
 

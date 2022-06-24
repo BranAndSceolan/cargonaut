@@ -20,14 +20,14 @@ export class RideModule extends EntityModule {
      */
     async createRide(rideData: Ride): Promise<mongoose.Types.ObjectId | null> {
         let rideId;
-        if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.user && rideData.pendingReqs && rideData.accReqs) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, rideData.pendingReqs, rideData.accReqs));
-        } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.user) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, undefined, undefined));
-        } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.user && rideData.pendingReqs) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, rideData.pendingReqs, undefined));
-        } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.user && rideData.accReqs) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.user, undefined, rideData.accReqs));
+        if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.user && rideData.pendingReqs && rideData.accReqs) {
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.user, rideData.pendingReqs, rideData.accReqs));
+        } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.user) {
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.user, undefined, undefined));
+        } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.user && rideData.pendingReqs) {
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.user, rideData.pendingReqs, undefined));
+        } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.user && rideData.accReqs) {
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.user, undefined, rideData.accReqs));
         }
         if (rideId) {
             printToConsole('[+] New ride with id ' + rideId.toString() + ' saved.');
