@@ -4,6 +4,7 @@ import {Req} from "../../models/request.model";
 import {Ride} from "../../models/ride.model";
 import {User} from "../../models/user.model";
 import {Vehicle} from "../../models/vehicle.model";
+import {number} from "vue-types";
 
 const mongoose = require('mongoose')
 
@@ -37,6 +38,9 @@ export const rideSchema = new Schema<Ride>({
     date: {type: String, required: true},
     origin: {type: String, required: true},
     destination: {type: String, required: true},
+    title: {type: String, required: true},
+    description: {type: String, required: true},
+    numberOfFreeSeats: {type: Number, required: true},
     user: {type: mongoose.Types.ObjectId, required: true},
     pendingReqs: {type: [mongoose.Types.ObjectId], required: false},
     accReqs: {type: [mongoose.Types.ObjectId], required: false}
@@ -52,7 +56,8 @@ export const userSchema = new Schema<User>({
 })
 
 export const vehicleSchema = new Schema<Vehicle>({
-    type: {type: String, enum: [
+    type: {
+        type: String, enum: [
             'pick up truck',
             'car with horse trailer',
             'car with bike rack',
@@ -64,7 +69,8 @@ export const vehicleSchema = new Schema<Vehicle>({
             'bus',
             'motorcycle',
             'other'],
-        required: true},
+        required: true
+    },
     spaceLength: {type: Number, required: false},
     spaceWidth: {type: Number, required: false},
     spaceHeight: {type: Number, required: false},
