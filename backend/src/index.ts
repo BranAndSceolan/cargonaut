@@ -16,7 +16,7 @@ import {
 const mongo: MongoModule = new MongoModule();
 mongo.connectToMongo().then(mongoose => {
     console.log(`Connected to MongoDB at ${config.get('Database.mongoURL')}, database: ${mongoose.connection?.db.databaseName}\n`)
-}).catch((err:any) => {
+}).catch((err: never) => {
     console.log(`Error: Couldn't establish connection to MongoDB at ${config.get('Database.mongoURL')}`)
     console.log(`Is your Docker daemon running?`)
     console.log(`=> sudo systemctl start docker`)
