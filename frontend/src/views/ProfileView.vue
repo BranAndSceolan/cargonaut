@@ -23,10 +23,10 @@
       <div class="row mx-4">
         <OverBar class="mb-4" title="Angebote" v-on:contentHidden="offersHidden = $event"></OverBar>
         <div class="col w-100">
-          <b-card-group v-if="!offersHidden" deck class="deck">
-            <travel-card class="mb-4" v-for="(offer, index) in offers" v-bind:key="index"  :name="offer.name" :start="offer.start"
+          <div v-if="!offersHidden" class="card-columns">
+            <travel-card class="mb-4 mx-1 mr-4" v-for="(offer, index) in offers" v-bind:key="index"  :name="offer.name" :start="offer.start"
                          :stop="offer.stop" :seats="offer.seats" :room="offer.room" :price="offer.price"></travel-card>
-          </b-card-group>
+          </div>
         </div>
       </div>
     </div>
@@ -88,5 +88,8 @@ p {
 }
 .desc {
   font-size: 1.1em;
+}
+.card-columns {
+  column-count: 1;
 }
 </style>
