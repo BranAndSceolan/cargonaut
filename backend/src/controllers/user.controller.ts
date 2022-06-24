@@ -38,6 +38,11 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
+        const description = req.body.description
+        if(!description) {
+            res.status(400).send("Description missing")
+            return
+        }
         const birthdate = req.body.birthdate
         if (!birthdate || !( typeof birthdate == 'string') || birthdate.trim() == ""){
             res.status(400).send("Birthdate missing")
@@ -59,6 +64,7 @@ export class UserController {
                     new Date(birthdate.trim()),
                     email.trim(),
                     password.trim(),
+                    description,
                     vehicleIds
                 )
         ).then((id: mongoose.Types.ObjectId | null) => {
@@ -171,6 +177,11 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
+        const description = req.body.description
+        if(!description) {
+            res.status(400).send("Description missing")
+            return
+        }
         const birthdate = req.body.birthdate
         if (!birthdate || !(typeof birthdate == 'string') || birthdate.trim() == "") {
             res.status(400).send("Birthdate missing")
@@ -208,6 +219,7 @@ export class UserController {
                 new Date(birthdate.trim()),
                 email.trim(),
                 password.trim(),
+                description,
                 vehicleIds,
                 avgEval
             )
