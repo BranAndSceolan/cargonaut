@@ -1,21 +1,11 @@
-import {Request, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 import {User, UserClass} from "../../models/user.model";
 import {userController} from "../../controllers";
 import mongoose from "mongoose";
 import config from "config";
 
-// add "signInName" to session store
-declare module "express-session" {
-    interface Session {
-        signInName: string;
-    }
-}
-
 
 export class AuthModule {
-
-    constructor() {
-    }
 
     async register(req: Request, res: Response) {
 //Check if username is already defined (from a previous session)
@@ -40,10 +30,10 @@ export class AuthModule {
             ))
         if (newUser){
             req.session.signInName = registerName;
-            res.status(200).send("Congratulations! You are know registered! \n" +
+            return res.status(200).send("Congratulations! You are know registered! \n" +
                 "Whether driving for others or searching for a driver, cargonaut is always with you!")
         } else {
-            res.status(500).send("Something went wrong registering!")
+           return res.status(500).send("Something went wrong registering!")
         }
     }
 
@@ -70,13 +60,13 @@ export class AuthModule {
         });
     }
 
-    checkLogin(req, res, next) {
+    checkLogin(req : Request, res: Response, next: NextFunction) {
         if (config.get('disableAuth') == "true") return next();
-        if (req.session.name) {
-            if (req.body.name && req.body.name != req.session.name){
+        if (req.session.signInName) {
+            if (req.body.name && req.body.name != req.session.signInName){
                 res.status(401)
             }else {
-                next(res, req)
+                next()
             }
         } else {
             res.status(401)
