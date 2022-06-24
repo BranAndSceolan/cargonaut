@@ -24,7 +24,8 @@ export async function rideTest() {
                 "name": "Hans",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
-                "password": "123"
+                "password": "123",
+                "description": "Hallo ich bin der Hans"
             }).then(res => {
                 userId = res.body;
             })
@@ -32,6 +33,9 @@ export async function rideTest() {
                 "date": "6-23-2022",
                 "origin": "Frankfurt",
                 "destination": "Hattersheim",
+                "title": "Titel",
+                "description": "Off we go",
+                "numberOfFreeSeats": 4,
                 "user": userId
             }).then(res => {
                 rideId = res.body;
@@ -47,6 +51,9 @@ export async function rideTest() {
                 "date": "6-23-2022",
                 "origin": {},
                 "destination": "Hattersheim",
+                "title": "Titel",
+                "description": "Off we go",
+                "numberOfFreeSeats": 4,
                 "user": userId
             }).then(res => {
                 chai.expect(res.status).to.equal(400);
@@ -75,6 +82,9 @@ export async function rideTest() {
                 "date": "6-23-2022",
                 "origin": "Seligenstadt",
                 "destination": "Hattersheim",
+                "title": "Titel",
+                "description": "Off we go",
+                "numberOfFreeSeats": 4,
                 "user": userId
             }).then(res => {
                 printToConsole(res.body)
@@ -90,6 +100,9 @@ export async function rideTest() {
                 "date": {},
                 "origin": "Seligenstadt",
                 "destination": "Hattersheim",
+                "title": "Titel",
+                "description": "Off we go",
+                "numberOfFreeSeats": 4,
                 "user": userId
             }).then(res => {
                 chai.expect(res.status).to.equal(400);
