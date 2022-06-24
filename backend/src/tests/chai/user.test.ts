@@ -22,7 +22,8 @@ export async function userTest() {
                 "name": "Hans",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
-                "password": "123"
+                "password": "123",
+                "description": "Ich bin der Hans und ich kann's"
             }).then(res => {
                 userId = res.body;
                 chai.expect(res.status).to.equal(201);
@@ -37,7 +38,8 @@ export async function userTest() {
                 "name": {},
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
-                "password": "123"
+                "password": "123",
+                "description": "Ich bin der Hans und ich kann's"
             }).then(res => {
                 chai.expect(res.status).to.equal(400);
             })
@@ -66,6 +68,7 @@ export async function userTest() {
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",
+                "description": "Ich bin der Hans und ich kann's",
                 "averageEvalOfRides": 0
             }).then(res => {
                 printToConsole(res.body)
@@ -82,6 +85,7 @@ export async function userTest() {
                 "birthdate": "1-1-1901",
                 "email": {},
                 "password": "123",
+                "description": "Ich bin der Hans und ich kann's",
                 "averageEvalOfRides": 0
             }).then(res => {
                 chai.expect(res.status).to.equal(400);
