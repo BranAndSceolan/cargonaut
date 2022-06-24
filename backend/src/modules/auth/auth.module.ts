@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import {User, UserClass} from "../../models/user.model";
 import {userController} from "../../controllers";
 import mongoose from "mongoose";
+import config from "config";
 
 // add "signInName" to session store
 declare module "express-session" {
@@ -70,6 +71,7 @@ export class AuthModule {
     }
 
     checkLogin(req, res, next) {
+        if (config.get('disableAuth') == "true") return next();
         if (req.session.name) {
             if (req.body.name && req.body.name != req.session.name){
                 res.status(401)
