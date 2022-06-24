@@ -149,6 +149,9 @@ export class MongoModule {
                 date: newRide.date,
                 origin : newRide.origin,
                 destinantion: newRide.destination,
+                title: newRide.title,
+                description: newRide.description,
+                numberOfFreeSeats: newRide.numberOfFreeSeats,
                 user: newRide.user,
                 pendingReqs: newRide.pendingReqs,
                 accReqs: newRide.accReqs
