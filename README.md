@@ -19,6 +19,8 @@ Go to [docu](docu) for non-code elements of the project.
 (in root)
 ``NODE_ENV=docker_dev docker-compose up --build``
 
+``NODE_ENV=docker_dev docker-compose up --build``
+
 
 ``sudo docker-compose exec mongo bash``
 

@@ -38,6 +38,11 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
+        const description = req.body.description
+        if(!description) {
+            res.status(400).send("Description missing")
+            return
+        }
         const birthdate = req.body.birthdate
         if (!birthdate || !( typeof birthdate == 'string') || birthdate.trim() == ""){
             res.status(400).send("Birthdate missing")
@@ -59,12 +64,15 @@ export class UserController {
                     new Date(birthdate.trim()),
                     email.trim(),
                     password.trim(),
-                    vehicleIds
+                    description,
+                    vehicleIds,
+                    undefined
                 )
         ).then((id: mongoose.Types.ObjectId | null) => {
             if (id) {
                 res.status(201).send(id)
             } else {
+                console.log(res)
                 res.sendStatus(500)
             }
         }).catch((err: Error) => {
@@ -168,6 +176,11 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
+        const description = req.body.description
+        if(!description) {
+            res.status(400).send("Description missing")
+            return
+        }
         const birthdate = req.body.birthdate
         if (!birthdate || !(typeof birthdate == 'string') || birthdate.trim() == "") {
             res.status(400).send("Birthdate missing")
@@ -193,24 +206,24 @@ export class UserController {
             avgEval = user.averageEvalOfRides
         }
         if (user && user._id) {
-            const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(new mongoose.Types.ObjectId(user._id))
+            const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(user._id)
             avgEval = ((avgEval * evalsN) + newEval) / (evalsN + 1)
         } else{
             res.status(500).send("Sure that is a valid user?")
         }
         if (user?._id) {
             this.userModule.updateUser(
-               user._id,
+                user?._id,
                 new UserClass(
                     userName.trim(),
                     new Date(birthdate.trim()),
                     email.trim(),
                     password.trim(),
+                    description,
                     vehicleIds,
                     avgEval
                 )
             ).then((result: User | null) => {
-                console.log(result)
                 if (result) {
                     res.status(201).send(result)
                 }
