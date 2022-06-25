@@ -19,6 +19,8 @@ Go to [docu](docu) for non-code elements of the project.
 ### Start mongo and node server
 ``NODE_ENV=docker_dev docker-compose up --build --detach``
 
+``NODE_ENV=docker_dev docker-compose up --build``
+
 
 ``sudo docker-compose exec mongo bash``
 

@@ -81,7 +81,7 @@ export class RideController {
     }
 
     public update(req: Request, res: Response): void {
-        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && req.body. user){
+        if (req.body && req.params.id && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && req.body.user){
             let accReq = undefined
             let penReq = undefined
             if (req.body.pendingReqs){
@@ -90,7 +90,7 @@ export class RideController {
             if (req.body.accReqs){
                 accReq = req.body.accReqs
             }
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.price, req.body.user, penReq, accReq)).then(result =>{
+            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.price, req.body.user, penReq, accReq)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {

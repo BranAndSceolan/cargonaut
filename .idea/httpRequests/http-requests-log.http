@@ -1,0 +1,442 @@
+POST http://localhost:8008/ride/update/62b6e878cc7d681b5e54d449
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "title": "from munich to berlin",
+  "description": "We drive from unich to berlin",
+  "numberOfFreeSeats": 3,
+  "price": 20,
+  "user": "620cbeaecc90432d95b598a0",
+  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
+  "accReqs": []
+}
+
+<> 2022-06-25T125128.200.json
+
+###
+
+POST http://localhost:8008/ride/update/62b6e878cc7d681b5e54d449
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "title": "from munich to berlin",
+  "descrition": "We drive from unich to berlin",
+  "numberOfFreeSeats": 3,
+  "price": 20,
+  "user": "620cbeaecc90432d95b598a0",
+  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
+  "accReqs": []
+}
+
+<> 2022-06-25T125103.400.html
+
+###
+
+POST http://localhost:8008/ride/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "title": "nice ride",
+  "description": "We go from munich to berlin!",
+  "numberOfFreeSeats": 4,
+  "price": 20,
+  "user": "620cbeaecc90432d95b598a0",
+  "pendingReqs" : [],
+  "accReqs": []
+}
+
+<> 2022-06-25T125032.200.json
+
+###
+
+GET http://localhost:8008/user/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T124958.200.json
+
+###
+
+POST http://localhost:8008/user/update/62b6e7551474a964c9cb0862
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "ooooo",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "vehicles": ["620cbeaecc90432d95b598a0"],
+  "description": "Hi, I like driving!",
+  "averageEvalOfRides": 4
+}
+
+###
+
+POST http://localhost:8008/user/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "uuu",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "description": "Hi, I am a driver!"
+}
+
+<> 2022-06-25T124541.201.json
+
+###
+
+POST http://localhost:8008/user/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "oooooo",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "description": "Hi, I am a driver!"
+}
+
+<> 2022-06-25T124407.500.txt
+
+###
+
+POST http://localhost:8008/user/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "oooooo",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "description": "Hi, I am a driver!"
+}
+
+<> 2022-06-25T123340.500.txt
+
+###
+
+POST http://localhost:8008/ride/update/62b6e4517d8e007866190571
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "title": "from munich to berlin",
+  "descrition": "We drive from unich to berlin",
+  "numberOfFreeSeats": 3,
+  "price": 20,
+  "user": "620cbeaecc90432d95b598a0",
+  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
+  "accReqs": []
+}
+
+<> 2022-06-25T123307.404.html
+
+###
+
+POST http://localhost:8008/ride/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "title": "nice ride",
+  "description": "We go from munich to berlin!",
+  "numberOfFreeSeats": 4,
+  "price": 20,
+  "user": "620cbeaecc90432d95b598a0",
+  "pendingReqs" : [],
+  "accReqs": []
+}
+
+<> 2022-06-25T123249.200.json
+
+###
+
+DELETE http://localhost:8008/vehicle/delete/62b6e23647710726ec73f323
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T122423.200.json
+
+###
+
+GET http://localhost:8008/vehicle/findById/62b6e23647710726ec73f323
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T122413.200.json
+
+###
+
+GET http://localhost:8008/vehicle/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T122406.200.json
+
+###
+
+POST http://localhost:8008/vehicle/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "type": "standard car",
+  "numberOfSeats": 4,
+  "notes": "looks ugly, but moves"
+}
+
+<> 2022-06-25T122351.200.json
+
+###
+
+POST http://localhost:8008/user/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "oooooo",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "description": "Hi, I am a driver!"
+}
+
+<> 2022-06-25T122226.201.json
+
+###
+
+POST http://localhost:8008/user/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "musterx",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "description": "Hi, I am a driver!"
+}
+
+<> 2022-06-25T122149.500.txt
+
+###
+
+GET http://localhost:8008/ride/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T121947.200.json
+
+###
+
+DELETE http://localhost:8008/ride/delete/62b6e0f947710726ec73f315
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T121944.200.json
+
+###
+
+GET http://localhost:8008/ride/findById/62b6e0f947710726ec73f315
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T121934.200.json
+
+###
+
+GET http://localhost:8008/ride/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T121923.200.json
+
+###
+
+POST http://localhost:8008/ride/update/62b6e0f947710726ec73f315
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "title": "from munich to berlin",
+  "descrition": "We drive from unich to berlin",
+  "numberOfFreeSeats": 3,
+  "price": 20,
+  "user": "620cbeaecc90432d95b598a0",
+  "pendingReqs" : ["620cbeaecc90432d95b598a0"],
+  "accReqs": []
+}
+
+<> 2022-06-25T121850.404.html
+
+###
+
+POST http://localhost:8008/ride/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "origin": "munich",
+  "destination": "berlin",
+  "title": "nice ride",
+  "description": "We go from munich to berlin!",
+  "numberOfFreeSeats": 4,
+  "price": 20,
+  "user": "620cbeaecc90432d95b598a0",
+  "pendingReqs" : [],
+  "accReqs": []
+}
+
+<> 2022-06-25T121833.200.json
+
+###
+
+DELETE http://localhost:8008/req/delete/62b6df8847710726ec73f30f
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T121311.200.json
+
+###
+
+GET http://localhost:8008/req/findById/62b6df8847710726ec73f30f
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T121300.200.json
+
+###
+
+GET http://localhost:8008/req/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T121242.200.json
+
+###
+
+POST http://localhost:8008/req/update/62b6df8847710726ec73f30f
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "user": "620cbeaecc90432d95b598a0",
+  "cargo": "I have only a sports bag with me.",
+  "requestStatus": "accepted",
+  "trackingStatus": "pending"
+}
+
+<> 2022-06-25T121237.200.json
+
+###
+
+POST http://localhost:8008/req/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "date": "1-12-2022",
+  "user": "620cbeaecc90432d95b598a0",
+  "cargo": "I have only a sports bag with me."
+}
+
+<> 2022-06-25T121224.200.json
+
+###
+
+GET http://localhost:8008/eval/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T120337.200.json
+
+###
+
+DELETE http://localhost:8008/eval/delete/62b6dd5647710726ec73f309
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T120329.200.json
+
+###
+
+GET http://localhost:8008/eval/findById/62b6dd5647710726ec73f309
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T120320.200.json
+
+###
+
+GET http://localhost:8008/eval/getAll
+sessionid: 1111
+cuid: system
+
+<> 2022-06-25T120309.200.json
+
+###
+
+POST http://localhost:8008/eval/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "result": 5,
+  "ride": "620cbeaecc90432d95b598a0",
+  "user": "620cbeaecc90432d95b598a7"
+}
+
+<> 2022-06-25T120302.200.json
+
+###
+

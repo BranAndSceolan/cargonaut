@@ -6,25 +6,27 @@ cuid: system
 
 
 {
-  "name": "musterx",
+  "name": "uuu",
   "birthdate": "1-1-2000",
   "email": "muster@gmail.de",
-  "password": "willBeHashedAndSaltedInTheFuture"
+  "password": "password",
+  "description": "Hi, I am a driver!"
 }
 
 ###
 
-POST http://localhost:8008/user/update/62b1b922d87d2267525e9e69
+POST http://localhost:8008/user/update/62b6e7551474a964c9cb0862
 Content-Type: application/json
 sessionid: 1111
 cuid: system
 
 {
-  "name": "musterx",
+  "name": "safsads",
   "birthdate": "1-1-2000",
   "email": "muster@gmail.de",
-  "password": "willBeHashedAndSaltedInTheFuture",
+  "password": "password",
   "vehicles": ["620cbeaecc90432d95b598a0"],
+  "description": "Hi, I like driving!",
   "averageEvalOfRides": 4
 }
 
