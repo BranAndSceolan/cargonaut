@@ -214,25 +214,27 @@ export class UserController {
         } else{
             res.status(500).send("Sure that is a valid user?")
         }
-        this.userModule.updateUser(
-            new mongoose.Types.ObjectId(req.body.id),
-            new UserClass(
-                userName.trim(),
-                new Date(birthdate.trim()),
-                email.trim(),
-                password.trim(),
-                description,
-                vehicleIds,
-                avgEval
-            )
-        ).then(( result: User | null) => {
-            if (result) {
-                res.status(201).send(result)
-            }
-        }).catch((err: Error) => {
-            res.sendStatus(500)
-            printToConsole(`Something went wrong updating an User. \nERROR: ${err}`)
-        })
+        if (user?._id) {
+            this.userModule.updateUser(
+                user?._id,
+                new UserClass(
+                    userName.trim(),
+                    new Date(birthdate.trim()),
+                    email.trim(),
+                    password.trim(),
+                    description,
+                    vehicleIds,
+                    avgEval
+                )
+            ).then((result: User | null) => {
+                if (result) {
+                    res.status(201).send(result)
+                }
+            }).catch((err: Error) => {
+                res.sendStatus(500)
+                printToConsole(`Something went wrong updating an User. \nERROR: ${err}`)
+            })
+        }
     }
 
 }

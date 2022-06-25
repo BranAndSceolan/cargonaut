@@ -1,3 +1,56 @@
+POST http://localhost:8008/user/update/62b6ea097361e0637f39e05e
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "safsaökjiöds",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "vehicles": ["620cbeaecc90432d95b598a0"],
+  "description": "Hi, I like driving!",
+  "averageEvalOfRides": 4
+}
+
+<> 2022-06-25T125731.201.json
+
+###
+
+POST http://localhost:8008/user/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "uouho",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "description": "Hi, I am a driver!"
+}
+
+<> 2022-06-25T125713.201.json
+
+###
+
+POST http://localhost:8008/user/update/62b6e7551474a964c9cb0862
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "safsads",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "vehicles": ["620cbeaecc90432d95b598a0"],
+  "description": "Hi, I like driving!",
+  "averageEvalOfRides": 4
+}
+
+###
+
 POST http://localhost:8008/ride/update/62b6e878cc7d681b5e54d449
 Content-Type: application/json
 sessionid: 1111
