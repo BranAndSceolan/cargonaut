@@ -4,7 +4,6 @@ Content-Type: application/json
 sessionid: 1111
 cuid: system
 
-
 {
   "name": "uouho",
   "birthdate": "1-1-2000",
@@ -38,13 +37,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/user/getByName/muster
+GET http://localhost:8008/user/findById/62b4622328ed0b0006bdba40
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8008/user/delete/62b09ed0ac53f8f52347a7eb
+DELETE http://localhost:8008/user/delete/620cbeaecc90432d95b598a6
 Content-Type: application/json
 sessionid: 1111
 cuid: system

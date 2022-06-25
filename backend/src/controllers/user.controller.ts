@@ -83,8 +83,8 @@ export class UserController {
 
     /** ALL
      * Finds all User documents in the DB and returns them
-     * @param req : e.Request
      * needs no further params or body
+     * @param _req
      * @param res : e.Response
      * Returns a HTTP-Response containing a statuscode and, if successful, an array of all
      * Users saved in the DB in its body
@@ -98,9 +98,6 @@ export class UserController {
         })
     }
 
-    /** READ
-     * TODO: how do we get users?
-   */
 
 
     /** GETBYNAME
