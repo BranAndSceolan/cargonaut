@@ -1,6 +1,7 @@
 import express from 'express'
 import {Request, Response} from 'express'
 import {evaluationController} from '../controllers';
+import {authModule} from "../modules/auth";
 
 export const router = express.Router({
     strict: true
@@ -12,20 +13,20 @@ export const router = express.Router({
 
 // POST Routes
 router.post('/create', (req: Request, res: Response) => {
-    evaluationController.create(req, res)
+    authModule.checkLogin(req, res, evaluationController.create(req, res))
 })
 
 // GET Routes
 router.get('/getAll', (req: Request, res: Response) => {
-    evaluationController.getAll(req,res)
+    authModule.checkLogin(req, res, evaluationController.getAll(req,res))
 })
 
 router.get('/findById/:id', (req: Request, res: Response) => {
-    evaluationController.get(req,res)
+    authModule.checkLogin(req, res, evaluationController.get(req,res))
 })
 
 // DELETE Routes
 router.delete('/delete/:id', (req: Request, res: Response) => {
-    evaluationController.delete(req, res)
+    authModule.checkLogin(req, res, evaluationController.delete(req, res))
 })
 
