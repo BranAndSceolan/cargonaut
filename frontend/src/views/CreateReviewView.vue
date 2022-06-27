@@ -21,7 +21,7 @@ export default {
   name: "CreateReviewView.vue",
   data() {
     return {
-      value: 1
+      value: 0
     }
   }
 }
@@ -39,6 +39,7 @@ export default {
 .create {
   margin-left: 15rem;
   background: #005b52;
+  border-radius: 12px;
 }
 .rating {
   margin-top: 1rem;

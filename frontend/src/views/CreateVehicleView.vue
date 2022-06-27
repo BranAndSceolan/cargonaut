@@ -75,5 +75,6 @@ export default {
 .create {
   margin-left: 7.5rem;
   background: #005b52;
+  border-radius: 12px;
 }
 </style>
