@@ -52,6 +52,11 @@ const routes: Array<RouteConfig> = [
     path: '/detail',
     name: 'detail',
     component: () => import('../views/DetailView.vue')
+  },
+  {
+    path: '/register',
+    name: 'registe',
+    component: () => import('../views/RegisterView.vue')
   }
 ]
 
