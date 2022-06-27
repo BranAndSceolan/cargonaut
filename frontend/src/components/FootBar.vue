@@ -43,7 +43,7 @@ export default {
 .footer{
   display: flex;
   background: #005b52;
-  position: sticky;
+  position: fixed;
   width: 100%;
   height: 150px;
 }

@@ -2,6 +2,7 @@
   <div id="app">
     <NavBar></NavBar>
     <router-view/>
+    <div class="past-body"></div>
     <footBar></footBar>
   </div>
 </template>
@@ -26,6 +27,9 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+.past-body {
+  margin-bottom: 11rem;
 }
 </style>
 <script>
