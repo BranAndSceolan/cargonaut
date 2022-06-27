@@ -20,7 +20,7 @@ router.post("/login", (req: express.Request, res: express.Response) => {
 });
 
 router.post("/logout", (req: express.Request, res: express.Response) => {
-    authModule.checkLogin(req, res, authModule.logOut(req, res))
+    authModule.checkLogin(req, res, () => authModule.logOut(req, res))
 });
 
 /* // POST Routes
@@ -30,20 +30,20 @@ router.post('/create', (req: Request, res: Response) => {
 */
 
 router.post('/update/:id', (req: Request, res: Response) => {
-    authModule.checkLogin(req, res, userController.update(req, res))
+    authModule.checkLogin(req, res, () => userController.update(req, res))
 })
 
 // GET Routes
 router.get('/getAll', (req: Request, res: Response) => {
-    authModule.checkLogin(res, req, userController.getAllUsers(req,res))
+    authModule.checkLogin(req, res, () => userController.getAllUsers(req,res))
 })
 
 router.get('/getByName/:name', (req: Request, res: Response) => {
-   authModule.checkLogin(req, res, userController.getByName(req,res))
+   authModule.checkLogin(req, res, () => userController.getByName(req,res))
 })
 
 // DELETE Routes
 router.delete('/delete/:id', (req: Request, res: Response) => {
-    authModule.checkLogin(req, res, userController.delete(req, res))
+    authModule.checkLogin(req, res, () => userController.delete(req, res))
 })
 
