@@ -10,7 +10,7 @@
           <b-form-input v-model="name" placeholder="Name" class="input shadow-sm"></b-form-input>
         </b-input-group>
         <b-input-group id="sitze" class="date">
-          <b-form-input v-model="date" placeholder="Geburtsdatum" class="input shadow-sm"></b-form-input>
+          <b-form-input v-model="date" placeholder="Geburtsdatum (YYYY-MM-DD)" class="input shadow-sm"></b-form-input>
         </b-input-group>
         <b-input-group id="platz" class="email">
           <b-form-input v-model="email" placeholder="E-Mail" class="input shadow-sm"></b-form-input>
