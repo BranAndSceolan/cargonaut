@@ -9,11 +9,12 @@ export class AuthModule {
 
     async register(req: Request, res: Response) {
 //Check if username is already defined (from a previous session)
-        const registerName: string = req.body.registerName.trim();
-        const registerPass: string = req.body.registerPass.trim();
-        const registerBirthdate: string = req.body.registerBirthdate.trim();
-        const registerMail: string = req.body.registerMail.trim()
-        if (!registerName || !registerPass || !registerBirthdate){
+        const registerName: string = req.body.name.trim();
+        const registerPass: string = req.body.password.trim();
+        const registerBirthdate: string = req.body.birthdate.trim();
+        const registerMail: string = req.body.email.trim()
+        const registerDescription: string = req.body.description.trim()
+        if (!registerName || !registerPass || !registerBirthdate || !registerDescription){
             return res.status(400).send("Not all aguments given!")
         }
         const user: User | null = await userController.userModule.getUserByName(registerName.trim())
@@ -26,7 +27,8 @@ export class AuthModule {
                 registerName,
                 new Date(registerBirthdate),
                 registerMail,
-                registerPass
+                registerPass,
+                registerDescription
             ))
         if (newUser){
             req.session.signInName = registerName;
