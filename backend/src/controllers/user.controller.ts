@@ -38,6 +38,11 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
+        const description = req.body.description
+        if(!description) {
+            res.status(400).send("Description missing")
+            return
+        }
         const birthdate = req.body.birthdate
         if (!birthdate || !( typeof birthdate == 'string') || birthdate.trim() == ""){
             res.status(400).send("Birthdate missing")
@@ -59,12 +64,15 @@ export class UserController {
                     new Date(birthdate.trim()),
                     email.trim(),
                     password.trim(),
-                    vehicleIds
+                    description,
+                    vehicleIds,
+                    undefined
                 )
         ).then((id: mongoose.Types.ObjectId | null) => {
             if (id) {
                 res.status(201).send(id)
             } else {
+                console.log(res)
                 res.sendStatus(500)
             }
         }).catch((err: Error) => {
@@ -75,8 +83,8 @@ export class UserController {
 
     /** ALL
      * Finds all User documents in the DB and returns them
-     * @param req : e.Request
      * needs no further params or body
+     * @param _req
      * @param res : e.Response
      * Returns a HTTP-Response containing a statuscode and, if successful, an array of all
      * Users saved in the DB in its body
@@ -90,9 +98,6 @@ export class UserController {
         })
     }
 
-    /** READ
-     * TODO: how do we get users?
-   */
 
 
     /** GETBYNAME
@@ -171,6 +176,11 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
+        const description = req.body.description
+        if(!description) {
+            res.status(400).send("Description missing")
+            return
+        }
         const birthdate = req.body.birthdate
         if (!birthdate || !(typeof birthdate == 'string') || birthdate.trim() == "") {
             res.status(400).send("Birthdate missing")
@@ -196,29 +206,32 @@ export class UserController {
             avgEval = user.averageEvalOfRides
         }
         if (user && user._id) {
-            const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(new mongoose.Types.ObjectId(user._id))
-            avgEval = ((avgEval * evalsN) + newEval) / evalsN + 1
+            const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(user._id)
+            avgEval = ((avgEval * evalsN) + newEval) / (evalsN + 1)
         } else{
             res.status(500).send("Sure that is a valid user?")
         }
-        this.userModule.updateUser(
-            new mongoose.Types.ObjectId(req.body.id),
-            new UserClass(
-                userName.trim(),
-                new Date(birthdate.trim()),
-                email.trim(),
-                password.trim(),
-                vehicleIds,
-                avgEval
-            )
-        ).then(( result: User | null) => {
-            if (result) {
-                res.status(201).send(result)
-            }
-        }).catch((err: Error) => {
-            res.sendStatus(500)
-            printToConsole(`Something went wrong updating an User. \nERROR: ${err}`)
-        })
+        if (user?._id) {
+            this.userModule.updateUser(
+                user?._id,
+                new UserClass(
+                    userName.trim(),
+                    new Date(birthdate.trim()),
+                    email.trim(),
+                    password.trim(),
+                    description,
+                    vehicleIds,
+                    avgEval
+                )
+            ).then((result: User | null) => {
+                if (result) {
+                    res.status(201).send(result)
+                }
+            }).catch((err: Error) => {
+                res.sendStatus(500)
+                printToConsole(`Something went wrong updating an User. \nERROR: ${err}`)
+            })
+        }
     }
 
 }
