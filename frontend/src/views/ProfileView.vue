@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="area">
-        <OverBar class="mb-4" title="Reviews" v-on:contentHidden="reviewsHidden = $event"></OverBar>
+        <OverBar class="mb-4" title="Reviews" v-on:contentHidden="reviewsHidden = $event" address="/createReview"></OverBar>
         <div v-if="!reviewsHidden">
           <review-entry v-bind:key="index" v-for="(review, index) in reviews" :name="review.name" :date="review.date"
                         :desc="review.desc" :stars="review.stars"></review-entry>
