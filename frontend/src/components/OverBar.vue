@@ -4,7 +4,7 @@
       <p class="ml-4 my-2"> {{title}}</p>
     </div>
     <div class="col-2 iconContainer">
-      <router-link to="/create" class="link">
+      <router-link :to=address class="link">
         <font-awesome-icon class="icon mr-3" icon="fa-solid fa-plus"></font-awesome-icon>
       </router-link>
       <button class="iconButton ml-3" v-on:click="contentHidden=!contentHidden, $emit('contentHidden', contentHidden)">
@@ -23,7 +23,8 @@ export default {
     }
   },
   props: {
-    title: String
+    title: String,
+    address: String
   }
 }
 </script>

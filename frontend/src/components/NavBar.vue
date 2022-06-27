@@ -9,6 +9,7 @@
       <router-link to="/login" class="link">login</router-link>
       <router-link to="/create" class="link">create</router-link>
       <router-link to="/createVeh" class="link">createVehicle</router-link>
+      <router-link to="/createReview" class="link">createReview</router-link>
       <router-link to="/detail" class="link">detail</router-link>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">

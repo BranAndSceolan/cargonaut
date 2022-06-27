@@ -31,6 +31,7 @@ nav a.router-link-exact-active {
 <script>
 import NavBar from '@/components/NavBar'
 import FootBar from '@/components/FootBar'
+
 export default {
   components: { FootBar, NavBar }
 }
