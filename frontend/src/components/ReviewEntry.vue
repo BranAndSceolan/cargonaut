@@ -71,7 +71,7 @@ export default {
   float: right;
   margin-top: 2rem;
   text-align: right;
-  padding-right: 5rem;
+  padding-right: 1rem;
 }
 .desc {
   text-align: left;
@@ -84,5 +84,7 @@ export default {
   margin-bottom: 1rem;
   padding-top: 1rem;
   height: 7rem;
+  width: 95%;
+  margin-left: 1rem;
 }
 </style>
