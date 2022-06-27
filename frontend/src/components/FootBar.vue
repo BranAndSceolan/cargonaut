@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer fixed-bottom">
     <div><img src="../assets/cargonaut-white.png" class="logo" alt="Cargonaut logo"></div>
     <div class="text-white sitemap">
       <div class="headline">Sitemap</div>
@@ -44,8 +44,6 @@ export default {
   display: flex;
   background: #005b52;
   position: sticky;
-  bottom: 0;
-  left: 0;
   width: 100%;
   height: 150px;
 }
