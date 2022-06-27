@@ -18,8 +18,8 @@
 
 <script>
 export default {
-  name: "CreateReviewView.vue",
-  data() {
+  name: 'CreateReviewView.vue',
+  data () {
     return {
       value: 0
     }

@@ -42,12 +42,12 @@
 <script>
 import OverBar from '../components/OverBar'
 import CarEntry from '../components/CarEntry'
-import ReviewEntry from "@/components/ReviewEntry";
+import ReviewEntry from '@/components/ReviewEntry'
 import axios from 'axios'
 import TravelCard from '../components/travel-card'
 export default {
   name: 'ProfileView',
-  components: {ReviewEntry, TravelCard, CarEntry, OverBar },
+  components: { ReviewEntry, TravelCard, CarEntry, OverBar },
   data () {
     return {
       cars: [{ name: 'VW Amarok', seats: '2', room: '6' },
@@ -60,21 +60,23 @@ export default {
       desc: 'Ich biete eine entspannte und lässige fahrt von Hannover nach Gießen mit einem kleinen Zwischenstopp in Bielefeld zu meiner' +
         'Tante Hildegard. Für Musik und Snacks auf der Fahrt sind gesorgt, wobei besondes Jazz Fans sich abgeholt fühlen werden.' +
         'Snacks gibt es auch und zudem noch ausreichend Stauraum für Gepäck egal ob klein oder groß.',
-      reviews: [{name: 'Berta Gutenberg' , date: 'Juni 2020', desc: 'Tolle Fahrte und toller Fahrer. Hat mehrere interessante Geschichten aus seiner Jugend erzählt. ' +
-          'Generell war eine gute Luft im Auto anstelle des übliche Gestanks, das man von derartigen Autos erwarten würde.', stars: 5},
-        {name: "Max Mustermann", date: "Juni 2020", desc: "Schlechte Fahrt, schlechter Fahrer, 5/7 niewieder!", stars: 1}],
+      reviews: [{
+        name: 'Berta Gutenberg',
+        date: 'Juni 2020',
+        desc: 'Tolle Fahrte und toller Fahrer. Hat mehrere interessante Geschichten aus seiner Jugend erzählt. ' +
+          'Generell war eine gute Luft im Auto anstelle des übliche Gestanks, das man von derartigen Autos erwarten würde.',
+        stars: 5
+      },
+      { name: 'Max Mustermann', date: 'Juni 2020', desc: 'Schlechte Fahrt, schlechter Fahrer, 5/7 niewieder!', stars: 1 }],
       reviewsHidden: false,
       carsHidden: false,
       offersHidden: false
     }
   },
   mounted () {
-    /*
     axios.get('/vehicle/getAll').then(response => (this.cars = response.data)).catch((reason) => {
       console.log(reason)
     })
-
-     */
   }
 }
 </script>

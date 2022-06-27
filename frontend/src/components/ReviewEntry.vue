@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "ReviewEntry",
+  name: 'ReviewEntry',
   props: {
     name: String,
     date: String,

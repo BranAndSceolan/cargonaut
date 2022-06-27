@@ -5,10 +5,10 @@
     </div>
     <div class="card-body">
       <div class="dateBubble px-2"> {{ date }}</div>
-      <h3 class="card-title mb-1"> {{ name }}</h3>
+      <h3 class="card-title mb-1"> {{ title }}</h3>
       <div class="mb-3">
         <p class="card-text my-0">Sitze: {{seats}}</p>
-        <p class="card-text">Platz: {{room}}m³</p>
+        <p class="card-text">Platz: {{height}}m x {{length}}m x {{width}}m</p>
       </div>
       <div>
         <div class="row align-items-center">
@@ -16,7 +16,7 @@
             <font-awesome-icon class="dot" icon="fa-solid fa-circle-dot"></font-awesome-icon>
           </div>
           <div class="col ml-3">
-            <p class="card-text cityText">{{start}}</p>
+            <p class="card-text cityText">{{origin}}</p>
           </div>
         </div>
         <div class="line"></div>
@@ -26,7 +26,7 @@
             <font-awesome-icon class="dot" icon="fa-solid fa-circle-dot"></font-awesome-icon>
           </div>
           <div class="col-7 ml-3">
-            <p class="card-text cityText">{{stop}}</p>
+            <p class="card-text cityText">{{destination}}</p>
           </div>
           <div class="text-right mt-1" style="color: grey; font-size: 1.1em">{{price}}€</div>
         </div>
@@ -63,13 +63,15 @@
 export default {
   name: 'travel-card',
   props: {
-    date: Date,
-    name: String,
+    date: String,
+    title: String,
     seats: Number,
-    room: Number,
-    start: String,
+    height: Number,
+    width: Number,
+    length: Number,
+    origin: String,
     layover: String,
-    stop: String,
+    destination: String,
     price: Number
   }
 }
