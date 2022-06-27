@@ -1,5 +1,6 @@
 stages:
   - build-backend
+  - build-frontend
   - build-docker
 
 build-backend:
@@ -10,6 +11,14 @@ build-backend:
     - cd backend
   script:
     - npm install
+
+build-frontend:
+  stage: build-frontend
+  tags:
+    - npm
+  before_script:
+    - cd frontend
+  script: npm install
 
 build-docker:
   stage: build-docker
