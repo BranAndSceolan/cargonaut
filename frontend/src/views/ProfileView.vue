@@ -29,17 +29,25 @@
           </div>
         </div>
       </div>
+      <div class="area">
+        <OverBar class="mb-4" title="Reviews" v-on:contentHidden="reviewsHidden = $event"></OverBar>
+        <div v-if="!reviewsHidden">
+          <review-entry v-bind:key="index" v-for="(review, index) in reviews" :name="review.name" :date="review.date"
+                        :desc="review.desc" :stars="review.stars"></review-entry>
+        </div>
+      </div>
     </div>
 </template>
 
 <script>
 import OverBar from '../components/OverBar'
 import CarEntry from '../components/CarEntry'
+import ReviewEntry from "@/components/ReviewEntry";
 import axios from 'axios'
 import TravelCard from '../components/travel-card'
 export default {
   name: 'ProfileView',
-  components: { TravelCard, CarEntry, OverBar },
+  components: {ReviewEntry, TravelCard, CarEntry, OverBar },
   data () {
     return {
       cars: [{ name: 'VW Amarok', seats: '2', room: '6' },
@@ -49,6 +57,13 @@ export default {
         { name: 'Ich entführe euch alle', start: 'Pausenhof', stop: '???', seats: '6', room: '8', price: '29,99' },
         { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' },
         { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' }],
+      desc: 'Ich biete eine entspannte und lässige fahrt von Hannover nach Gießen mit einem kleinen Zwischenstopp in Bielefeld zu meiner' +
+        'Tante Hildegard. Für Musik und Snacks auf der Fahrt sind gesorgt, wobei besondes Jazz Fans sich abgeholt fühlen werden.' +
+        'Snacks gibt es auch und zudem noch ausreichend Stauraum für Gepäck egal ob klein oder groß.',
+      reviews: [{name: 'Berta Gutenberg' , date: 'Juni 2020', desc: 'Tolle Fahrte und toller Fahrer. Hat mehrere interessante Geschichten aus seiner Jugend erzählt. ' +
+          'Generell war eine gute Luft im Auto anstelle des übliche Gestanks, das man von derartigen Autos erwarten würde.', stars: 5},
+        {name: "Max Mustermann", date: "Juni 2020", desc: "Schlechte Fahrt, schlechter Fahrer, 5/7 niewieder!", stars: 1}],
+      reviewsHidden: false,
       carsHidden: false,
       offersHidden: false
     }

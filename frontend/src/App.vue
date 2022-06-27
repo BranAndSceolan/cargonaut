@@ -2,7 +2,6 @@
   <div id="app">
     <NavBar></NavBar>
     <router-view/>
-    <ReviewEntry></ReviewEntry>
     <footBar></footBar>
   </div>
 </template>
@@ -32,8 +31,8 @@ nav a.router-link-exact-active {
 <script>
 import NavBar from '@/components/NavBar'
 import FootBar from '@/components/FootBar'
-import ReviewEntry from "@/components/ReviewEntry";
+
 export default {
-  components: {ReviewEntry, FootBar, NavBar }
+  components: { FootBar, NavBar }
 }
 </script>
