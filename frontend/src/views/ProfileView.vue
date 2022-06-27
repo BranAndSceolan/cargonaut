@@ -17,23 +17,18 @@
       <div class="row mx-4">
         <OverBar title="Fahrzeuge" v-on:contentHidden="carsHidden = $event" address="/createVeh"></OverBar>
         <div class="w-100 mr-5" v-if="!carsHidden">
-          <CarEntry v-for="(car, index) in cars" v-bind:key="index" :name="car.name" :seats="car.seats" :room="car.room"></CarEntry>
+          <CarEntry v-for="vehicle in this.user.vehicles" v-bind:key="vehicle.id" :name="vehicle.type" :seats="vehicle.numberOfSeats" :room="vehicle.spaceLength"></CarEntry>
         </div>
       </div>
       <div class="row mx-4">
         <OverBar class="mb-4" title="Angebote" v-on:contentHidden="offersHidden = $event" address="/create" ></OverBar>
         <div class="col w-100">
           <div v-if="!offersHidden" class="card-columns">
-            <travel-card class="mb-4 mx-1 mr-4" v-for="(offer, index) in offers" v-bind:key="index"  :name="offer.name" :start="offer.start"
-                         :stop="offer.stop" :seats="offer.seats" :room="offer.room" :price="offer.price"></travel-card>
+            <travel-card class="mx-4 mt-4" v-for="offer in userOffers" v-bind:key="offer.id"  :title="offer.title" :origin="offer.origin"
+                         :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
+                         :width="'X'" :price="offer.price" :date="offer.date">
+            </travel-card>
           </div>
-        </div>
-      </div>
-      <div class="area">
-        <OverBar class="mb-4" title="Reviews" v-on:contentHidden="reviewsHidden = $event" address="/createReview"></OverBar>
-        <div v-if="!reviewsHidden">
-          <review-entry v-bind:key="index" v-for="(review, index) in reviews" :name="review.name" :date="review.date"
-                        :desc="review.desc" :stars="review.stars"></review-entry>
         </div>
       </div>
     </div>
@@ -47,36 +42,45 @@ import axios from 'axios'
 import TravelCard from '../components/travel-card'
 export default {
   name: 'ProfileView',
-  components: { ReviewEntry, TravelCard, CarEntry, OverBar },
+  components: { TravelCard, CarEntry, OverBar },
   data () {
     return {
-      cars: [{ name: 'VW Amarok', seats: '2', room: '6' },
-        { name: 'Wroom Wroom', seats: '2', room: '1' }],
-      offers: [{ name: 'looper1', start: 'City1', stop: 'city2', seats: '5', room: '6', price: '19,99' },
-        { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' },
-        { name: 'Ich entführe euch alle', start: 'Pausenhof', stop: '???', seats: '6', room: '8', price: '29,99' },
-        { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' },
-        { name: 'looper2', start: 'City2', stop: 'city3', seats: '6', room: '8', price: '29,99' }],
-      desc: 'Ich biete eine entspannte und lässige fahrt von Hannover nach Gießen mit einem kleinen Zwischenstopp in Bielefeld zu meiner' +
-        'Tante Hildegard. Für Musik und Snacks auf der Fahrt sind gesorgt, wobei besondes Jazz Fans sich abgeholt fühlen werden.' +
-        'Snacks gibt es auch und zudem noch ausreichend Stauraum für Gepäck egal ob klein oder groß.',
+      user: {
+        id: '1',
+        name: 'Max Mustermann',
+        birthday: 'Juni 2020',
+        description: 'Ich biete eine entspannte und lässige fahrt von Hannover nach Gießen mit einem kleinen Zwischenstopp in Bielefeld zu meiner' +
+          'Tante Hildegard. Für Musik und Snacks auf der Fahrt sind gesorgt, wobei besondes Jazz Fans sich abgeholt fühlen werden.' +
+          'Snacks gibt es auch und zudem noch ausreichend Stauraum für Gepäck egal ob klein oder groß.',
+        averageEvalOfRides: 1,
+        vehicles: [{ _id: '1', type: 'VW Amarok', numberOfSeats: 2, spaceWidth: 6, spaceHeight: 4, spaceLength: 4 }]
+      },
+      offers: [],
       reviews: [{
         name: 'Berta Gutenberg',
         date: 'Juni 2020',
         desc: 'Tolle Fahrte und toller Fahrer. Hat mehrere interessante Geschichten aus seiner Jugend erzählt. ' +
           'Generell war eine gute Luft im Auto anstelle des übliche Gestanks, das man von derartigen Autos erwarten würde.',
         stars: 5
-      },
-      { name: 'Max Mustermann', date: 'Juni 2020', desc: 'Schlechte Fahrt, schlechter Fahrer, 5/7 niewieder!', stars: 1 }],
+      }],
       reviewsHidden: false,
       carsHidden: false,
       offersHidden: false
     }
   },
   mounted () {
-    axios.get('/vehicle/getAll').then(response => (this.cars = response.data)).catch((reason) => {
-      console.log(reason)
-    })
+    axios.get('/users/user/getAll').then(response => (this.user = response.data[0]))
+    for (const i in this.user.vehicles) {
+      axios.get('/vehicle/findById/' + i).then(response => (this.user.vehicles.add(response.data))).catch((reason) => {
+        console.log(reason)
+      })
+    }
+    axios.get('/rides/getAll').then(response => (this.offers = response.data))
+  },
+  computed: {
+    userOffers () {
+      return this.offers.filter(offer => offer.user === this.user.id)
+    }
   }
 }
 </script>

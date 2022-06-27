@@ -16,10 +16,10 @@
       </b-input-group>
       <div class="row">
         <div class="col-10 card-columns">
-          <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer.id"  :title="offer.title" :origin="offer.origin"
-                       :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
-                       :width="'X'" :price="offer.price" :date="offer.date">
-          </travel-card>
+            <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer._id" :id="offer._id" :title="offer.title" :origin="offer.origin"
+                         :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
+                         :width="'X'" :price="offer.price" :date="offer.date">
+            </travel-card>
         </div>
         <filter-list></filter-list>
       </div>
@@ -42,7 +42,6 @@ export default {
   },
   methods: {
     getOffers () {
-      // axios routes are in extra methods at the moment, because I can't test them atm
       axios.get('/ride/getAll').then(response => (this.offers = response.data))
     }
   },

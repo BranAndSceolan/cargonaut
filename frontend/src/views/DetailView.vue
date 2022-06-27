@@ -8,10 +8,10 @@
       <b-card class="shadow" style="width: 20rem; border-radius: 15px">
         <b-card-body>
           <div>
-            <div class="card-head"> {{ title }} </div>
+            <div class="card-head"> {{ offer.title }} </div>
             <div class="row">
-              <div class="col-sm-4"> Sitze: {{seats}} </div>
-              <div class="col-sm-5"> Platz: {{room}}m&sup3; </div>
+              <div class="col-sm-4"> Sitze: {{ offer.numberOfFreeSeats }} </div>
+              <div class="col-sm-5"> Platz: X m&sup3; </div>
               <div> {{price}}€ </div>
             </div>
           </div>
@@ -31,7 +31,7 @@
    <div class="area">
      <div class="title"> Bescheibung </div>
      <div class="desc-content">
-       {{ desc }}
+       {{ description }}
      </div>
    </div>
    <div class="area">
@@ -52,12 +52,17 @@
 import CarEntry from '@/components/CarEntry'
 import OverBar from '@/components/OverBar'
 import ReviewEntry from '@/components/ReviewEntry'
+import axios from 'axios'
 
 export default {
   name: 'DetailView',
   components: { ReviewEntry, CarEntry, OverBar },
+  props: {
+    id: String
+  },
   data () {
     return {
+      offer: {},
       title: 'Schnelle fahrt nach Gießen',
       seats: 2,
       room: 1,
@@ -76,6 +81,9 @@ export default {
       { name: 'Max Mustermann', date: 'Juni 2020', desc: 'Schlechte Fahrt, schlechter Fahrer, 5/7 niewieder!', stars: 1 }],
       reviewsHidden: false
     }
+  },
+  mounted () {
+    axios.get('/vehicle/findById/' + this.id).then(response => (this.offer = response.data))
   }
 }
 </script>
