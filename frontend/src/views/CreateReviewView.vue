@@ -1,6 +1,6 @@
 <template>
   <b-card
-    style="width: 40rem; margin: auto"
+    style="width: 40rem; margin: auto; border-radius: 20px"
     class="mb-2 text-left shadow"
   >
     <b-card-body class="body">

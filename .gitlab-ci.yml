@@ -1,13 +1,32 @@
+stages:
+  - build-backend
+  - build-frontend
+  - build-docker
 
-
-docker build:
-  stage: build
+build-backend:
+  stage: build-backend
   tags:
     - npm
-  script:
+  before_script:
     - cd backend
+  script:
     - npm install
+
+build-frontend:
+  stage: build-frontend
+  tags:
+    - npm
+  before_script:
+    - cd frontend
+  script: npm install
+
+build-docker:
+  stage: build-docker
+  tags:
+    - docker
+  script:
     - NODE_ENV=test_docker_free npm run test
+
  # rules:
  #   - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "dev"
  #   - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "22-implement-pipeline"

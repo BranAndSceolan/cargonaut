@@ -1,7 +1,7 @@
 <template>
   <b-card
     title="Login"
-    style="width: 25rem; margin: auto"
+    style="width: 25rem; margin: auto; border-radius: 20px"
     class="mb-2 text-left shadow"
   >
     <b-card-body>
