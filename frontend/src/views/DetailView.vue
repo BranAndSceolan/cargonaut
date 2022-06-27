@@ -51,11 +51,11 @@
 <script>
 import CarEntry from '@/components/CarEntry'
 import OverBar from '@/components/OverBar'
-import ReviewEntry from "@/components/ReviewEntry";
+import ReviewEntry from '@/components/ReviewEntry'
 
 export default {
   name: 'DetailView',
-  components: {ReviewEntry, CarEntry, OverBar },
+  components: { ReviewEntry, CarEntry, OverBar },
   data () {
     return {
       title: 'Schnelle fahrt nach Gießen',
@@ -66,9 +66,14 @@ export default {
         'Tante Hildegard. Für Musik und Snacks auf der Fahrt sind gesorgt, wobei besondes Jazz Fans sich abgeholt fühlen werden.' +
         'Snacks gibt es auch und zudem noch ausreichend Stauraum für Gepäck egal ob klein oder groß.',
       cars: [{ name: 'VW Amarok', seats: '2', room: '6' }],
-      reviews: [{name: 'Berta Gutenberg' , date: 'Juni 2020', desc: 'Tolle Fahrte und toller Fahrer. Hat mehrere interessante Geschichten aus seiner Jugend erzählt. ' +
-          'Generell war eine gute Luft im Auto anstelle des übliche Gestanks, das man von derartigen Autos erwarten würde.', stars: 5},
-        {name: "Max Mustermann", date: "Juni 2020", desc: "Schlechte Fahrt, schlechter Fahrer, 5/7 niewieder!", stars: 1}],
+      reviews: [{
+        name: 'Berta Gutenberg',
+        date: 'Juni 2020',
+        desc: 'Tolle Fahrte und toller Fahrer. Hat mehrere interessante Geschichten aus seiner Jugend erzählt. ' +
+          'Generell war eine gute Luft im Auto anstelle des übliche Gestanks, das man von derartigen Autos erwarten würde.',
+        stars: 5
+      },
+      { name: 'Max Mustermann', date: 'Juni 2020', desc: 'Schlechte Fahrt, schlechter Fahrer, 5/7 niewieder!', stars: 1 }],
       reviewsHidden: false
     }
   }
