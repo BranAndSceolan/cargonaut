@@ -1,6 +1,6 @@
 <template>
   <b-card
-    style="width: 25rem; margin: auto"
+    style="width: 35rem; margin: auto; border-radius: 20px"
     class="mb-2 text-left shadow"
   >
     <b-card-body class="body">
@@ -16,14 +16,16 @@
           <b-form-input v-model="email" placeholder="E-Mail" class="input shadow-sm"></b-form-input>
         </b-input-group>
         <b-input-group id="desc" class="desc">
-          <b-form-input v-model="desc" placeholder="Beschreibung" class="input shadow-sm"></b-form-input>
+          <b-textarea rows="3" no-resize placeholder="Beschreibung" class="input desc shadow"></b-textarea>
         </b-input-group>
-        <b-input-group id="desc" class="pw1">
-          <b-form-input v-model="password1" placeholder="Passwort" type="password" class="input shadow-sm"></b-form-input>
-        </b-input-group>
-        <b-input-group id="desc" class="pw2">
-          <b-form-input v-model="password2" placeholder="Passwort (Wdh.)" type="password" class="input shadow-sm"></b-form-input>
-        </b-input-group>
+        <div class="row">
+          <b-input-group id="desc" class="pw1 col-6">
+            <b-form-input v-model="password1" placeholder="Passwort" type="password" class="input shadow-sm"></b-form-input>
+          </b-input-group>
+          <b-input-group id="desc" class="pw2 col-6">
+            <b-form-input v-model="password2" placeholder="Passwort (Wdh.)" type="password" class="input shadow-sm"></b-form-input>
+          </b-input-group>
+          </div>
       </div>
     </b-card-body>
     <b-card-footer class="foot">
@@ -53,5 +55,21 @@ export default {
   font-size: 36px;
   color: grey;
   font-weight: bold;
+}
+.body {
+  width: 90%;
+  margin: auto;
+}
+.create {
+  margin-left: 2.5rem;
+  width: 25rem;
+  background: #005b52;
+  border-radius: 20px;
+}
+.foot {
+  background: white;
+}
+.input {
+  margin-bottom: 10px;
 }
 </style>
