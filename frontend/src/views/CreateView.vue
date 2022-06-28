@@ -14,7 +14,7 @@
             <b-form-input v-model="seat" placeholder="Sitze" class="input shadow-sm"></b-form-input>
           </b-input-group>
           <b-input-group id="platz" class="space">
-            <b-form-input v-model="space" placeholder="Platz" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="space" placeholder="Platz" type="number" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
         <b-input-group id="desc" class="desc row">
@@ -57,7 +57,7 @@
         <b-input-group class="foot-template">
           <b-button id="create" v-on:click="create" class="create"> Create </b-button>
           <b-input-group-append>
-            <b-form-input v-model="price" placeholder="Preis" class="input shadow-sm price" id="price"></b-form-input>
+            <b-form-input v-model="price" placeholder="Preis" type="number" class="input shadow-sm price" id="price"></b-form-input>
           </b-input-group-append>
         </b-input-group>
     </b-card-footer>
@@ -81,9 +81,29 @@ export default {
   },
   methods: {
     create () {
-      axios.post('/ride/create',
-        { title: this.title, seats: this.seats, space: this.space, desc: this.desc, navData: this.navData, price: this.price })
-        .then().catch(reason => { console.log(reason) })
+      console.log(this.title)
+      console.log(this.seat)
+      console.log(this.desc)
+      console.log(this.navData[0].date)
+      console.log(this.navData[0].town)
+      console.log(this.navData[2].town)
+      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
+        axios.post('/ride/create',
+          {
+            date: this.navData[0].date,
+            origin: this.navData[0].town,
+            destination: this.navData[2].town,
+            title: this.title,
+            description: this.desc,
+            price: Number(this.price),
+            numberOfFreeSeats: Number(this.seat),
+            user: 'none',
+            pendingReqs: [],
+            accReqs: []
+          })
+          .then().catch(reason => { console.log(reason) })
+        this.$router.push('/overview')
+      }
     }
   }
 }
