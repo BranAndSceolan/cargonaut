@@ -15,6 +15,24 @@ npm run serve
 npm run build
 ```
 
+### IN CASE OF PROBLEMS
+-> version to new
+```
+npm --legacy-peer-deps install
+```
+-> vue cli not installed
+```
+npm install -g @vue/cli
+```
+-> eslint not found
+```
+vue add eslint                    
+```
+-> bootstrap missing
+```
+vue add bootstrap-vue
+```
+
 ### Run your unit tests
 ```
 npm run test:unit
