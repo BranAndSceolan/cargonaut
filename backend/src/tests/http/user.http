@@ -14,13 +14,13 @@ cuid: system
 
 ###
 
-POST http://localhost:8008/user/update/620cbeaecc90432d95b598a0
+POST http://localhost:8008/user/update/62b6ea097361e0637f39e05e
 Content-Type: application/json
 sessionid: 1111
 cuid: system
 
 {
-  "name": "testUpdate",
+  "name": "safsaökjiöds",
   "birthdate": "1-1-2000",
   "email": "muster@gmail.de",
   "password": "password",
@@ -43,7 +43,7 @@ cuid: system
 
 ###
 
-DELETE http://localhost:8008/user/delete/620cbeaecc90432d95b598a0
+DELETE http://localhost:8008/user/delete/620cbeaecc90432d95b598a6
 Content-Type: application/json
 sessionid: 1111
 cuid: system

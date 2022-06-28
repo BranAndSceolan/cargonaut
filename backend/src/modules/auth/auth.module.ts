@@ -9,11 +9,11 @@ export class AuthModule {
 
     async register(req: Request, res: Response) {
 //Check if username is already defined (from a previous session)
-        const registerName: string = req.body.name
-        const registerPass: string = req.body.password
-        const registerBirthdate: string = req.body.birthdate
-        const registerMail: string = req.body.email
-        const registerDescription: string = req.body.description
+        const registerName: string = req.body.name.trim();
+        const registerPass: string = req.body.password.trim();
+        const registerBirthdate: string = req.body.birthdate.trim();
+        const registerMail: string = req.body.email.trim()
+        const registerDescription: string = req.body.description.trim()
         if (!registerName || !registerPass || !registerBirthdate || !registerDescription){
             return res.status(400).send("Not all aguments given!")
         }
@@ -83,16 +83,16 @@ export class AuthModule {
         });
     }
 
-    checkLogin(req : Request, res: Response, next: NextFunction): void {
-        if (config.get('disableAuth') == "true") {
-            next();
-            return;
-        }
+    checkLogin(req : Request, res: Response, next: NextFunction) {
+        if (config.get('disableAuth') == "true") return next();
         if (req.session.signInName) {
-            next();
-            return;
+            if (req.body.name && req.body.name != req.session.signInName){
+                res.status(401)
+            }else {
+                next()
+            }
         } else {
-            res.sendStatus(401)
+            res.status(401)
         }
     }
 

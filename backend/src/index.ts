@@ -44,7 +44,7 @@ app.use(session({
     resave: true, // save session even if not modified
     saveUninitialized: true, // save session even if not used
     rolling: true, // forces cookie set on every response needed to set expiration
-    secret: crypto.randomInt(0, 10000).toString(), // encrypt session-id in cookie using "secret" as modifier
+    secret: crypto.randomInt(0, 1000000).toString(), // encrypt session-id in cookie using "secret" as modifier
     name: "myawesomecookie", // name of the cookie set is set by the server
     //TODO: cookie: {secure: true} //enable this as soon as https-certificates are included and we use https for our messages
     // only then will this application be secure!
