@@ -5,17 +5,21 @@ sessionid: 1111
 cuid: system
 
 {
-  "date": "1-12-2022",
-  "origin": "munich",
-  "destination": "berlin",
+"date": "1-12-2022",
+"origin": "munich",
+"destination": "berlin",
+"title": "nice ride",
+  "description": "We go from munich to berlin!",
+  "numberOfFreeSeats": 4,
+  "price": 20,
   "user": "620cbeaecc90432d95b598a0",
-  "vehicle": "62b1b878d87d2267525e9e5b",
+"vehicle": "62b1b878d87d2267525e9e5b",
   "pendingReqs" : [],
-  "accReqs": []
+"accReqs": []
 }
 
 ###
-POST http://localhost:8008/ride/update/62b1f4d1e01df875512d2e2a
+POST http://localhost:8008/ride/update/62b6e878cc7d681b5e54d449
 Content-Type: application/json
 sessionid: 1111
 cuid: system
@@ -24,7 +28,11 @@ cuid: system
   "date": "1-12-2022",
   "origin": "munich",
   "destination": "berlin",
-  "user": "620cbeaecc90432d95b598a0",
+  "title": "from munich to berlin",
+  "description": "We drive from munich to berlin",
+  "numberOfFreeSeats": 3,
+  "price": 20,
+  "user": "620cbeaecc90432d95b598a",
   "vehicle": "62b1b878d87d2267525e9e5b",
   "pendingReqs" : ["620cbeaecc90432d95b598a0"],
   "accReqs": []
@@ -38,13 +46,13 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/ride/findById/62b1f4d1e01df875512d2e2a
+GET http://localhost:8008/ride/findById/62b6e0f947710726ec73f315
 sessionid: 1111
 cuid: system
 
 ###
 
-DELETE http://localhost:8008/ride/delete/62b1f4d1e01df875512d2e2a
+DELETE http://localhost:8080/ride/delete/62b6e0f947710726ec73f315
 Content-Type: application/json
 sessionid: 1111
 cuid: system

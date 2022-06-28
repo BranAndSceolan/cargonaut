@@ -1,20 +1,49 @@
+stages:
+  - build-backend
+  - build-frontend
+  - build-docker
 
-
-docker build:
-  stage: build
-  script: NODE_ENV=docker_dev docker-compose up --build --detach
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "dev"
-
-
-pages:
-  stage: deploy
+build-backend:
+  stage: build-backend
   tags:
-    - alpine
+    - npm
+  before_script:
+    - cd backend
   script:
-    - echo 'Just declare artifact...'
-  artifacts:
-    paths:
-    - src/public
+    - npm install
+
+build-frontend:
+  stage: build-frontend
+  tags:
+    - npm
+  before_script:
+    - cd frontend
+  script:
+    - npm install
+
+build-docker:
+  stage: build-docker
+  tags:
+    - docker
+  script:
+    - NODE_ENV=test_docker_free npm run test
   rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    - when: never
+
+ # rules:
+ #   - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "dev"
+ #   - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "22-implement-pipeline"
+#
+
+#pages:
+#  stage: deploy
+#  tags:
+#    - alpine
+#  script:
+#    - echo 'Just declare artifact...'
+#  artifacts:
+#    paths:
+#    - src/public
+#  rules:
+#    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+#

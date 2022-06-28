@@ -2,9 +2,9 @@ import express from "express";
 import {Application, Request, Response} from "express";
 import * as path from "path";
 import {PORT} from "./config/config.json";
-import cors from 'cors';
 import {MongoModule} from "./modules/mongo/mongo.module";
 import config from "config";
+import * as crypto from "crypto";
 import {
     evalRouter,
     rideRouter,
@@ -12,11 +12,13 @@ import {
     userRouter,
     vehicleRouter
 } from "./routes/index"
+import session from "express-session";
+import helmet from "helmet";
 
 const mongo: MongoModule = new MongoModule();
 mongo.connectToMongo().then(mongoose => {
     console.log(`Connected to MongoDB at ${config.get('Database.mongoURL')}, database: ${mongoose.connection?.db.databaseName}\n`)
-}).catch((err:any) => {
+}).catch((err: never) => {
     console.log(`Error: Couldn't establish connection to MongoDB at ${config.get('Database.mongoURL')}`)
     console.log(`Is your Docker daemon running?`)
     console.log(`=> sudo systemctl start docker`)
@@ -26,10 +28,30 @@ mongo.connectToMongo().then(mongoose => {
     process.exit()
 })
 
+// add "signInName" to session store
+declare module "express-session" {
+    interface Session {
+        signInName: string;
+    }
+}
+
+
 // Boot express
 export const app: Application = express();
+app.use(express.urlencoded({extended: false}));
+app.use(helmet())
+app.use(session({
+    resave: true, // save session even if not modified
+    saveUninitialized: true, // save session even if not used
+    rolling: true, // forces cookie set on every response needed to set expiration
+    secret: crypto.randomInt(0, 1000000).toString(), // encrypt session-id in cookie using "secret" as modifier
+    name: "myawesomecookie", // name of the cookie set is set by the server
+    //TODO: cookie: {secure: true} //enable this as soon as https-certificates are included and we use https for our messages
+    // only then will this application be secure!
+    cookie: {maxAge: 20*1000}
+}));
 app.use(express.json())
-app.use(cors())
+//app.use(cors())
 app.use(express.urlencoded({
     extended: true
 }));
@@ -41,8 +63,10 @@ app.use('/ride', rideRouter)
 app.use('/req', requestRouter)
 app.use('/vehicle', vehicleRouter)
 
+
+app.use(express.static(path.join(__dirname, "./public")))
 app.get('/', (_req: Request, res: Response) => {
-    res.status(200).sendFile(path.join(__dirname, "/public/index.html"))
+    res.status(200).sendFile(path.join(__dirname, "./public/index.html"))
 });
 
 // Start server

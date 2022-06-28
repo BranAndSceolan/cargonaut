@@ -3,6 +3,7 @@ import {MongoModule} from "../modules/mongo/mongo.module";
 import mongoose from "mongoose";
 import {RideModule} from "../modules/entities/ride.module";
 import {RideClass} from "../models/ride.model";
+import {userController} from "./index";
 
 /**
  * Controller for all rides, providing all functionalities e.g. (create, read, update, delete)
@@ -21,8 +22,9 @@ export class RideController {
      * @param req
      * @param res
      */
-    public create(req: Request, res: Response): void {
-        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.user && req.body.vehicle && req.body.pendingReqs && req.body.accReqs){
+    public async create(req: Request, res: Response): Promise<void> {
+        const user = await userController.userModule.getUserByName(req.session.signInName)
+        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && user?._id && req.body.pendingReqs && req.body.accReqs){
 
             this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.user, req.body.vehicle, req.body.pendingReqs, req.body.accReqs)).then(result =>{
                 if (result) {
@@ -80,8 +82,9 @@ export class RideController {
         }).catch(() => res.status(500).send("Internal Server Error"));
     }
 
-    public update(req: Request, res: Response): void {
-        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.user && req.body.vehicle){
+    public async update(req: Request, res: Response): Promise<void> {
+        const user = await userController.userModule.getUserByName(req.session.signInName)
+        if (req.body && req.params.id && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.vehicle && req.body.description && req.body.numberOfFreeSeats && req.body.price && user?._id){
             let accReq = undefined
             let penReq = undefined
             if (req.body.pendingReqs){
@@ -90,7 +93,7 @@ export class RideController {
             if (req.body.accReqs){
                 accReq = req.body.accReqs
             }
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.user,req.body.vehicle, penReq, accReq)).then(result =>{
+            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.vehicle, req.body.description, req.body.numberOfFreeSeats, req.body.price, user._id, penReq, accReq)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {
@@ -98,6 +101,9 @@ export class RideController {
                 }
             });
         } else {
+            if(!user){
+                res.sendStatus(500)
+            }
             res.status(400).send("Bad Request")
         }
     }
