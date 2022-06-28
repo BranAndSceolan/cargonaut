@@ -150,6 +150,7 @@ export class MongoModule {
                 origin : newRide.origin,
                 destinantion: newRide.destination,
                 user: newRide.user,
+                vehicle: newRide.vehicle,
                 pendingReqs: newRide.pendingReqs,
                 accReqs: newRide.accReqs
             }

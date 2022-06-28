@@ -38,6 +38,7 @@ export const rideSchema = new Schema<Ride>({
     origin: {type: String, required: true},
     destination: {type: String, required: true},
     user: {type: mongoose.Types.ObjectId, required: true},
+    vehicle: {type: mongoose.Types.ObjectId, required: true},
     pendingReqs: {type: [mongoose.Types.ObjectId], required: false},
     accReqs: {type: [mongoose.Types.ObjectId], required: false}
 });
