@@ -6,7 +6,7 @@ cuid: system
 
 
 {
-  "name": "musterx",
+  "name": "Karl",
   "birthdate": "1-1-2000",
   "email": "muster@gmail.de",
   "password": "willBeHashedAndSaltedInTheFuture"
@@ -14,13 +14,13 @@ cuid: system
 
 ###
 
-POST http://localhost:8008/user/update/62b1b922d87d2267525e9e69
+POST http://localhost:8008/user/update/62bb2ee6448f017a9139a63c
 Content-Type: application/json
 sessionid: 1111
 cuid: system
 
 {
-  "name": "musterx",
+  "name": "Karl",
   "birthdate": "1-1-2000",
   "email": "muster@gmail.de",
   "password": "willBeHashedAndSaltedInTheFuture",

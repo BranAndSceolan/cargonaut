@@ -1,7 +1,6 @@
 import {app} from '../../index';
 import chai from 'chai';
 import chaiHttp from "chai-http";
-import {printToConsole} from "../../modules/util/util.module";
 import * as mongoose from "mongoose";
 
 
@@ -20,14 +19,12 @@ export async function userTest() {
 
         it(`should return 201 and id of created user`, async () => {
             return await chai.request(app).post('/user/create').send({
-                "name": "Georg",
+                "name": "Johann",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123"
             }).then(res => {
-                console.log(res.body)
                 userId = res.body;
-                console.log(userId)
                 chai.expect(res.status).to.equal(201);
                 chai.expect(res.body).to.equal(userId);
             })
@@ -55,10 +52,8 @@ export async function userTest() {
         })
 
         it(`should return 200 and the correct user`, async () => {
-            return await chai.request(app).get(`/user/getByName/Georg`).then(async res => {
+            return await chai.request(app).get(`/user/getByName/Johann`).then(async res => {
                 chai.expect(res.status).to.equal(200);
-                console.log("user id" + userId);
-                console.log(res.body)
                 chai.expect(res.body._id).to.equal(userId);
             })
         })
@@ -73,7 +68,7 @@ export async function userTest() {
                 "password": "123",
                 "averageEvalOfRides": 0
             }).then(res => {
-                printToConsole(res.body)
+                console.log(res.body)
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body._id).to.equal(userId);
             })

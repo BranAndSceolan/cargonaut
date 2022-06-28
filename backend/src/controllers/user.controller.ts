@@ -211,9 +211,9 @@ export class UserController {
                 vehicleIds,
                 avgEval
             )
-        ).then(( result: User | null) => {
+        ).then((result: User | null) => {
             if (result) {
-                res.status(201).send(result)
+                res.status(200).send(result)
             }
         }).catch((err: Error) => {
             res.sendStatus(500)
