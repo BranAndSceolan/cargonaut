@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-sm-2">
           <div class="picContainer">
-            <img class="profilePic" alt="Profile pic" src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Helmut_Kohl_%281996%29.jpg">
+            <img class="profilePic" alt="Profile pic" src="../assets/ProfilPicture.jpg">
           </div>
         </div>
         <div class="col-xl-10">

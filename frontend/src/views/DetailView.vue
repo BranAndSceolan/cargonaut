@@ -1,7 +1,7 @@
 <template>
  <div>
    <div>
-     <img class="banner shadow" alt="Car Banner" src="https://motorblock.at/wp-content/uploads/2019/04/Fiat-Multipla-Rendering-768x487.jpg">
+     <img class="banner shadow" alt="Car Banner" src="../assets/amarok-d8f.png">
    </div>
    <div class="bar">
      <div class="own-card">
@@ -43,7 +43,6 @@
        </div>
        <div class="col-4">
          <div class="row justify-content-center">
-           <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
            <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
          </div>
          <div class="row justify-content-center">

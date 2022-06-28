@@ -11,8 +11,9 @@
 
         <template #append>
           <b-dropdown text="Sort" variant="success">
-            <b-dropdown-item>Action A</b-dropdown-item>
-            <b-dropdown-item>Action B</b-dropdown-item>
+            <b-dropdown-item-btn v-on:click="sort('price')">Price</b-dropdown-item-btn>
+            <b-dropdown-item-btn v-on:click="sort('price')">Seats</b-dropdown-item-btn>
+            <b-dropdown-item-btn v-on:click="sort('price')">Date</b-dropdown-item-btn>
           </b-dropdown>
         </template>
       </b-input-group>
@@ -43,7 +44,9 @@ export default {
   components: { FilterList, travelCard },
   data () {
     return {
-      offers: []
+      offers: [],
+      sortVal: 'default',
+      searchVal: ''
     }
   },
   methods: {
@@ -79,6 +82,23 @@ export default {
             break
         }
       })
+    },
+    sort (sortVal) {
+      this.sortVal = sortVal
+      switch (sortVal) {
+        case 'price':
+          this.offers.sort((a, b) => a.price - b.price)
+          break
+        case 'seats':
+          this.offers.sort((a, b) => a.numberOfFreeSeats - b.numberOfFreeSeats)
+          break
+        case 'date':
+          this.offers.sort((a, b) => a.date - b.date)
+          break
+      }
+    },
+    search () {
+      this.offers.filter(offer => offer.title === this.searchVal)
     }
   },
   mounted () {
