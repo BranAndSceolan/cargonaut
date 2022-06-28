@@ -25,7 +25,7 @@
             </div>
           </div>
         </div>
-        <filter-list class="col-2 offset-1"></filter-list>
+        <filter-list v-on:priceFilter="filter" class="col-2 offset-1"></filter-list>
       </div>
     </div>
   </div>
@@ -47,6 +47,32 @@ export default {
   methods: {
     getOffers () {
       axios.get('/ride/getAll').then(response => (this.offers = response.data))
+    },
+    filter (filterString, filterType) {
+      console.log(filterString, filterType)
+      const filterAr = filterString.split('|')
+      const compare = {
+        '<': function (x, y) { return x < y },
+        '=': function (x, y) { return x === y },
+        '>': function (x, y) { return x > y }
+      }
+      console.log(filterAr)
+      console.log(compare['>'](4, filterAr[1]))
+      console.log(compare[filterAr[0]](this.offers[0].price, filterAr[1]))
+      let index = 0
+      switch (filterType) {
+        case 'price':
+          for (const offer in this.offers) {
+            if (!compare['>'](offer.price, filterAr[1])) {
+              console.log(index)
+              this.offers.splice(index, 1)
+              index++
+              console.log(this.offers)
+            }
+          }
+          // this.offers.filter(offer => compare['>'](offer.price, filterAr[1]))
+          break
+      }
     }
   },
   mounted () {
@@ -62,8 +88,5 @@ export default {
 }
 .search{
   margin-bottom: 20px;
-}
-.card-columns {
-  column-count: 1;
 }
 </style>
