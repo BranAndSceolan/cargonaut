@@ -18,7 +18,8 @@ build-frontend:
     - npm
   before_script:
     - cd frontend
-  script: npm install
+  script:
+    - npm install
 
 build-docker:
   stage: build-docker
@@ -26,6 +27,8 @@ build-docker:
     - docker
   script:
     - NODE_ENV=test_docker_free npm run test
+  rules:
+    - when: never
 
  # rules:
  #   - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "dev"
