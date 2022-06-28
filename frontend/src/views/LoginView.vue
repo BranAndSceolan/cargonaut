@@ -38,8 +38,8 @@ export default {
       if (this.user !== '' && this.password !== '') {
         axios.post('/user/login',
           {
-            signInName: this.user,
-            signInPass: this.password
+            name: this.user,
+            password: this.password
           })
           .then().catch(reason => {
             console.log(reason)
