@@ -21,6 +21,10 @@ import axios from 'axios'
 
 export default {
   name: 'CreateReviewView.vue',
+  props: {
+    id: String,
+    user: String
+  },
   data () {
     return {
       value: 0,
@@ -29,12 +33,12 @@ export default {
   },
   methods: {
     create () {
-      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
-        axios.post('/ride/create',
+      if (this.desc !== '') {
+        axios.post('/eval/create',
           {
             result: this.value,
-            ride: '?',
-            user: '?'
+            ride: this.id,
+            user: this.user
           })
           .then(response => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
       }
