@@ -133,14 +133,19 @@ export class UserController {
      * @param res
      * HTTP-Request containing a status code and if successful, the deleted user in its body
      */
-    public delete(req: Request, res: Response): void {
-        this.userModule.deleteUser(new mongoose.Types.ObjectId(req.params.id)).then((user: User | null) => {
-            if (user) {
-                res.status(200).send(user);
-            } else {
-                res.sendStatus(500);
-            }
-        })
+    public async delete(req: Request, res: Response): Promise<void> {
+        const user = await this.userModule.getUserByName(req.session.signInName)
+        if (user?._id) {
+            this.userModule.deleteUser(new mongoose.Types.ObjectId(user._id)).then((user: User | null) => {
+                if (user) {
+                    res.status(200).send(user);
+                } else {
+                    res.sendStatus(500);
+                }
+            })
+        } else{
+            res.sendStatus(500)
+        }
 
     }
 
@@ -163,10 +168,6 @@ export class UserController {
 
     public async update(req: Request, res: Response): Promise<void> {
         const userName = req.body.name
-        if (!req.params.id ) {
-            res.status(400).send("id missing")
-            return
-        }
         if (!userName || userName.trim() == "") {
             res.status(400).send("Username missing")
             return
@@ -200,7 +201,8 @@ export class UserController {
             vehicleIds = req.body.vehicles
         }
 
-        const user: User | null = await this.userModule.getUserById(req.params.id)
+        const user: User | null = await this.userModule.getUserByName(req.session.signInName)
+        console.log("1")
         let avgEval: number = 0;
         if( user?.averageEvalOfRides) {
             avgEval = user.averageEvalOfRides

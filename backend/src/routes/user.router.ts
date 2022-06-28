@@ -29,7 +29,7 @@ router.post('/create', (req: Request, res: Response) => {
 })
 */
 
-router.post('/update/:id', (req: Request, res: Response) => {
+router.post('/update', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => userController.update(req, res))
 })
 
@@ -43,7 +43,7 @@ router.get('/getByName/:name', (req: Request, res: Response) => {
 })
 
 // DELETE Routes
-router.delete('/delete/:id', (req: Request, res: Response) => {
+router.delete('/delete', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => userController.delete(req, res))
 })
 
