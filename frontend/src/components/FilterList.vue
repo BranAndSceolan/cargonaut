@@ -43,28 +43,28 @@
         <div v-if="!seatsHidden" class="ml-1">
           <div class="row">
             <label class="col-1">
-              <input v-model="seatsFilter" value="=|1" type="radio" name="seats" aria-label="1m" class="checkbox">
+              <input v-model="seatsFilter" @change="seatsFilterChange" value="=|1" type="radio" name="seats" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
             <p class="col"> 1 Sitz </p>
           </div>
           <div class="row">
             <label class="col-1">
-              <input v-model="seatsFilter" value="=|2" type="radio" name="seats" aria-label="1m" class="checkbox">
+              <input v-model="seatsFilter" @change="seatsFilterChange" value="=|2" type="radio" name="seats" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
             <p class="col"> 2 Sitze </p>
           </div>
           <div class="row">
             <label class="col-1">
-              <input v-model="seatsFilter" value="=|3" type="radio" name="seats" aria-label="1m" class="checkbox">
+              <input v-model="seatsFilter" @change="seatsFilterChange" value="=|3" type="radio" name="seats" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
             <p class="col"> 3 Sitze </p>
           </div>
           <div class="row">
             <label class="col-1">
-              <input v-model="seatsFilter" value=">|3" type="radio" name="seats" aria-label="1m" class="checkbox">
+              <input v-model="seatsFilter" @change="seatsFilterChange" value=">|3" type="radio" name="seats" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
             <p class="col"> >3 Sitze </p>
@@ -88,28 +88,28 @@
           </div>
           <div class="row">
             <label class="col-1">
-              <input v-model="priceFilter" value="<|10" type="radio" name="price" aria-label="1m" class="checkbox">
+              <input v-model="priceFilter" @change="priceFilterChange" value="<|10" type="radio" name="price" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
             <p class="col"> &#60;10€ </p>
           </div>
           <div class="row">
             <label class="col-1">
-              <input v-model="priceFilter" value="<|15" type="radio" name="price" aria-label="1m" class="checkbox">
+              <input v-model="priceFilter" @change="priceFilterChange" value="<|15" type="radio" name="price" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
             <p class="col"> &#60;15€ </p>
           </div>
           <div class="row">
             <label class="col-1">
-              <input v-model="priceFilter" value="<|30" type="radio" name="price" aria-label="1m" class="checkbox">
+              <input v-model="priceFilter" @change="priceFilterChange" value="<|30" type="radio" name="price" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
             <p class="col"> &#60;30€ </p>
           </div>
           <div class="row">
             <label class="col-1">
-              <input v-model="priceFilter" value=">|30" type="radio" name="price" aria-label="1m" class="checkbox">
+              <input v-model="priceFilter" @change="priceFilterChange" value=">|30" type="radio" name="price" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
             <p class="col"> >30€ </p>

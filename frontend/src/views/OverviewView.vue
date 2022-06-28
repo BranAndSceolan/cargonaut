@@ -27,7 +27,7 @@
             </div>
           </div>
         </div>
-        <filter-list v-on:priceFilter="filter" class="col-2 offset-1"></filter-list>
+        <filter-list v-on:priceFilter="filter" v-on:seatsFilter="filter" class="col-2 offset-1"></filter-list>
       </div>
     </div>
   </div>
@@ -51,30 +51,34 @@ export default {
       axios.get('/ride/getAll').then(response => (this.offers = response.data))
     },
     filter (filterString, filterType) {
-      console.log(filterString, filterType)
-      const filterAr = filterString.split('|')
-      const compare = {
-        '<': function (x, y) { return x < y },
-        '=': function (x, y) { return x === y },
-        '>': function (x, y) { return x > y }
-      }
-      console.log(filterAr)
-      console.log(compare['>'](4, filterAr[1]))
-      console.log(compare[filterAr[0]](this.offers[0].price, filterAr[1]))
-      let index = 0
-      switch (filterType) {
-        case 'price':
-          for (const offer in this.offers) {
-            if (!compare['>'](offer.price, filterAr[1])) {
-              console.log(index)
-              this.offers.splice(index, 1)
-              index++
-              console.log(this.offers)
+      axios.get('/ride/getAll').then(response => {
+        this.offers = response.data
+        console.log(filterString, filterType)
+        const filterAr = filterString.split('|')
+        const compare = {
+          '<': function (x, y) { return x < y },
+          '=': function (x, y) { return x === y },
+          '>': function (x, y) { return x > y }
+        }
+        switch (filterType) {
+          case 'price':
+            for (const offer in this.offers) {
+              if (compare[filterAr[0]](this.offers[Number(offer)].price, Number(filterAr[1])) === false) {
+                this.offers.splice(Number(offer), 1)
+              }
             }
-          }
-          // this.offers.filter(offer => compare['>'](offer.price, filterAr[1]))
-          break
-      }
+            break
+          case 'room':
+            break
+          case 'seats':
+            for (const offer in this.offers) {
+              if (compare[filterAr[0]](this.offers[Number(offer)].numberOfFreeSeats, Number(filterAr[1])) === false) {
+                this.offers.splice(Number(offer), 1)
+              }
+            }
+            break
+        }
+      })
     }
   },
   mounted () {
