@@ -32,7 +32,6 @@ export class AuthModule {
             ))
         if (newUser){
             if (config.get('disableAuth') == "true") {
-                req.session.signInName = registerName;
                 return res.status(200).send(newUser._id)
             } else{
                 req.session.signInName = registerName;
@@ -59,6 +58,22 @@ export class AuthModule {
             res.send("Your name or password seem to be wrong.");
         }
 
+    }
+
+    async getCurrent(req: Request, res: Response) {
+        if (config.get('disableAuth') == "true") {
+           res.status(400).send("only works if using sessions!")
+        } else{
+            const user : User | null = await userController.userModule.getUserByName(req.session.signInName)
+            if(user) {
+                if (user?.password) {
+                    user.password = "******"
+                }
+                res.status(200).send(user)
+            }else{
+                res.sendStatus(404)
+            }
+        }
     }
 
     logOut(req: Request, res: Response): void {

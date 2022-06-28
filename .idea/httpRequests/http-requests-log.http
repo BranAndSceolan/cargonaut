@@ -1,3 +1,69 @@
+GET http://localhost:8008/user/current
+
+<> 2022-06-28T123116.200.json
+
+###
+
+POST http://localhost:8008/user/login
+Content-Type: application/json
+
+{
+  "name": "testLogin",
+  "password": "testPassword"
+}
+
+<> 2022-06-28T123113.200.txt
+
+###
+
+GET http://localhost:8008/user/current
+
+<> 2022-06-28T123108.401.txt
+
+###
+
+POST http://localhost:8008/user/logout
+
+<> 2022-06-28T122744.200.txt
+
+###
+
+GET https://localhost:8008/user/current
+
+###
+
+POST http://localhost:8008/user/login
+Content-Type: application/json
+
+{
+  "name": "testLogin",
+  "password": "testPassword"
+}
+
+<> 2022-06-28T122635.200.txt
+
+###
+
+GET https://localhost:8008/user/current
+
+###
+
+GET https://localhost:8008/user/current
+
+###
+
+POST http://localhost:8008/user/login
+Content-Type: application/json
+
+{
+  "name": "testLogin",
+  "password": "testPassword"
+}
+
+<> 2022-06-28T122605.200.txt
+
+###
+
 POST http://localhost:8008/user/create
 Content-Type: application/json
 sessionid: 1111
@@ -565,110 +631,6 @@ sessionid: 1111
 cuid: system
 
 <> 2022-06-21T154336.200.json
-
-###
-
-GET http://localhost:8008/eval/findById/62b1caea3cf36398fe2b3390
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T154330.200.json
-
-###
-
-GET http://localhost:8008/eval/getAll
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T154312.200.json
-
-###
-
-POST http://localhost:8008/eval/create
-Content-Type: application/json
-
-{
-  "result": 5,
-  "ride": "620cbeaecc90432d95b598a0",
-  "user": "620cbeaecc90432d95b598a7"
-}
-
-<> 2022-06-21T154306.200.json
-
-###
-
-POST http://localhost:8008/user/update/62b1b922d87d2267525e9e69
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "name": "musterx",
-  "birthdate": "1-1-2000",
-  "email": "muster@gmail.de",
-  "password": "willBeHashedAndSaltedInTheFuture",
-  "vehicles": ["620cbeaecc90432d95b598a0"],
-  "averageEvalOfRides": 4
-}
-
-<> 2022-06-21T151351.500.txt
-
-###
-
-GET http://localhost:8008/user/getAll
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T151334.200.json
-
-###
-
-GET http://localhost:8008/user/getByName/muster
-sessionid: 1111
-cuid: system
-
-{
-  "name": "testLogin",
-  "password": "testPassword"
-}
-
-<> 2022-06-28T094242.200.txt
-
-###
-
-POST http://localhost:8008/user/create
-Content-Type: application/json
-
-{
-  "name": "testLogin",
-  "password": "testPassword",
-  "birthdate": "2-4-1999",
-  "email": "test@mail.de",
-  "description": "test login"
-}
-
-<> 2022-06-28T094236.401.html
-
-###
-
-POST http://localhost:8008/user/create
-Content-Type: application/json
-
-{
-  "name": "testLogin",
-  "password": "testPassword",
-  "birthdate": "2-4-1999",
-  "email": "test@mail.de",
-  "description": "test login"
-}
-
-<> 2022-06-28T094143.401.html
-
-###
-
-POST http://localhost:8008/user/logout
-
-<> 2022-06-28T093127.200.txt
 
 ###
 
