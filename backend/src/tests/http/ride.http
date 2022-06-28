@@ -9,12 +9,13 @@ cuid: system
   "origin": "munich",
   "destination": "berlin",
   "user": "620cbeaecc90432d95b598a0",
+  "vehicle": "62b1b878d87d2267525e9e5b",
   "pendingReqs" : [],
   "accReqs": []
 }
 
 ###
-POST http://localhost:8008/ride/update
+POST http://localhost:8008/ride/update/62b1f4d1e01df875512d2e2a
 Content-Type: application/json
 sessionid: 1111
 cuid: system
@@ -24,6 +25,7 @@ cuid: system
   "origin": "munich",
   "destination": "berlin",
   "user": "620cbeaecc90432d95b598a0",
+  "vehicle": "62b1b878d87d2267525e9e5b",
   "pendingReqs" : ["620cbeaecc90432d95b598a0"],
   "accReqs": []
 }

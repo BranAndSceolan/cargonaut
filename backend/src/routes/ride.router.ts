@@ -15,7 +15,7 @@ router.post('/create', (req: Request, res: Response) => {
     rideController.create(req, res)
 })
 
-router.post('/update', (req: Request, res: Response) => {
+router.post('/update/:id', (req: Request, res: Response) => {
      rideController.update(req, res)
 })
 
