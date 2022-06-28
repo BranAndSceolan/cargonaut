@@ -1,3 +1,187 @@
+POST http://localhost:8008/user/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "uosfd",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "description": "Hi, I am a driver!"
+}
+
+<> 2022-06-28T121312.200.html
+
+###
+
+GET http://localhost:8008/ride/findById/62bad3d3edf9116902dc6dc3
+sessionid: 1111
+cuid: system
+
+<> 2022-06-28T121146.200.json
+
+###
+
+POST http://localhost:8008/ride/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+"date": "1-12-2022",
+"origin": "munich",
+"destination": "berlin",
+"title": "nice ride",
+  "description": "We go from munich to berlin!",
+  "numberOfFreeSeats": 4,
+  "price": 20,
+  "user": "620cbeaecc90432d95b598a0",
+"pendingReqs" : [],
+"accReqs": []
+}
+
+<> 2022-06-28T121132.200.json
+
+###
+
+POST http://localhost:8008/user/login
+Content-Type: application/json
+
+{
+  "name": "testLogin",
+  "password": "testPassword"
+}
+
+<> 2022-06-28T121118.200.txt
+
+###
+
+POST http://localhost:8008/user/create
+Content-Type: application/json
+
+{
+  "name": "testLogin",
+  "password": "testPassword",
+  "birthdate": "2-4-1999",
+  "email": "test@mail.de",
+  "description": "test login"
+}
+
+<> 2022-06-28T121115.200.html
+
+###
+
+POST http://localhost:8008/user/login
+Content-Type: application/json
+
+{
+  "name": "testLogin",
+  "password": "testPassword"
+}
+
+<> 2022-06-28T121106.404.urilist
+
+###
+
+POST http://localhost:8008/ride/create
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+"date": "1-12-2022",
+"origin": "munich",
+"destination": "berlin",
+"title": "nice ride",
+  "description": "We go from munich to berlin!",
+  "numberOfFreeSeats": 4,
+  "price": 20,
+  "user": "620cbeaecc90432d95b598a0",
+"pendingReqs" : [],
+"accReqs": []
+}
+
+<> 2022-06-28T121035.400.html
+
+###
+
+DELETE http://localhost:8008/user/delete/620cbeaecc90432d95b598a0
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+<> 2022-06-28T121004.200.json
+
+###
+
+GET http://localhost:8008/user/findById/620cbeaecc90432d95b598a0
+sessionid: 1111
+cuid: system
+
+<> 2022-06-28T120947.404.html
+
+###
+
+POST http://localhost:8008/user/update/620cbeaecc90432d95b598a0
+Content-Type: application/json
+sessionid: 1111
+cuid: system
+
+{
+  "name": "testUpdate",
+  "birthdate": "1-1-2000",
+  "email": "muster@gmail.de",
+  "password": "password",
+  "vehicles": ["620cbeaecc90432d95b598a0"],
+  "description": "Hi, I like driving!",
+  "averageEvalOfRides": 4
+}
+
+<> 2022-06-28T120928.201.json
+
+###
+
+POST http://localhost:8008/user/login
+Content-Type: application/json
+
+{
+  "name": "testLogin",
+  "password": "testPassword"
+}
+
+<> 2022-06-28T120901.200.txt
+
+###
+
+POST http://localhost:8008/user/create
+Content-Type: application/json
+
+{
+  "name": "testLogin",
+  "password": "testPassword",
+  "birthdate": "2-4-1999",
+  "email": "test@mail.de",
+  "description": "test login"
+}
+
+<> 2022-06-28T120851.401.html
+
+###
+
+POST http://localhost:8008/user/create
+Content-Type: application/json
+
+{
+  "name": "testLogin",
+  "password": "testPassword",
+  "birthdate": "2-4-1999",
+  "email": "test@mail.de",
+  "description": "test login"
+}
+
+###
+
 POST http://localhost:8008/user/update/62b4622328ed0b0006bdba40
 Content-Type: application/json
 sessionid: 1111
@@ -485,111 +669,6 @@ Content-Type: application/json
 POST http://localhost:8008/user/logout
 
 <> 2022-06-28T093127.200.txt
-
-###
-
-POST http://localhost:8008/user/login
-Content-Type: application/json
-
-{
-  "name": "testLogin",
-  "password": "testPassword"
-}
-
-<> 2022-06-28T093121.200.txt
-
-###
-
-POST http://localhost:8008/user/create
-Content-Type: application/json
-
-{
-  "name": "testLogin",
-  "password": "testPassword",
-  "birthdate": "2-4-1999",
-  "email": "test@mail.de",
-  "description": "test login"
-}
-
-<> 2022-06-28T093118.401.html
-
-###
-
-POST http://localhost:8008/user/login
-Content-Type: application/json
-
-{
-  "name": "testLogin",
-  "password": "testPassword"
-}
-
-###
-
-POST http://localhost:8008/user/create
-Content-Type: application/json
-
-{
-  "name": "testLogin",
-  "password": "testPassword",
-  "birthdate": "2-4-1999",
-  "email": "test@mail.de",
-  "description": "test login"
-}
-
-<> 2022-06-28T092913.200.html
-
-###
-
-POST http://localhost:8008/user/create
-Content-Type: application/json
-
-{
-  "name": "testLogin",
-  "password": "testPassword",
-  "birthdate": "2-4-1999",
-  "email": "test@mail.de",
-  "description": "test login"
-}
-
-###
-
-POST http://localhost:8008/user/create
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T142500.200.json
-
-###
-
-GET http://localhost:8008/vehicle/getAll
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T142444.200.json
-
-###
-
-GET http://localhost:8008/vehicle/findById/62b1b878d87d2267525e9e5b
-sessionid: 1111
-cuid: system
-
-<> 2022-06-21T142436.200.json
-
-###
-
-POST http://localhost:8008/vehicle/create
-Content-Type: application/json
-sessionid: 1111
-cuid: system
-
-{
-  "type": "standard car",
-  "numberOfSeats": 4,
-  "notes": "looks ugly, but moves"
-}
-
-<> 2022-06-21T142425.200.json
 
 ###
 
