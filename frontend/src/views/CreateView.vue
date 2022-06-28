@@ -81,7 +81,13 @@ export default {
   },
   methods: {
     create () {
-      if (this.title !== '' && this.seat !== '' && this.space !== '' && this.desc !== '' && this.price !== '') {
+      console.log(this.title)
+      console.log(this.seat)
+      console.log(this.desc)
+      console.log(this.navData[0].date)
+      console.log(this.navData[0].town)
+      console.log(this.navData[2].town)
+      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
         axios.post('/ride/create',
           {
             date: this.navData[0].date,

@@ -6,7 +6,7 @@
     <b-card-body class="body">
       <div class="info">
         <div class="head"> Review </div>
-        <b-textarea rows="5" no-resize class="desc"></b-textarea>
+        <b-textarea rows="5" no-resize v-model="desc" class="desc"></b-textarea>
         <b-rating v-model="value" color="#005b52" class="rating"></b-rating>
       </div>
     </b-card-body>
@@ -17,11 +17,28 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'CreateReviewView.vue',
   data () {
     return {
-      value: 0
+      value: 0,
+      desc: ''
+    }
+  },
+  methods: {
+    create () {
+      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
+        axios.post('/ride/create',
+          {
+            result: this.value,
+            ride: '?',
+            user: '?'
+          })
+          .then().catch(reason => { console.log(reason) })
+        this.$router.push('/overview')
+      }
     }
   }
 }
