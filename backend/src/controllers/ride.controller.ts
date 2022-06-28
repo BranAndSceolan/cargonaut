@@ -22,9 +22,9 @@ export class RideController {
      * @param res
      */
     public create(req: Request, res: Response): void {
-        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.user && req.body.pendingReqs && req.body.accReqs){
+        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.user && req.body.vehicle && req.body.pendingReqs && req.body.accReqs){
 
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.user, req.body.pendingReqs, req.body.accReqs)).then(result =>{
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.user, req.body.vehicle, req.body.pendingReqs, req.body.accReqs)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {
@@ -81,7 +81,7 @@ export class RideController {
     }
 
     public update(req: Request, res: Response): void {
-        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body. user){
+        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.user && req.body.vehicle){
             let accReq = undefined
             let penReq = undefined
             if (req.body.pendingReqs){
@@ -90,7 +90,7 @@ export class RideController {
             if (req.body.accReqs){
                 accReq = req.body.accReqs
             }
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.user, penReq, accReq)).then(result =>{
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.user,req.body.vehicle, penReq, accReq)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {
