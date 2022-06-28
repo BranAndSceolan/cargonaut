@@ -3,7 +3,9 @@
     <div>
       <b-input-group class="search">
         <template #prepend>
-          <b-input-group-text >Icon</b-input-group-text>
+          <b-input-group-text class="icon">
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+          </b-input-group-text>
         </template>
         <b-form-input></b-form-input>
 
@@ -88,5 +90,8 @@ export default {
 }
 .search{
   margin-bottom: 20px;
+}
+.icon {
+  background: white;
 }
 </style>
