@@ -10,7 +10,7 @@
         <b-form-input></b-form-input>
 
         <template #append>
-          <b-dropdown text="Sort" variant="success">
+          <b-dropdown text="Sort" variant="secondary">
             <b-dropdown-item-btn v-on:click="sort('price')">Price</b-dropdown-item-btn>
             <b-dropdown-item-btn v-on:click="sort('seats')">Seats</b-dropdown-item-btn>
             <b-dropdown-item-btn v-on:click="sort('date')">Date</b-dropdown-item-btn>

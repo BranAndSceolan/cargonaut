@@ -41,8 +41,7 @@ export default {
             name: this.user,
             password: this.password
           })
-          .then(response => (this.$router.push('/overview'))
-          ).catch(reason => {
+          .then(response => (this.$router.push('/overview'))).catch(reason => {
             console.log(reason)
           })
       }

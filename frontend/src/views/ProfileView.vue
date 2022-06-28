@@ -7,11 +7,8 @@
           </div>
         </div>
         <div class="col-xl-10">
-          <p class="name m-3">Mike Jefferson</p>
-          <p class="desc m-3">Ich bin der Mike. Früher war ich erfolgreicher Consultingmanager bei TheCompany. Als sich jedoch
-            herausstellte, dass TheCompany sich nur über ein Schneeballsystem über Wasser halten konnte,
-            bin ich in Frührente und versuche mir jetzt über Cargonaut etwas extra zu verdienen, damit ich für die
-            nächste Miete nicht wieder eine Niere verkaufen muss. </p>
+          <p class="name m-3">{{this.user.name}}</p>
+          <p class="desc m-3">{{this.user.description}}</p>
         </div>
       </div>
       <div class="row mx-4">
@@ -45,38 +42,28 @@ export default {
   components: { TravelCard, CarEntry, OverBar },
   data () {
     return {
-      user: {
-        id: '1',
-        name: 'Max Mustermann',
-        birthday: 'Juni 2020',
-        description: 'Ich biete eine entspannte und lässige fahrt von Hannover nach Gießen mit einem kleinen Zwischenstopp in Bielefeld zu meiner' +
-          'Tante Hildegard. Für Musik und Snacks auf der Fahrt sind gesorgt, wobei besondes Jazz Fans sich abgeholt fühlen werden.' +
-          'Snacks gibt es auch und zudem noch ausreichend Stauraum für Gepäck egal ob klein oder groß.',
-        averageEvalOfRides: 1,
-        vehicles: [{ _id: '1', type: 'VW Amarok', numberOfSeats: 2, spaceWidth: 6, spaceHeight: 4, spaceLength: 4 }]
-      },
+      user: {},
       offers: [],
-      reviews: [{
-        name: 'Berta Gutenberg',
-        date: 'Juni 2020',
-        desc: 'Tolle Fahrte und toller Fahrer. Hat mehrere interessante Geschichten aus seiner Jugend erzählt. ' +
-          'Generell war eine gute Luft im Auto anstelle des übliche Gestanks, das man von derartigen Autos erwarten würde.',
-        stars: 5
-      }],
       reviewsHidden: false,
       carsHidden: false,
       offersHidden: false
     }
   },
   mounted () {
-    axios.get('/users/user/current').then(response => (this.user = response.data))
-    console.log(this.user)
-    for (const i in this.user.vehicles) {
-      axios.get('/vehicle/findById/' + i).then(response => (this.user.vehicles.add(response.data))).catch((reason) => {
-        console.log(reason)
-      })
+    axios.get('/user/current').then(response => {
+      this.user = response.data
+      this.getVehicles()
+    })
+    axios.get('/ride/getAll').then(response => (this.offers = response.data))
+  },
+  methods: {
+    getVehicles () {
+      for (const i in this.user.vehicles) {
+        axios.get('/vehicle/findById/' + this.user.vehicles[i]).then(response => (this.user.vehicles.push(response.data))).catch((reason) => {
+          console.log(reason)
+        })
+      }
     }
-    axios.get('/rides/getAll').then(response => (this.offers = response.data))
   },
   computed: {
     userOffers () {
