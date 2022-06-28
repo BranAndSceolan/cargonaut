@@ -45,8 +45,8 @@ export class AuthModule {
     }
 
     async login(req: Request, res: Response) {
-        const signInName: string = req.body.signInName.toString().trim();
-        const signInPass: string = req.body.signInPass.trim();
+        const signInName: string = req.body.name;
+        const signInPass: string = req.body.password;
 
         const user : User | null = await userController.userModule.getUserByName(signInName)
         if (user && signInPass == user.password) {
