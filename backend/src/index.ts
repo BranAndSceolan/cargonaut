@@ -48,7 +48,7 @@ app.use(session({
     name: "myawesomecookie", // name of the cookie set is set by the server
     //TODO: cookie: {secure: true} //enable this as soon as https-certificates are included and we use https for our messages
     // only then will this application be secure!
-    cookie: {maxAge: 5*60*1000}
+    cookie: {maxAge: 15*60*1000}
 }));
 app.use(express.json())
 //app.use(cors())
