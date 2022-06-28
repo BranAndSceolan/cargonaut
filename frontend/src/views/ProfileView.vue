@@ -69,7 +69,8 @@ export default {
     }
   },
   mounted () {
-    axios.get('/users/user/getAll').then(response => (this.user = response.data[0]))
+    axios.get('/users/user/current').then(response => (this.user = response.data))
+    console.log(this.user)
     for (const i in this.user.vehicles) {
       axios.get('/vehicle/findById/' + i).then(response => (this.user.vehicles.add(response.data))).catch((reason) => {
         console.log(reason)

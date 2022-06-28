@@ -12,8 +12,8 @@
         <template #append>
           <b-dropdown text="Sort" variant="success">
             <b-dropdown-item-btn v-on:click="sort('price')">Price</b-dropdown-item-btn>
-            <b-dropdown-item-btn v-on:click="sort('price')">Seats</b-dropdown-item-btn>
-            <b-dropdown-item-btn v-on:click="sort('price')">Date</b-dropdown-item-btn>
+            <b-dropdown-item-btn v-on:click="sort('seats')">Seats</b-dropdown-item-btn>
+            <b-dropdown-item-btn v-on:click="sort('date')">Date</b-dropdown-item-btn>
           </b-dropdown>
         </template>
       </b-input-group>
@@ -21,7 +21,7 @@
         <div class="col-9">
           <div class="row">
             <div class="col-4" v-for="offer in offers" v-bind:key="offer._id">
-              <travel-card class="mx-4 mt-4" v-bind:key="offer._id" :id="offer._id" :title="offer.title" :origin="offer.origin"
+              <travel-card class="mx-4 mt-4" :id="offer._id" :title="offer.title" :origin="offer.origin"
                            :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
                            :width="'X'" :price="offer.price" :date="offer.date">
               </travel-card>
