@@ -31,9 +31,14 @@ export class AuthModule {
                 registerDescription
             ))
         if (newUser){
-            req.session.signInName = registerName;
-            return res.status(200).send("Congratulations! You are know registered! \n" +
-                "Whether driving for others or searching for a driver, cargonaut is always with you!")
+            if (config.get('disableAuth') == "true") {
+                return res.status(200).send(newUser._id)
+            } else{
+                req.session.signInName = registerName;
+                return res.status(200).send("Congratulations! You are know registered! \n" +
+                    "Whether driving for others or searching for a driver, cargonaut is always with you!")
+            }
+
         } else {
            return res.status(500).send("Something went wrong registering!")
         }
@@ -53,6 +58,22 @@ export class AuthModule {
             res.send("Your name or password seem to be wrong.");
         }
 
+    }
+
+    async getCurrent(req: Request, res: Response) {
+        if (config.get('disableAuth') == "true") {
+           res.status(400).send("only works if using sessions!")
+        } else{
+            const user : User | null = await userController.userModule.getUserByName(req.session.signInName)
+            if(user) {
+                if (user?.password) {
+                    user.password = "******"
+                }
+                res.status(200).send(user)
+            }else{
+                res.sendStatus(404)
+            }
+        }
     }
 
     logOut(req: Request, res: Response): void {

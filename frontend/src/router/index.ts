@@ -8,7 +8,8 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    redirect: to => { return { path: '/overview' } }
   },
   {
     path: '/about',

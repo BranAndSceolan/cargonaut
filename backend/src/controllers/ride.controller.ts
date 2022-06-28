@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import {RideModule} from "../modules/entities/ride.module";
 import {RideClass} from "../models/ride.model";
 import {userController} from "./index";
+import config from "config";
 
 /**
  * Controller for all rides, providing all functionalities e.g. (create, read, update, delete)
@@ -23,10 +24,16 @@ export class RideController {
      * @param res
      */
     public async create(req: Request, res: Response): Promise<void> {
-        const user = await userController.userModule.getUserByName(req.session.signInName)
-        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && user?._id && req.body.pendingReqs && req.body.accReqs){
+        let userid = undefined
+        if(config.get('disableAuth') == "true") {
+                userid = req.body.user
+        } else {
+            const user = await userController.userModule.getUserByName(req.session.signInName)
+            userid = user?._id
+        }
+        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && userid && req.body.pendingReqs && req.body.accReqs){
 
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.price, req.body.numberOfFreeSeats, user._id, req.body.pendingReqs, req.body.accReqs)).then(result =>{
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.price, req.body.numberOfFreeSeats, userid, req.body.pendingReqs, req.body.accReqs)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {

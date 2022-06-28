@@ -3,7 +3,9 @@
     <div>
       <b-input-group class="search">
         <template #prepend>
-          <b-input-group-text >Icon</b-input-group-text>
+          <b-input-group-text class="icon">
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+          </b-input-group-text>
         </template>
         <b-form-input></b-form-input>
 
@@ -15,13 +17,17 @@
         </template>
       </b-input-group>
       <div class="row">
-        <div class="col-10 card-columns">
-            <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer._id" :id="offer._id" :title="offer.title" :origin="offer.origin"
-                         :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
-                         :width="'X'" :price="offer.price" :date="offer.date">
-            </travel-card>
+        <div class="col-9">
+          <div class="row">
+            <div class="col-4" v-for="offer in offers" v-bind:key="offer._id">
+              <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer._id" :id="offer._id" :title="offer.title" :origin="offer.origin"
+                           :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
+                           :width="'X'" :price="offer.price" :date="offer.date">
+              </travel-card>
+            </div>
+          </div>
         </div>
-        <filter-list></filter-list>
+        <filter-list v-on:priceFilter="filter" v-on:seatsFilter="filter" class="col-2 offset-1"></filter-list>
       </div>
     </div>
   </div>
@@ -43,6 +49,36 @@ export default {
   methods: {
     getOffers () {
       axios.get('/ride/getAll').then(response => (this.offers = response.data))
+    },
+    filter (filterString, filterType) {
+      axios.get('/ride/getAll').then(response => {
+        this.offers = response.data
+        console.log(filterString, filterType)
+        const filterAr = filterString.split('|')
+        const compare = {
+          '<': function (x, y) { return x < y },
+          '=': function (x, y) { return x === y },
+          '>': function (x, y) { return x > y }
+        }
+        switch (filterType) {
+          case 'price':
+            for (const offer in this.offers) {
+              if (compare[filterAr[0]](this.offers[Number(offer)].price, Number(filterAr[1])) === false) {
+                this.offers.splice(Number(offer), 1)
+              }
+            }
+            break
+          case 'room':
+            break
+          case 'seats':
+            for (const offer in this.offers) {
+              if (compare[filterAr[0]](this.offers[Number(offer)].numberOfFreeSeats, Number(filterAr[1])) === false) {
+                this.offers.splice(Number(offer), 1)
+              }
+            }
+            break
+        }
+      })
     }
   },
   mounted () {
@@ -59,7 +95,7 @@ export default {
 .search{
   margin-bottom: 20px;
 }
-.card-columns {
-  column-count: 1;
+.icon {
+  background: white;
 }
 </style>

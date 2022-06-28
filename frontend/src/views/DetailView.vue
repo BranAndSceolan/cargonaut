@@ -12,7 +12,7 @@
             <div class="row">
               <div class="col-sm-4"> Sitze: {{ offer.numberOfFreeSeats }} </div>
               <div class="col-sm-5"> Platz: X m&sup3; </div>
-              <div> {{price}}€ </div>
+              <div> {{offer.price}}€ </div>
             </div>
           </div>
         </b-card-body>
@@ -24,14 +24,38 @@
    </div>
    <div class="area">
      <div class="title"> Orte </div>
-     <div>
-       Ich weiß immernoch nicht, wie bullet points gehen :)
+     <div class="row positionArea">
+       <div class="col-4">
+         <div class="row justify-content-center">
+           <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
+         </div>
+         <div class="row justify-content-center">
+           <p>{{ offer.origin }}</p>
+         </div>
+       </div>
+       <div class="col-4">
+         <div class="row justify-content-center">
+           <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
+         </div>
+         <div class="row justify-content-center">
+           <p>Auf dem Weg!</p>
+         </div>
+       </div>
+       <div class="col-4">
+         <div class="row justify-content-center">
+           <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
+           <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
+         </div>
+         <div class="row justify-content-center">
+           <p>{{ offer.destination }}</p>
+         </div>
+       </div>
      </div>
    </div>
    <div class="area">
      <div class="title"> Bescheibung </div>
      <div class="desc-content">
-       {{ description }}
+       {{ offer.description }}
      </div>
    </div>
    <div class="area">
@@ -83,12 +107,15 @@ export default {
     }
   },
   mounted () {
-    axios.get('/vehicle/findById/' + this.id).then(response => (this.offer = response.data))
+    axios.get('/ride/findById/' + this.id).then(response => (this.offer = response.data))
   }
 }
 </script>
 
 <style scoped>
+.container {
+  max-width: 1500px!important;
+}
 .banner {
   width: 100%;
   height: 25rem;
@@ -136,6 +163,16 @@ export default {
   color: gray;
   text-align: left;
   font-size: 1.2rem;
+}
+.positionArea p{
+  color: #005b52;
+  text-align: center;
+  font-size: 1.3em;
+}
+.icon {
+  color: #005b52;
+  font-size: 1.5em;
+  text-align: center;
 }
 
 </style>

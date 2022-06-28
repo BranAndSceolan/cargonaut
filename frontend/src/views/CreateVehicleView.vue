@@ -31,6 +31,8 @@
 <script>
 // import axios from 'axios'
 
+import axios from 'axios'
+
 export default {
   name: 'CreateVehicleView.vue',
   data () {
@@ -40,14 +42,21 @@ export default {
       space: '',
       desc: ''
     }
-  }//,
-  //  methods: {
-  //  create () {
-  //    axios.post('/ride/create',
-  //      { title: this.title, seats: this.seats, space: this.space, desc: this.desc })
-  //      .then().catch(reason => { console.log(reason) })
-  //  }
-  //  }
+  },
+  methods: {
+    create () {
+      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
+        axios.post('/ride/create',
+          {
+            type: this.title,
+            numberOfSeats: this.seat,
+            notes: this.desc
+          })
+          .then().catch(reason => { console.log(reason) })
+        this.$router.push('/overview')
+      }
+    }
+  }
 }
 
 </script>

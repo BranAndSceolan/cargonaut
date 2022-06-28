@@ -2,7 +2,7 @@
   <router-link :to="{ path: '/detail/'+ id, component: () => import('../views/DetailView.vue'), params: { id: this._id}, props: true}" class="link">
     <div class="card" style="width: 20rem;">
       <div class="wrapper">
-        <img class="card-img-top" src="https://i.auto-bild.de/mdb/extra_large/96/amarok-d8f.png" alt="Card image cap">
+        <img class="card-img-top" src="../assets/amarok-d8f.png" alt="Card image cap">
       </div>
       <div class="card-body">
         <div class="dateBubble px-2"> {{ date }}</div>
