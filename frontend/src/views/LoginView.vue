@@ -6,15 +6,15 @@
   >
     <b-card-body>
       <b-input-group id="login">
-        <b-form-input placeholder="Username" class="input shadow-sm"></b-form-input>
+        <b-form-input placeholder="Username" v-model="user" class="input shadow-sm"></b-form-input>
       </b-input-group>
       <b-input-group id="password">
-        <b-form-input placeholder="Passwort" type="password" class="input shadow-sm"></b-form-input>
+        <b-form-input placeholder="Passwort" type="password" v-model="password" class="input shadow-sm"></b-form-input>
       </b-input-group>
       <b-card-text class="text">
         Forgot your <span class="link">Password</span>?
       </b-card-text>
-      <b-btn class="button"> Login </b-btn>
+      <b-btn class="button" v-on:click="login"> Login </b-btn>
       <b-card-text class="text">
         Need an Account? <router-link to="/register" class="link">Register here</router-link>
       </b-card-text>
@@ -23,8 +23,31 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'LoginView.vue'
+  name: 'LoginView.vue',
+  data () {
+    return {
+      user: '',
+      password: ''
+    }
+  },
+  methods: {
+    login () {
+      if (this.user !== '' && this.password !== '') {
+        axios.post('/user/login',
+          {
+            signInName: this.user,
+            signInPass: this.password
+          })
+          .then().catch(reason => {
+            console.log(reason)
+          })
+        this.$router.push('/overview')
+      }
+    }
+  }
 }
 </script>
 
