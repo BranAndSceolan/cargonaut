@@ -9,7 +9,7 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'home',
     component: HomeView,
-    redirect: to => { return {path: '/overview'}}
+    redirect: to => { return { path: '/overview' } }
   },
   {
     path: '/about',
