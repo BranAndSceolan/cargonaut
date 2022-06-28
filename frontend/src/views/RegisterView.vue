@@ -16,7 +16,7 @@
           <b-form-input v-model="email" placeholder="E-Mail" class="input shadow-sm"></b-form-input>
         </b-input-group>
         <b-input-group id="desc" class="desc">
-          <b-textarea rows="3" no-resize placeholder="Beschreibung" class="input desc shadow"></b-textarea>
+          <b-textarea rows="3" v-model="desc" no-resize placeholder="Beschreibung" class="input desc shadow"></b-textarea>
         </b-input-group>
         <div class="row">
           <b-input-group id="desc" class="pw1 col-6">
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'RegisterView.vue',
   data () {
@@ -45,6 +47,16 @@ export default {
       password1: '',
       password2: '',
       desc: ''
+    }
+  },
+  methods: {
+    create () {
+      if (this.name !== '' && this.email !== '' && this.desc !== '' && this.date !== '' && (this.password1 !== '' && this.password1 === this.password2)) {
+        axios.post('/user/create',
+          { name: this.name, birthdate: this.date, email: this.email, description: this.desc, password: this.password1 })
+          .then().catch(reason => { console.log(reason) })
+        this.$router.push('/overview')
+      }
     }
   }
 }
