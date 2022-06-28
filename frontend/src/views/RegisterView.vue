@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  name: "RegisterView.vue",
+  name: 'RegisterView.vue',
   data () {
     return {
       name: '',

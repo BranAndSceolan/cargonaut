@@ -15,13 +15,17 @@
         </template>
       </b-input-group>
       <div class="row">
-        <div class="col-10 card-columns">
-            <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer._id" :id="offer._id" :title="offer.title" :origin="offer.origin"
-                         :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
-                         :width="'X'" :price="offer.price" :date="offer.date">
-            </travel-card>
+        <div class="col-9">
+          <div class="row">
+            <div class="col-4" v-for="offer in offers" v-bind:key="offer._id">
+              <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer._id" :id="offer._id" :title="offer.title" :origin="offer.origin"
+                           :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
+                           :width="'X'" :price="offer.price" :date="offer.date">
+              </travel-card>
+            </div>
+          </div>
         </div>
-        <filter-list></filter-list>
+        <filter-list class="col-2 offset-1"></filter-list>
       </div>
     </div>
   </div>
