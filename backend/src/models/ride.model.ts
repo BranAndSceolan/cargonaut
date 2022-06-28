@@ -9,6 +9,7 @@ export interface Ride {
     "origin": string,
     "destination": string,
     "user": mongoose.Types.ObjectId,
+    "vehicle": mongoose.Types.ObjectId,
     "pendingReqs"?: mongoose.Types.ObjectId[],
     "accReqs"?: mongoose.Types.ObjectId[]
 }
@@ -22,16 +23,18 @@ export class RideClass implements Ride {
     origin: string;
     destination: string;
     user: mongoose.Types.ObjectId;
+    vehicle: mongoose.Types.ObjectId;
     pendingReqs?: mongoose.Types.ObjectId[];
     accReqs?: mongoose.Types.ObjectId[];
 
 
-    constructor(date: string, origin: string, destination:string, user: mongoose.Types.ObjectId, pendingReqs?: mongoose.Types.ObjectId[], accReqs?: mongoose.Types.ObjectId[], _id?: mongoose.Types.ObjectId) {
+    constructor(date: string, origin: string, destination:string, user: mongoose.Types.ObjectId, vehicle: mongoose.Types.ObjectId, pendingReqs?: mongoose.Types.ObjectId[], accReqs?: mongoose.Types.ObjectId[], _id?: mongoose.Types.ObjectId) {
         this._id = _id;
         this.date = date;
         this.origin = origin;
         this.destination = destination;
         this.user = user;
+        this.vehicle = vehicle;
         this.pendingReqs = pendingReqs;
         this.accReqs = accReqs;
     }

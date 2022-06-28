@@ -42,7 +42,7 @@ cuid: system
 
 ###
 
-DELETE http://localhost:8008/ride/delete/62b1f2c87c2fa447f0ca3b62
+DELETE http://localhost:8008/ride/delete/62b1f4d1e01df875512d2e2a
 Content-Type: application/json
 sessionid: 1111
 cuid: system

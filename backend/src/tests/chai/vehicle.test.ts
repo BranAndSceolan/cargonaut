@@ -3,6 +3,7 @@ import chai from 'chai';
 import chaiHttp from "chai-http";
 import {printToConsole} from "../../modules/util/util.module";
 import {vehicleType} from "../../models/vehicle.model";
+import mongoose from "mongoose";
 
 
 chai.use(chaiHttp);
@@ -10,9 +11,9 @@ chai.expect;
 
 export async function vehicleTest() {
 
-    let vehicleId: string;
+    let vehicleId: mongoose.Types.ObjectId;
 
-    describe('Request Route Tests', async () => {
+    describe('Vehicle Route Tests', async () => {
 
         // Create routes:
 

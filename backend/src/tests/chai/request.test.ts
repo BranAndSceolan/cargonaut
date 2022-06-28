@@ -3,6 +3,7 @@ import chai from 'chai';
 import chaiHttp from "chai-http";
 import {printToConsole} from "../../modules/util/util.module";
 import {requestStatus, trackingStatus} from "../../models/request.model";
+import mongoose from "mongoose";
 
 
 chai.use(chaiHttp);
@@ -10,8 +11,8 @@ chai.expect;
 
 export async function requestTest() {
 
-    let userId: string;
-    let requestId: string;
+    let userId: mongoose.Types.ObjectId;
+    let requestId: mongoose.Types.ObjectId;
 
     describe('Request Route Tests', async () => {
 

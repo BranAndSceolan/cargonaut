@@ -2,6 +2,7 @@ import {app} from '../../index';
 import chai from 'chai';
 import chaiHttp from "chai-http";
 import {printToConsole} from "../../modules/util/util.module";
+import mongoose from "mongoose";
 
 
 chai.use(chaiHttp);
@@ -9,9 +10,9 @@ chai.expect;
 
 export async function evaluationTest() {
 
-    let userId: string;
-    let rideId: string;
-    let evaluationId: string;
+    let userId: mongoose.Types.ObjectId;
+    let rideId: mongoose.Types.ObjectId;
+    let evaluationId: mongoose.Types.ObjectId;
 
 
     describe('Evaluation Route Tests', async () => {
@@ -22,12 +23,12 @@ export async function evaluationTest() {
 
         it(`should return 201 and id of created evluation`, async () => {
             await chai.request(app).post('/user/create').send({
-                "name": "Hans",
+                "name": "Tim",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123"
             }).then(res => {
-                userId = res.body;
+                userId = res.body._id;
             })
             await chai.request(app).post('/ride/create').send({
                 "date": "6-23-2022",
@@ -35,14 +36,18 @@ export async function evaluationTest() {
                 "destination": "Allendorf",
                 "user": userId
             }).then(async res => {
-                rideId = res.body;
+                rideId = res.body._id;
                 return await chai.request(app).post('/evaluation/create').send({
                     "result": 5,
                     "ride": rideId,
                     "user": userId
                 }).then(res => {
-                    evaluationId = res.body;
+                    console.log("userId: " + userId + "\n");
+                    console.log("rideId: " +rideId + "\n");
+                    evaluationId = res.body._id;
+                    console.log("evaluationId: " + evaluationId + "\n");
                     chai.expect(res.status).to.equal(201);
+                    console.log("res.body._id : " + res.body._id + "\n")
                     chai.expect(res.body._id).to.equal(evaluationId);
                 })
             })

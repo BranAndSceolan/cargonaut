@@ -26,7 +26,7 @@ export class EvaluationController {
 
             this.evaluationModule.createEvaluation(new EvaluationClass(req.body.result, req.body.ride, req.body.user)).then(result =>{
                 if (result) {
-                    res.status(200).send(result);
+                    res.status(201).send(result);
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }

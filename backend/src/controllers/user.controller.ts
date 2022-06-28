@@ -197,7 +197,7 @@ export class UserController {
         }
         if (user && user._id) {
             const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(new mongoose.Types.ObjectId(user._id))
-            avgEval = ((avgEval * evalsN) + newEval) / evalsN + 1
+            avgEval = ((avgEval * evalsN) + newEval) / (evalsN + 1)
         } else{
             res.status(500).send("Sure that is a valid user?")
         }

@@ -2,6 +2,7 @@ import {app} from '../../index';
 import chai from 'chai';
 import chaiHttp from "chai-http";
 import {printToConsole} from "../../modules/util/util.module";
+import * as mongoose from "mongoose";
 
 
 chai.use(chaiHttp);
@@ -9,9 +10,9 @@ chai.expect;
 
 export async function userTest() {
 
-    let userId: string;
+    let userId: mongoose.Types.ObjectId;
 
-    describe('Request Route Tests', async () => {
+    describe('User Route Tests', async () => {
 
         // Create routes:
 
@@ -19,14 +20,16 @@ export async function userTest() {
 
         it(`should return 201 and id of created user`, async () => {
             return await chai.request(app).post('/user/create').send({
-                "name": "Hans",
+                "name": "Georg",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123"
             }).then(res => {
+                console.log(res.body)
                 userId = res.body;
+                console.log(userId)
                 chai.expect(res.status).to.equal(201);
-                chai.expect(res.body._id).to.equal(userId);
+                chai.expect(res.body).to.equal(userId);
             })
         })
 
@@ -34,7 +37,7 @@ export async function userTest() {
 
         it(`should return 400 and text 'Bad Request'`, async () => {
             return await chai.request(app).post('/user/create').send({
-                "name": {},
+                "name": "",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123"
@@ -52,8 +55,10 @@ export async function userTest() {
         })
 
         it(`should return 200 and the correct user`, async () => {
-            return await chai.request(app).get(`/user/getByName/Hans`).then(async res => {
+            return await chai.request(app).get(`/user/getByName/Georg`).then(async res => {
                 chai.expect(res.status).to.equal(200);
+                console.log("user id" + userId);
+                console.log(res.body)
                 chai.expect(res.body._id).to.equal(userId);
             })
         })
@@ -62,7 +67,7 @@ export async function userTest() {
 
         it(`should return 200 and the updated user`, async () => {
             return await chai.request(app).post(`/user/update/${userId}`).send({
-                "name": "Hans",
+                "name": "Franz",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",
