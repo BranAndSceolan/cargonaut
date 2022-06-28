@@ -42,6 +42,10 @@ router.get('/getByName/:name', (req: Request, res: Response) => {
    authModule.checkLogin(req, res, () => userController.getByName(req,res))
 })
 
+router.get('/current', (req: Request, res: Response)=>{
+    authModule.checkLogin(req, res, ()=> authModule.getCurrent(req, res))
+})
+
 // DELETE Routes
 router.delete('/delete/:id', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => userController.delete(req, res))

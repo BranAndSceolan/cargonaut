@@ -2,6 +2,6 @@
   "Database": {
     "mongoURL": "mongodb://cargonaut_mongo:27017"
   },
-  "disableAuth": "true",
+  "disableAuth": "false",
   "useSsl": "false"
 }

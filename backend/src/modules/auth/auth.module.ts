@@ -9,11 +9,11 @@ export class AuthModule {
 
     async register(req: Request, res: Response) {
 //Check if username is already defined (from a previous session)
-        const registerName: string = req.body.name.trim();
-        const registerPass: string = req.body.password.trim();
-        const registerBirthdate: string = req.body.birthdate.trim();
-        const registerMail: string = req.body.email.trim()
-        const registerDescription: string = req.body.description.trim()
+        const registerName: string = req.body.name
+        const registerPass: string = req.body.password
+        const registerBirthdate: string = req.body.birthdate
+        const registerMail: string = req.body.email
+        const registerDescription: string = req.body.description
         if (!registerName || !registerPass || !registerBirthdate || !registerDescription){
             return res.status(400).send("Not all aguments given!")
         }
@@ -31,17 +31,22 @@ export class AuthModule {
                 registerDescription
             ))
         if (newUser){
-            req.session.signInName = registerName;
-            return res.status(200).send("Congratulations! You are know registered! \n" +
-                "Whether driving for others or searching for a driver, cargonaut is always with you!")
+            if (config.get('disableAuth') == "true") {
+                return res.status(200).send(newUser._id)
+            } else{
+                req.session.signInName = registerName;
+                return res.status(200).send("Congratulations! You are know registered! \n" +
+                    "Whether driving for others or searching for a driver, cargonaut is always with you!")
+            }
+
         } else {
            return res.status(500).send("Something went wrong registering!")
         }
     }
 
     async login(req: Request, res: Response) {
-        const signInName: string = req.body.signInName.toString().trim();
-        const signInPass: string = req.body.signInPass.trim();
+        const signInName: string = req.body.name;
+        const signInPass: string = req.body.password;
 
         const user : User | null = await userController.userModule.getUserByName(signInName)
         if (user && signInPass == user.password) {
@@ -55,6 +60,22 @@ export class AuthModule {
 
     }
 
+    async getCurrent(req: Request, res: Response) {
+        if (config.get('disableAuth') == "true") {
+           res.status(400).send("only works if using sessions!")
+        } else{
+            const user : User | null = await userController.userModule.getUserByName(req.session.signInName)
+            if(user) {
+                if (user?.password) {
+                    user.password = "******"
+                }
+                res.status(200).send(user)
+            }else{
+                res.sendStatus(404)
+            }
+        }
+    }
+
     logOut(req: Request, res: Response): void {
         req.session.destroy(() => {
             res.clearCookie("connect.sid");
@@ -62,16 +83,16 @@ export class AuthModule {
         });
     }
 
-    checkLogin(req : Request, res: Response, next: NextFunction) {
-        if (config.get('disableAuth') == "true") return next();
+    checkLogin(req : Request, res: Response, next: NextFunction): void {
+        if (config.get('disableAuth') == "true") {
+            next();
+            return;
+        }
         if (req.session.signInName) {
-            if (req.body.name && req.body.name != req.session.signInName){
-                res.status(401)
-            }else {
-                next()
-            }
+            next();
+            return;
         } else {
-            res.status(401)
+            res.sendStatus(401)
         }
     }
 

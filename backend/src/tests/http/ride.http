@@ -28,7 +28,7 @@ cuid: system
   "origin": "munich",
   "destination": "berlin",
   "title": "from munich to berlin",
-  "description": "We drive from unich to berlin",
+  "description": "We drive from munich to berlin",
   "numberOfFreeSeats": 3,
   "price": 20,
   "user": "620cbeaecc90432d95b598a",
@@ -44,7 +44,7 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/ride/findById/62b6e0f947710726ec73f315
+GET http://localhost:8008/ride/findById/62bad3d3edf9116902dc6dc3
 sessionid: 1111
 cuid: system
 
