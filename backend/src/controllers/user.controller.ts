@@ -5,6 +5,7 @@ import {UserModule} from "../modules/entities/user.module";
 import {printToConsole} from "../modules/util/util.module";
 import mongoose from "mongoose";
 import {evaluationController} from "./index";
+import config from "config";
 
 
 /** USER CONTROLLER
@@ -127,14 +128,20 @@ export class UserController {
 
     /**
      * DELETE
-     * deletes an user with an specific id from database
+     * deletes a user with a specific id from database
      * @param req
-     * HTTP-Request containing the id of User document in the params (in the URL)
+     * HTTP-Request containing the id of User document in the params (in the URL) (if sessions are used to identify the user
+     * (eg in production, the id is ignored)
      * @param res
      * HTTP-Request containing a status code and if successful, the deleted user in its body
      */
     public async delete(req: Request, res: Response): Promise<void> {
-        const user = await this.userModule.getUserByName(req.session.signInName)
+        let user = undefined
+        if(config.get('disableAuth') == "true"){
+            user = await this.userModule.getUserById(req.params.id)
+        } else {
+            user = await this.userModule.getUserByName(req.session.signInName)
+        }
         if (user?._id) {
             this.userModule.deleteUser(new mongoose.Types.ObjectId(user._id)).then((user: User | null) => {
                 if (user) {
@@ -167,11 +174,6 @@ export class UserController {
     }
 
     public async update(req: Request, res: Response): Promise<void> {
-        const userName = req.body.name
-        if (!userName || userName.trim() == "") {
-            res.status(400).send("Username missing")
-            return
-        }
         const password = req.body.password
         if (!password || password.trim() == "") {
             res.status(400).send("Password missing")
@@ -200,9 +202,17 @@ export class UserController {
         if (req.body.vehicles) {
             vehicleIds = req.body.vehicles
         }
-
-        const user: User | null = await this.userModule.getUserByName(req.session.signInName)
-        console.log("1")
+        let userName = undefined
+        if(config.get('disableAuth') == "true"){
+            userName = req.body.name
+            if (!userName || userName.trim() == "") {
+                res.status(400).send("Username missing")
+                return
+            }
+        } else{
+            userName = req.session.signInName
+        }
+        const user: User | null = await this.userModule.getUserByName(userName)
         let avgEval: number = 0;
         if( user?.averageEvalOfRides) {
             avgEval = user.averageEvalOfRides
