@@ -33,7 +33,7 @@ export class RideController {
         }
         if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && userid && req.body.pendingReqs && req.body.accReqs){
 
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.price, req.body.numberOfFreeSeats, userid, req.body.pendingReqs, req.body.accReqs)).then(result =>{
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.price, userid, req.body.pendingReqs, req.body.accReqs)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {
