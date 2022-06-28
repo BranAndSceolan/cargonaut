@@ -54,8 +54,7 @@ export default {
       if (this.name !== '' && this.email !== '' && this.desc !== '' && this.date !== '' && (this.password1 !== '' && this.password1 === this.password2)) {
         axios.post('/user/create',
           { name: this.name, birthdate: this.date, email: this.email, description: this.desc, password: this.password1 })
-          .then().catch(reason => { console.log(reason) })
-        this.$router.push('/overview')
+          .then(response => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
       }
     }
   }

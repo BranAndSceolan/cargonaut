@@ -95,8 +95,7 @@ export default {
             pendingReqs: [],
             accReqs: []
           })
-          .then().catch(reason => { console.log(reason) })
-        this.$router.push('/overview')
+          .then(response => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
       }
     }
   }

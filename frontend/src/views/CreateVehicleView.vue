@@ -52,8 +52,7 @@ export default {
             numberOfSeats: this.seat,
             notes: this.desc
           })
-          .then().catch(reason => { console.log(reason) })
-        this.$router.push('/overview')
+          .then(response => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
       }
     }
   }
