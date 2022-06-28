@@ -16,7 +16,7 @@
       </b-card-text>
       <b-btn class="button"> Login </b-btn>
       <b-card-text class="text">
-        Need an Account? <span class="link"> Register here </span>
+        Need an Account? <router-link to="/register" class="link">Register here</router-link>
       </b-card-text>
     </b-card-body>
   </b-card>
