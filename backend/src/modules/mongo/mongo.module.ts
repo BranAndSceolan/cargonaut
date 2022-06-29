@@ -136,7 +136,6 @@ export class MongoModule {
                 name: newUser.name,
                 birthdate: newUser.birthdate,
                 email: newUser.email,
-                password: newUser.password,
                 description: newUser.description,
                 averageEvalOfRides: newUser.averageEvalOfRides,
                 vehicles: newUser.vehicles

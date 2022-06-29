@@ -27,8 +27,8 @@ export class AuthModule {
                 registerName,
                 new Date(registerBirthdate),
                 registerMail,
-                registerPass,
-                registerDescription
+                registerDescription,
+                registerPass
             ))
         if (newUser){
             if (config.get('disableAuth') == "true") {

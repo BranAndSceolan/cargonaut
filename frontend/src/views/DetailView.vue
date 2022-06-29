@@ -108,10 +108,26 @@ export default {
   },
   mounted () {
     axios.get('/ride/findById/' + this.id).then(response => { this.offer = response.data })
+    console.log(this.offer)
   },
   computed: {
     address: function () {
       return '/createReview/' + this.id + '/' + this.offer.user
+    }
+  },
+  methods: {
+    book () {
+      if (this.offer.numberOfFreeSeats > 1) {
+        axios.get('/user/current').then(response => {
+          const ride = this.offer
+          ride.numberOfFreeSeats--
+          if (ride.accReqs === undefined) {
+            ride.accReqs = []
+          }
+          ride.accReqs.push(response.data._id)
+          axios.post('/ride/update/' + this.id, ride).then().catch(reason => console.log(reason))
+        }).catch(reason => console.log(reason))
+      }
     }
   }
 }
