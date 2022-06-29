@@ -1,7 +1,6 @@
 import {app} from '../../index';
 import chai from 'chai';
 import chaiHttp from "chai-http";
-import {printToConsole} from "../../modules/util/util.module";
 import {requestStatus, trackingStatus} from "../../models/request.model";
 import mongoose from "mongoose";
 
@@ -75,7 +74,6 @@ export async function requestTest() {
                 "user": userId,
                 "trackingStatus": trackingStatus.departed
             }).then(res => {
-                printToConsole(res.body)
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body._id).to.equal(requestId);
             })
@@ -85,8 +83,7 @@ export async function requestTest() {
 
         it(`should return 400 and text 'Bad Request'`, async () => {
             return await chai.request(app).post(`/req/update/${requestId}`).send({
-                "requestStatus": {},
-                "date": "6-23-2022",
+                "date": "",
                 "user": userId,
                 "trackingStatus": trackingStatus.departed
             }).then(res => {
@@ -104,7 +101,6 @@ export async function requestTest() {
         })
 
         it('user deletion\n', async () => {
-            printToConsole(userId)
             return await chai.request(app).delete(`/user/delete/${userId}`).then(res => {
                 chai.expect(res.status).to.equal(200)
                 chai.expect(res.body._id).to.equal(`${userId}`)
