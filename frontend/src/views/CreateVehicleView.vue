@@ -39,21 +39,21 @@ export default {
   name: 'CreateVehicleView.vue',
   data () {
     return {
-      title: '',
-      seat: '',
-      space: '',
+      title: 'other',
+      seat: Number,
+      space: Number,
       desc: '',
       id: ''
     }
   },
   methods: {
     create () {
-      console.log(this.title, this.desc, this.seat)
-      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
+      if (this.seat === undefined || this.space === undefined) return
+      if (this.title !== '' && this.desc !== '' && this.price !== '') {
         axios.post('/vehicle/create',
           {
             type: this.title,
-            numberOfSeats: 4,
+            numberOfSeats: this.seat,
             notes: 'looks ugly, but moves'
           })
           .then(response => {
