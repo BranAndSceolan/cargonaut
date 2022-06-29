@@ -61,7 +61,7 @@ export class RideController {
             if(req.body.vehicle) {
                 vehicle = req.body.vehicle
             }
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
                 if (result) {
                     res.status(201).send(result);
                 } else {
@@ -156,7 +156,7 @@ export class RideController {
             if(req.body.vehicle) {
                 vehicle = req.body.vehicle
             }
-            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
+            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
                 if (result) {
                     res.status(200).send(result);
                 } else {
