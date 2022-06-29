@@ -28,7 +28,7 @@ export class RideController {
 
             this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.user, req.body.vehicle, req.body.pendingReqs, req.body.accReqs)).then(result =>{
                 if (result) {
-                    res.status(200).send(result);
+                    res.status(201).send(result);
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
