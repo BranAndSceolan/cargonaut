@@ -17,7 +17,7 @@ export async function vehicleTest() {
 
         // Create routes:
 
-        it(`should return 201 and id of created user`, async () => {
+        it(`should return 201 and values of`, async () => {
             return await chai.request(app).post('/vehicle/create').send({
                 "type": vehicleType.standardCar,
                 "numberOfSeats": 2,
@@ -25,7 +25,9 @@ export async function vehicleTest() {
             }).then(res => {
                 vehicleId = res.body;
                 chai.expect(res.status).to.equal(201);
-                chai.expect(res.body._id).to.equal(vehicleId);
+                chai.expect(res.body.numberOfSeats).to.equal(2);
+                chai.expect(res.body.notes).to.equal("Smart");
+                chai.expect(res.body.type).to.equal(vehicleType.standardCar)
             })
         })
 
