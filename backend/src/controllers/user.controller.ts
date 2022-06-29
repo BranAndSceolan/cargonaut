@@ -216,7 +216,7 @@ export class UserController {
         if( user?.averageEvalOfRides) {
             avgEval = user.averageEvalOfRides
         }
-        if (user && user._id) {
+        if (user?._id) {
             const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(user._id)
             avgEval = ((avgEval * evalsN) + newEval) / (evalsN + 1)
         } else{

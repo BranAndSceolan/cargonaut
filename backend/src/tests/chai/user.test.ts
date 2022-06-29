@@ -10,6 +10,7 @@ chai.expect;
 export async function userTest() {
 
     let userId: mongoose.Types.ObjectId;
+    const userName: string = "Ferdinand";
 
     describe('User Route Tests', async () => {
 
@@ -19,7 +20,7 @@ export async function userTest() {
 
         it(`should return 200 and id of created user`, async () => {
             return await chai.request(app).post('/user/create').send({
-                "name": "äasfnk",
+                "name": userName,
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",
@@ -47,10 +48,10 @@ export async function userTest() {
 
         // Login
 
-        it(`should return 200`, async () => {
+        it(`login should return 200`, async () => {
             return await chai.request(app).post('/user/login').send({
-                "signInName": "äasfnk",
-                "signInPass": "123"
+                "name": userName,
+                "password": "123"
             }).then(res => {
                 chai.expect(res.status).to.equal(200);
             })
@@ -65,7 +66,7 @@ export async function userTest() {
         })
 
         it(`should return 200 and the correct user`, async () => {
-            return await chai.request(app).get(`/user/getByName/äasfnk`).then(async res => {
+            return await chai.request(app).get(`/user/getByName/`+userName).then(async res => {
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body._id).to.equal(userId);
             })
@@ -75,7 +76,7 @@ export async function userTest() {
 
         it(`should return 200 and the updated user`, async () => {
             return await chai.request(app).post(`/user/update/${userId}`).send({
-                "name": "Franz",
+                "name": userName,
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",
@@ -91,7 +92,7 @@ export async function userTest() {
 
         it(`should return 400 and text 'Bad Request'`, async () => {
             return await chai.request(app).post(`/user/update/${userId}`).send({
-                "name": "Hans",
+                "name": userName,
                 "birthdate": "1-1-1901",
                 "email": "",
                 "password": "123",
