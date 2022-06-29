@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ path: '/detail/'+ id, component: () => import('../views/DetailView.vue'), params: { id: this._id}, props: true}" class="link">
+  <router-link :to=address class="link">
     <div class="card" style="width: 20rem;">
       <div class="wrapper">
         <img class="card-img-top" src="../assets/amarok-d8f.png" alt="Card image cap">
@@ -52,6 +52,11 @@ export default {
     layover: String,
     destination: String,
     price: Number
+  },
+  computed: {
+    address: function () {
+      return '/detail/' + this.id
+    }
   }
 }
 
