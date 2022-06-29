@@ -68,9 +68,11 @@ export default {
       if (this.date.toString().includes('/')) {
         const dateParts = this.date.toString().split('/')
         return dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]
-      } else {
+      } else if (this.date.toString().includes('.')) {
         const dateParts = this.date.toString().split('.')
         return dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]
+      } else {
+        return this.date
       }
     }
   },
