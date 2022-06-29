@@ -30,7 +30,6 @@ export class RideModule extends EntityModule {
             rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.price, rideData.user, rideData.vehicle,undefined, rideData.accReqs));
         }
         if (rideId) {
-            printToConsole('[+] New ride with id ' + rideId.toString() + ' saved.');
             return rideId
         } else {
             return null
