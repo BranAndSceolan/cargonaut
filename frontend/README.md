@@ -29,6 +29,8 @@ npm install -g @vue/cli
 vue add eslint                    
 ```
 -> bootstrap missing
+- use babel/polyfill: yes
+- use scss: no
 ```
 vue add bootstrap-vue
 ```
