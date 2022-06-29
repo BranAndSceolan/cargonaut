@@ -67,7 +67,6 @@ export default {
       this.applyOptions()
     },
     filter () {
-      console.log(this.filterType, this.filterString)
       if (this.filterString === '') return
       if (this.filterType === '') return
       const filterAr = this.filterString.split('|')
