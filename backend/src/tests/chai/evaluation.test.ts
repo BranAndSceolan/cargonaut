@@ -22,7 +22,7 @@ export async function evaluationTest() {
 
         // Create with a single reference to a ride and a user
 
-        it(`should return 201 and id of created evluation`, async () => {
+        it(`Prepares for tests. Should return 201 and id of created evaluation`, async () => {
             await chai.request(app).post('/user/create').send({
                 "name": "Viktor",
                 "birthdate": "1-1-1901",
@@ -114,7 +114,6 @@ export async function evaluationTest() {
                 chai.expect(res.body._id).to.equal(evaluationId);
             })
         })
-
 
         // Delete routes:
 

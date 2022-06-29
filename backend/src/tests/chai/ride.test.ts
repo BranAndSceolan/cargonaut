@@ -21,7 +21,7 @@ export async function rideTest() {
 
         it(`prepares test`, async () => {
             await chai.request(app).post('/user/create').send({
-                "name": "TIM",
+                "name": "Achmed",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",
