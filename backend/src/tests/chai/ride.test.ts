@@ -57,7 +57,7 @@ export async function rideTest() {
             })
         })
 
-        // Create - Bad Request due to empty field.
+        // Create - Bad Request due to empty field .
 
         it(`should return 400 and text 'Bad Request'`, async () => {
             return await chai.request(app).post('/ride/create').send({
@@ -65,6 +65,7 @@ export async function rideTest() {
                 "origin": "",
                 "destination": "Hattersheim",
                 "title": "Titel",
+                "vehicle": vehicleId,
                 "description": "Off we go",
                 "numberOfFreeSeats": 4,
                 "user": userId
@@ -98,6 +99,7 @@ export async function rideTest() {
                 "title": "Titel",
                 "price": 40,
                 "description": "Off we go",
+                "vehicle": vehicleId,
                 "numberOfFreeSeats": 4,
                 "user": userId
             }).then(res => {
@@ -116,6 +118,7 @@ export async function rideTest() {
                 "destination": "Hattersheim",
                 "title": "Titel",
                 "description": "Off we go",
+                "vehicle": vehicleId,
                 "numberOfFreeSeats": 4,
                 "user": userId
             }).then(res => {

@@ -32,6 +32,8 @@ export class RideController {
         }
         if (! req.body.date){
             res.status(400).send("Missing date!")
+        } else if (! req.body.vehicle) {
+            res.status(400).send("Missing vehicle id!")
         } else if (! req.body.destination){
             res.status(400).send("Missing destination!")
         } else if (! req.body.origin){
@@ -125,7 +127,9 @@ export class RideController {
             res.status(400).send("Missing date!")
         } else if (! req.body.destination){
             res.status(400).send("Missing destination!")
-        }else if (! req.params.id){
+        }else if (! req.body.vehicle){
+            res.status(400).send("Missing vehicle id!")
+        } else if (! req.params.id){
             res.status(400).send("Missing id!")
         } else if (! req.body.origin){
             res.status(400).send("Missing origin!")
