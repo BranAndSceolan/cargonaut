@@ -1,7 +1,6 @@
 import {app} from '../../index';
 import chai from 'chai';
 import chaiHttp from "chai-http";
-import {printToConsole} from "../../modules/util/util.module";
 import * as mongoose from "mongoose";
 
 
@@ -28,7 +27,6 @@ export async function rideTest() {
                 "password": "123",
                 "description": "Hallo ich bin der Hans"
             }).then(res => {
-                printToConsole("body: "+ res.body)
                 userId = res.body;
             })
             await chai.request(app).post('/vehicle/create').send({
@@ -103,7 +101,6 @@ export async function rideTest() {
                 "numberOfFreeSeats": 4,
                 "user": userId
             }).then(res => {
-                printToConsole(res.body)
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body._id).to.equal(rideId);
             })
@@ -136,7 +133,6 @@ export async function rideTest() {
         })
 
         it('user deletion\n', async () => {
-            printToConsole(userId)
             return await chai.request(app).delete(`/user/delete/${userId}`).then(res => {
                 chai.expect(res.status).to.equal(200)
                 chai.expect(res.body._id).to.equal(`${userId}`)
