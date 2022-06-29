@@ -20,7 +20,7 @@
      </div>
      <div>
        <b-button id="book" class="book shadow" v-if="currentUser !== offer.user" v-on:click="book"> Anmelden </b-button>
-       <b-button id="book" class="book shadow" v-if="currentUser === offer.user" v-on:click="book"> Löschen </b-button>
+       <b-button id="book" class="book shadow" v-if="currentUser === offer.user" v-on:click="deleteOffer"> Löschen </b-button>
      </div>
    </div>
    <div class="area">
@@ -112,6 +112,8 @@ export default {
     axios.get('/ride/findById/' + this.id).then(response => {
       this.offer = response.data
       axios.get('/user/current').then(response => {
+        console.log('current User: ')
+        console.log(response)
         this.currentUser = response.data._id
         console.log('Hey : ' + this.currentUser + ' ' + this.offer.user)
       }).catch(reason => console.log(reason))
@@ -135,6 +137,9 @@ export default {
           axios.post('/ride/update/' + this.id, ride).then().catch(reason => console.log(reason))
         }).catch(reason => console.log(reason))
       }
+    },
+    deleteOffer () {
+      axios.delete('/ride/delete/' + this.id).then(() => this.$router.push('/overview')).catch(reason => console.log(reason))
     }
   }
 }
