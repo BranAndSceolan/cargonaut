@@ -22,7 +22,7 @@
         <OverBar class="mb-4" title="Angebote" v-on:contentHidden="offersHidden = $event" address="/create" ></OverBar>
         <div class="col w-100">
           <div v-if="!offersHidden" class="card-columns">
-            <travel-card class="mx-4 mt-4" v-for="offer in userOffers" v-bind:key="offer.id"  :title="offer.title" :origin="offer.origin"
+            <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer._id"  :title="offer.title" :origin="offer.origin"
                          :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
                          :width="'X'" :price="offer.price" :date="offer.date">
             </travel-card>
@@ -55,14 +55,15 @@ export default {
       this.user = response.data
       this.getVehicles()
     })
-    axios.get('/ride/getAll').then(response => (this.offers = response.data))
+    axios.get('/ride/getAll').then(response => {
+      this.getOffers(response.data)
+    })
   },
   methods: {
     getVehicles () {
       for (const i in this.user.vehicles) {
         axios.get('/vehicle/findById/' + this.user.vehicles[i]).then(response => {
           this.userVehicles.push(response.data)
-          console.log(this.userVehicles)
         }).catch((reason) => {
           console.log(reason)
         })
@@ -74,6 +75,15 @@ export default {
       axios.delete('/vehicle/delete/' + id).then(() => {
         axios.post('/user/update/' + this.user._id, this.user)
       })
+    },
+    getOffers (offers) {
+      console.log('Offers: ', offers)
+      for (const i in offers) {
+        if (offers[i].user === this.user._id) {
+          this.offers.push(offers[i])
+        }
+      }
+      console.log('Useroffers: ', this.offers)
     }
   },
   computed: {
