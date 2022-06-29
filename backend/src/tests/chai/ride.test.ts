@@ -20,14 +20,15 @@ export async function rideTest() {
 
         // Create with a single reference to a ride and a user
 
-        it(`should return 201 and id of created ride`, async () => {
+        it(`prepares test`, async () => {
             await chai.request(app).post('/user/create').send({
-                "name": "Hans",
+                "name": "TIM",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",
                 "description": "Hallo ich bin der Hans"
             }).then(res => {
+                printToConsole("body: "+ res.body)
                 userId = res.body;
             })
             await chai.request(app).post('/vehicle/create').send({
@@ -52,7 +53,7 @@ export async function rideTest() {
             }).then(res => {
                 rideId = res.body;
                 chai.expect(res.status).to.equal(201);
-                chai.expect(res.body).to.equal(rideId);
+                chai.expect(res.body)
             })
         })
 
@@ -61,7 +62,7 @@ export async function rideTest() {
         it(`should return 400 and text 'Bad Request'`, async () => {
             return await chai.request(app).post('/ride/create').send({
                 "date": "6-23-2022",
-                "origin": {},
+                "origin": "",
                 "destination": "Hattersheim",
                 "title": "Titel",
                 "description": "Off we go",
@@ -95,6 +96,7 @@ export async function rideTest() {
                 "origin": "Seligenstadt",
                 "destination": "Hattersheim",
                 "title": "Titel",
+                "price": 40,
                 "description": "Off we go",
                 "numberOfFreeSeats": 4,
                 "user": userId
@@ -109,7 +111,7 @@ export async function rideTest() {
 
         it(`should return 400 and text 'Bad Request'`, async () => {
             return await chai.request(app).post(`/ride/update/${rideId}`).send({
-                "date": {},
+                "date": "",
                 "origin": "Seligenstadt",
                 "destination": "Hattersheim",
                 "title": "Titel",
