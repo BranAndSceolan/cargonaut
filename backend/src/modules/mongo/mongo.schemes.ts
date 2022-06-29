@@ -6,6 +6,7 @@ import {User} from "../../models/user.model";
 import {Vehicle} from "../../models/vehicle.model";
 
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires -- require is needed for using non primitive types!
 const mongoose = require('mongoose')
 
 /**

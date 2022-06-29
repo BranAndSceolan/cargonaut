@@ -15,18 +15,18 @@ export async function userTest() {
 
         // Create routes:
 
-        // Create with a single reference to a ride and a user
+        // Register
 
-        it(`should return 201 and id of created user`, async () => {
+        it(`should return 200 and id of created user`, async () => {
             return await chai.request(app).post('/user/create').send({
-                "name": "Johann",
+                "name": "äasfnk",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",
                 "description": "Ich bin der Hans und ich kann's"
             }).then(res => {
                 userId = res.body;
-                chai.expect(res.status).to.equal(201);
+                chai.expect(res.status).to.equal(200);
                 chai.expect(res.body).to.equal(userId);
             })
         })
@@ -45,6 +45,17 @@ export async function userTest() {
             })
         })
 
+        // Login
+
+        it(`should return 200`, async () => {
+            return await chai.request(app).post('/user/login').send({
+                "signInName": "äasfnk",
+                "signInPass": "123"
+            }).then(res => {
+                chai.expect(res.status).to.equal(200);
+            })
+        })
+
         // Read routes:
 
         it(`should return 200 and all user`, async () => {
@@ -54,7 +65,7 @@ export async function userTest() {
         })
 
         it(`should return 200 and the correct user`, async () => {
-            return await chai.request(app).get(`/user/getByName/Johann`).then(async res => {
+            return await chai.request(app).get(`/user/getByName/äasfnk`).then(async res => {
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body._id).to.equal(userId);
             })
@@ -71,7 +82,6 @@ export async function userTest() {
                 "description": "Ich bin der Hans und ich kann's",
                 "averageEvalOfRides": 0
             }).then(res => {
-                console.log(res.body)
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body._id).to.equal(userId);
             })
@@ -83,7 +93,7 @@ export async function userTest() {
             return await chai.request(app).post(`/user/update/${userId}`).send({
                 "name": "Hans",
                 "birthdate": "1-1-1901",
-                "email": {},
+                "email": "",
                 "password": "123",
                 "description": "Ich bin der Hans und ich kann's",
                 "averageEvalOfRides": 0

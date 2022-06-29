@@ -72,7 +72,6 @@ export class UserController {
             if (id) {
                 res.status(201).send(id)
             } else {
-                console.log(res)
                 res.sendStatus(500)
             }
         }).catch((err: Error) => {
@@ -191,7 +190,7 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
-        let newEval : number = 0;
+        let newEval  = 0;
         if(req.body.averageEvalOfRides){
             newEval = req.body.averageEvalOfRides
         }
@@ -201,7 +200,7 @@ export class UserController {
         }
 
         const user: User | null = await this.userModule.getUserById(req.params.id)
-        let avgEval: number = 0;
+        let avgEval = 0;
         if( user?.averageEvalOfRides) {
             avgEval = user.averageEvalOfRides
         }

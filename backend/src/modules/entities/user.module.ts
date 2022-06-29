@@ -78,7 +78,6 @@ export class UserModule extends EntityModule {
      */
     async deleteUser(id: mongoose.Types.ObjectId): Promise<User | null> {
         const user: User | null = await this.mongo.deleteUser(id);
-        printToConsole("[-] deleted user " + user)
         return user
     }
 
