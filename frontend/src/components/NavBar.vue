@@ -6,13 +6,8 @@
     <b-navbar-nav>
       <!-- <b-nav-item href="/overview" class="link"> Angebote </b-nav-item> -->
       <router-link to="/overview" class="link">Overview</router-link>
-      <router-link to="/login" class="link">login</router-link>
-      <router-link to="/create" class="link">create</router-link>
-      <router-link to="/createVeh" class="link">createVehicle</router-link>
-      <router-link to="/createReview" class="link">createReview</router-link>
-      <router-link to="/register" class="link">register</router-link>
     </b-navbar-nav>
-    <b-navbar-nav class="ml-auto">
+    <b-navbar-nav class="ml-auto box">
       <router-link to="/profile">
         <font-awesome-icon icon="fa-solid fa-user" class="link icon mr-5"></font-awesome-icon>
       </router-link>
@@ -34,6 +29,7 @@ export default {
 }
 .logo{
   height: 60px;
+  margin-left: 4rem;
 }
 .link{
   color: white;
@@ -42,6 +38,10 @@ export default {
 }
 .icon {
   font-size: 2.2em;
+  margin-right: 2rem;
+  margin-left: 1rem;
 }
-
+.box {
+  margin-right: 20rem;
+}
 </style>
