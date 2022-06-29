@@ -84,7 +84,7 @@ export class RequestController {
 
     public update(req: Request, res: Response): void {
         const id: string | undefined = req.params.id;
-        if (req.body && req.body.date && req.body.user && req.body.cargo) {
+        if (req.body && req.body.date && req.body.user) {
             let status = undefined
             if(req.body.requestStatus){
                 status = req.body.requestStatus
@@ -93,13 +93,19 @@ export class RequestController {
             if(req.body.trackingStatus){
                 tStatus = req.body.trackingStatus
             }
-            this.requestModule.updateRequest(new mongoose.Types.ObjectId(id), new RequestClass(status, req.body.date, req.body.user, tStatus, req.body.cargo)).then((result: any) => {
+            let cargo = undefined
+            if (req.body.cargo){
+                cargo = req.body.cargo
+            }
+            this.requestModule.updateRequest(new mongoose.Types.ObjectId(id), new RequestClass(status, req.body.date, req.body.user, tStatus, cargo)).then((result: any) => {
                 if (result) {
-                    res.status(200).send(result); //deleted Entity
+                    res.status(200).send(result);
                 } else {
-                    res.status(500).send("Internal Server Error")
+                    res.status(500).send("Internal Server Error");
                 }
             }).catch(() => res.status(500).send("Internal Server Error"));
+        } else {
+            res.status(400).send("Bad Request")
         }
     }
 }
