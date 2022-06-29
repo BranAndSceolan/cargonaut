@@ -1,7 +1,10 @@
 <template>
   <div class="row w-100 ml-2 mr-1 mt-1 entryContainer align-items-center">
     <div class="col col-xl-2 p-0">
-      <img class="float-left" alt="Car picture" src="../assets/amarok-d8f.png">
+      <img v-if="this.name === 'standard car'" class="float-left" alt="Car picture" src="../assets/standardcar.jpg">
+      <img v-else-if="this.name === 'truck'" class="float-left" alt="Car picture" src="../assets/truck.jpg">
+      <img v-else-if="this.name === 'motorcycle'" class="float-left" alt="Car picture" src="../assets/motorcycle.jpg">
+      <img v-else class="float-left" alt="Car picture" src="../assets/standardcar.jpg">
     </div>
     <div class="col col-xl-2 ml-xl-4">
       <p class="mb-0"> {{name}}</p>
@@ -35,7 +38,6 @@ export default {
   },
   methods: {
     sendDelete () {
-      console.log(this.id)
       this.$emit('delete', this.id, this.index)
     }
   }

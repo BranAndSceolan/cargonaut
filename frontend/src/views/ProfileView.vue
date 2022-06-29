@@ -22,7 +22,7 @@
         <OverBar class="mb-4" title="Angebote" v-on:contentHidden="offersHidden = $event" address="/create" ></OverBar>
         <div class="col w-100">
           <div v-if="!offersHidden" class="card-columns">
-            <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer._id"  :title="offer.title" :origin="offer.origin"
+            <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer._id" :id="offer._id"  :title="offer.title" :origin="offer.origin"
                          :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
                          :width="'X'" :price="offer.price" :date="offer.date">
             </travel-card>

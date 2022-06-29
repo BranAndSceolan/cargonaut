@@ -11,7 +11,7 @@
             <div class="card-head"> {{ offer.title }} </div>
             <div class="row">
               <div class="col-sm-4"> Sitze: {{ offer.numberOfFreeSeats }} </div>
-              <div class="col-sm-5"> Platz: X m&sup3; </div>
+              <div class="col-sm-5"> Platz: 5 m&sup3; </div>
               <div> {{offer.price}}€ </div>
             </div>
           </div>

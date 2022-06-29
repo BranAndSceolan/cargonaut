@@ -18,23 +18,19 @@
       <b-card-text class="text">
         Need an Account? <router-link to="/register" class="link">Register here</router-link>
       </b-card-text>
-      <warning-component v-if="warning"></warning-component>
     </b-card-body>
   </b-card>
 </template>
 
 <script>
 import axios from 'axios'
-import WarningComponent from '../components/WarningComponent'
 
 export default {
   name: 'LoginView.vue',
-  components: { WarningComponent },
   data () {
     return {
       user: '',
-      password: '',
-      warning: false
+      password: ''
     }
   },
   methods: {
@@ -46,16 +42,10 @@ export default {
             password: this.password
           })
           .then(response => (this.$router.push('/overview'))).catch(reason => {
-            this.warning = true
             console.log(reason)
           })
-      } else {
-        this.warning = true
       }
     }
-  },
-  mounted () {
-    this.warning = false
   }
 }
 </script>
