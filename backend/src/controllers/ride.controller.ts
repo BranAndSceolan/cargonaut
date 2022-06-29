@@ -26,7 +26,7 @@ export class RideController {
         const user = await userController.userModule.getUserByName(req.session.signInName)
         if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && user?._id && req.body.pendingReqs && req.body.accReqs){
 
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.user, req.body.vehicle, req.body.pendingReqs, req.body.accReqs)).then(result =>{
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.user, req.body.vehicle, req.body.pendingReqs, req.body.accReqs)).then(result =>{
                 if (result) {
                     res.status(200).send(result);
                 } else {
