@@ -24,19 +24,31 @@ export class RideController {
      */
     public async create(req: Request, res: Response): Promise<void> {
         const user = await userController.userModule.getUserByName(req.session.signInName)
-        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && user?._id && req.body.pendingReqs && req.body.accReqs){
-
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.user, req.body.vehicle, req.body.pendingReqs, req.body.accReqs)).then(result =>{
+        console.log(user?._id)
+        if (!(req.body && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && user?._id)) {
+            res.status(400).send("Bad Request")
+        } else {
+            let pendingReqs = undefined
+            if (req.body.pendingReqs) {
+                pendingReqs = req.body.pendingReqs
+            }
+            let accReqs = undefined
+            if (req.body.accReqs) {
+                accReqs = req.body.accReqs
+            }
+            let vehicle = undefined
+            if(req.body.vehicle) {
+                vehicle = req.body.vehicle
+            }vehicle
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
                 if (result) {
                     res.status(201).send(result);
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
-            }).catch(err=>{
+            }).catch(err => {
                 res.status(500).send(err)
             });
-        } else {
-            res.status(400).send("Bad Request")
         }
     }
 
@@ -50,6 +62,7 @@ export class RideController {
             }
         }).catch(() => res.status(500).send("Internal Server Error"));
     }
+
     /**
      *  get all rides
      * @param _req
@@ -84,16 +97,16 @@ export class RideController {
 
     public async update(req: Request, res: Response): Promise<void> {
         const user = await userController.userModule.getUserByName(req.session.signInName)
-        if (req.body && req.params.id && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.vehicle && req.body.description && req.body.numberOfFreeSeats && req.body.price && user?._id){
+        if (req.body && req.params.id && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.vehicle && req.body.description && req.body.numberOfFreeSeats && req.body.price && user?._id) {
             let accReq = undefined
             let penReq = undefined
-            if (req.body.pendingReqs){
+            if (req.body.pendingReqs) {
                 penReq = req.body.pendingReqs
             }
-            if (req.body.accReqs){
+            if (req.body.accReqs) {
                 accReq = req.body.accReqs
             }
-            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.vehicle, req.body.description, req.body.numberOfFreeSeats, req.body.price, user._id, penReq, accReq)).then(result =>{
+            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.vehicle, req.body.description, req.body.numberOfFreeSeats, req.body.price, user._id, penReq, accReq)).then(result => {
                 if (result) {
                     res.status(200).send(result);
                 } else {
@@ -101,7 +114,7 @@ export class RideController {
                 }
             });
         } else {
-            if(!user){
+            if (!user) {
                 res.sendStatus(500)
             }
             res.status(400).send("Bad Request")

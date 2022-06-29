@@ -22,21 +22,22 @@ export class RequestController {
      * @param res
      */
     public create(req: Request, res: Response): void {
-        if (req.body && req.body.date && req.body.user){
+        if (!(req.body && req.body.date && req.body.user)) {
+            res.status(400).send("Bad Request")
+        } else {
             let cargo = undefined
-            if (req.body.cargo){
+            if (req.body.cargo) {
                 cargo = req.body.cargo
             }
 
-            this.requestModule.createRequest(new RequestClass(requestStatus.pending, req.body.date, req.body.user, trackingStatus.pending ,cargo)).then(result =>{
+            this.requestModule.createRequest(new RequestClass(requestStatus.pending, req.body.date, req.body.user, trackingStatus.pending, cargo)).then(result => {
                 if (result) {
                     res.status(201).send(result);
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
             });
-        } else {
-            res.status(400).send("Bad Request")
+
         }
     }
 
@@ -50,6 +51,7 @@ export class RequestController {
             }
         }).catch(() => res.status(500).send("Internal Server Error"));
     }
+
     /**
      *  get all requests
      * @param _req
@@ -86,15 +88,15 @@ export class RequestController {
         const id: string | undefined = req.params.id;
         if (req.body && req.body.date && req.body.user) {
             let status = undefined
-            if(req.body.requestStatus){
+            if (req.body.requestStatus) {
                 status = req.body.requestStatus
             }
             let tStatus = undefined
-            if(req.body.trackingStatus){
+            if (req.body.trackingStatus) {
                 tStatus = req.body.trackingStatus
             }
             let cargo = undefined
-            if (req.body.cargo){
+            if (req.body.cargo) {
                 cargo = req.body.cargo
             }
             this.requestModule.updateRequest(new mongoose.Types.ObjectId(id), new RequestClass(status, req.body.date, req.body.user, tStatus, cargo)).then((result: any) => {

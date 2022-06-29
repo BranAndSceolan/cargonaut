@@ -3,9 +3,9 @@ import chai from "chai";
 import {app} from '../../index';
 // import {evaluationTest} from "./evaluation.test";
 // import {requestTest} from "./request.test";
-// import {rideTest} from "./ride.test";
+import {rideTest} from "./ride.test";
 // import {userTest} from "./user.test";
- import {vehicleTest} from "./vehicle.test";
+// import {vehicleTest} from "./vehicle.test";
 
 
 chai.use(chaiHttp);
@@ -23,6 +23,6 @@ describe('Base Route Test', () => {
 // userTest()
 // evaluationTest()
 // requestTest()
-// rideTest()
- vehicleTest()
+rideTest()
+//  vehicleTest()
 

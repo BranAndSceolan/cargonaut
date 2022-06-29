@@ -5,13 +5,13 @@ import {printToConsole} from "../../modules/util/util.module";
 import * as mongoose from "mongoose";
 
 
-
 chai.use(chaiHttp);
 chai.expect;
 
 export async function rideTest() {
 
     let userId: mongoose.Types.ObjectId;
+    let vehicleId: mongoose.Types.ObjectId;
     let rideId: mongoose.Types.ObjectId;
 
     describe('Ride Route Tests', async () => {
@@ -30,18 +30,29 @@ export async function rideTest() {
             }).then(res => {
                 userId = res.body;
             })
+            await chai.request(app).post('/vehicle/create').send({
+                "type": "standard car",
+                "numberOfSeats": 4,
+                "notes": "looks ugly, but moves"
+            }).then(res => {
+                vehicleId = res.body;
+            })
             return await chai.request(app).post('/ride/create').send({
-                "date": "6-23-2022",
-                "origin": "Frankfurt",
-                "destination": "Hattersheim",
-                "title": "Titel",
-                "description": "Off we go",
+                "date": "1-12-2022",
+                "origin": "munich",
+                "destination": "berlin",
+                "title": "nice ride",
+                "description": "We go from munich to berlin!",
                 "numberOfFreeSeats": 4,
-                "user": userId
+                "price": 20,
+                "user": userId,
+                "vehicle": vehicleId,
+                "pendingReqs": [],
+                "accReqs": []
             }).then(res => {
                 rideId = res.body;
                 chai.expect(res.status).to.equal(201);
-                chai.expect(res.body._id).to.equal(rideId);
+                chai.expect(res.body).to.equal(rideId);
             })
         })
 
