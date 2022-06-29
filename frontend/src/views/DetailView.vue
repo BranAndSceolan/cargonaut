@@ -19,7 +19,8 @@
       </b-card>
      </div>
      <div>
-       <b-button id="book" class="book shadow" v-on:click="book"> Anmelden </b-button>
+       <b-button id="book" class="book shadow" v-if="currentUser !== offer.user" v-on:click="book"> Anmelden </b-button>
+       <b-button id="book" class="book shadow" v-if="currentUser === offer.user" v-on:click="book"> Löschen </b-button>
      </div>
    </div>
    <div class="area">
@@ -103,12 +104,18 @@ export default {
         stars: 5
       },
       { name: 'Max Mustermann', date: 'Juni 2020', desc: 'Schlechte Fahrt, schlechter Fahrer, 5/7 niewieder!', stars: 1 }],
-      reviewsHidden: false
+      reviewsHidden: false,
+      currentUser: ''
     }
   },
   mounted () {
-    axios.get('/ride/findById/' + this.id).then(response => { this.offer = response.data })
-    console.log(this.offer)
+    axios.get('/ride/findById/' + this.id).then(response => {
+      this.offer = response.data
+      axios.get('/user/current').then(response => {
+        this.currentUser = response.data._id
+        console.log('Hey : ' + this.currentUser + ' ' + this.offer.user)
+      }).catch(reason => console.log(reason))
+    })
   },
   computed: {
     address: function () {
