@@ -10,7 +10,7 @@ chai.expect;
 export async function userTest() {
 
     let userId: mongoose.Types.ObjectId;
-    const userName: string = "Ferdinand";
+    const userName: string = "Ferdinand"; // configure user name for tests here!
 
     describe('User Route Tests', async () => {
 
