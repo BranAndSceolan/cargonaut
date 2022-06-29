@@ -6,11 +6,13 @@ npm install
 ```
 
 ### Compiles and hot-reloads for development
+- nur zum lokalen testen ohne datenbank und server
 ```
 npm run serve
 ```
 
 ### Compiles and minifies for production
+- use for building and start the docker afterwards
 ```
 npm run build
 ```
