@@ -154,6 +154,7 @@ export class MongoModule {
                 numberOfFreeSeats: newRide.numberOfFreeSeats,
                 user: newRide.user,
                 price: newRide.price,
+                vehicle: newRide.vehicle,
                 pendingReqs: newRide.pendingReqs,
                 accReqs: newRide.accReqs
             }

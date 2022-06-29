@@ -24,7 +24,6 @@ export class EvaluationModule extends EntityModule {
             evaluationId = await this.mongo.addEvaluation(new EvaluationClass(evaluationData.result, evaluationData.ride, evaluationData.user));
         }
         if (evaluationId) {
-            printToConsole('[+] New evaluation with id ' + evaluationId.toString() + ' saved.');
             return evaluationId
         } else {
             return null

@@ -93,7 +93,7 @@ ride : mongoose.Types.ObjectId NOT NULL # id of the evaluated ride</panel_attrib
     <panel_attributes>Request
 --
 _id: mongoose.Types.ObjectId
-user: mongoose.Types.ObjectId NOT NULL # User that made the request 
+user: mongoose.Types.ObjectId NOT NULL # User that made the request
 date: Date NOT NULL
 cargo: string
 trackingStatus: trackingStatus NOT NULL
@@ -197,7 +197,7 @@ requests &gt;</panel_attributes>
       <h>130</h>
     </coordinates>
     <panel_attributes>lt=&gt;&gt;
-an user can 
+an user can
 be a driver</panel_attributes>
     <additional_attributes>30;110;30;50;150;50;140;110</additional_attributes>
   </element>

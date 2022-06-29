@@ -31,13 +31,8 @@ export class AuthModule {
                 registerPass
             ))
         if (newUser){
-            if (config.get('disableAuth') == "true") {
-                return res.status(200).send(newUser._id)
-            } else{
-                req.session.signInName = registerName;
-                return res.status(200).send(newUser._id)
-            }
-
+            req.session.signInName = registerName;
+            return res.status(200).send(newUser._id)
         } else {
            return res.status(500).send("Something went wrong registering!")
         }

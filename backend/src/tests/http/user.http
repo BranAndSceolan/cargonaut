@@ -5,7 +5,7 @@ sessionid: 1111
 cuid: system
 
 {
-  "name": "uosfd",
+  "name": "Xavier",
   "birthdate": "1-1-2000",
   "email": "muster@gmail.de",
   "password": "password",
@@ -14,7 +14,7 @@ cuid: system
 
 ###
 
-POST http://localhost:8008/user/update/62b6ea097361e0637f39e05e
+POST http://localhost:8008/user/update/62bb2ee6448f017a9139a63c
 Content-Type: application/json
 sessionid: 1111
 cuid: system
@@ -37,7 +37,7 @@ cuid: system
 
 ###
 
-GET http://localhost:8008/user/findById/620cbeaecc90432d95b598a0
+GET http://localhost:8008/user/findById/62b4622328ed0b0006bdba40
 sessionid: 1111
 cuid: system
 

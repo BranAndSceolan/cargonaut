@@ -1,8 +1,7 @@
 import {app} from '../../index';
 import chai from 'chai';
 import chaiHttp from "chai-http";
-import {printToConsole} from "../../modules/util/util.module";
-
+import * as mongoose from "mongoose";
 
 
 chai.use(chaiHttp);
@@ -10,18 +9,19 @@ chai.expect;
 
 export async function rideTest() {
 
-    let userId: string;
-    let rideId: string;
+    let userId: mongoose.Types.ObjectId;
+    let vehicleId: mongoose.Types.ObjectId;
+    let rideId: mongoose.Types.ObjectId;
 
-    describe('Request Route Tests', async () => {
+    describe('Ride Route Tests', async () => {
 
         // Create routes:
 
         // Create with a single reference to a ride and a user
 
-        it(`should return 201 and id of created ride`, async () => {
+        it(`prepares test`, async () => {
             await chai.request(app).post('/user/create').send({
-                "name": "Hans",
+                "name": "Achmed",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",
@@ -29,29 +29,41 @@ export async function rideTest() {
             }).then(res => {
                 userId = res.body;
             })
+            await chai.request(app).post('/vehicle/create').send({
+                "type": "standard car",
+                "numberOfSeats": 4,
+                "notes": "looks ugly, but moves"
+            }).then(res => {
+                vehicleId = res.body;
+            })
             return await chai.request(app).post('/ride/create').send({
-                "date": "6-23-2022",
-                "origin": "Frankfurt",
-                "destination": "Hattersheim",
-                "title": "Titel",
-                "description": "Off we go",
+                "date": "1-12-2022",
+                "origin": "munich",
+                "destination": "berlin",
+                "title": "nice ride",
+                "description": "We go from munich to berlin!",
                 "numberOfFreeSeats": 4,
-                "user": userId
+                "price": 20,
+                "user": userId,
+                "vehicle": vehicleId,
+                "pendingReqs": [],
+                "accReqs": []
             }).then(res => {
                 rideId = res.body;
                 chai.expect(res.status).to.equal(201);
-                chai.expect(res.body._id).to.equal(rideId);
+                chai.expect(res.body)
             })
         })
 
-        // Create - Bad Request due to empty field.
+        // Create - Bad Request due to empty field .
 
         it(`should return 400 and text 'Bad Request'`, async () => {
             return await chai.request(app).post('/ride/create').send({
                 "date": "6-23-2022",
-                "origin": {},
+                "origin": "",
                 "destination": "Hattersheim",
                 "title": "Titel",
+                "vehicle": vehicleId,
                 "description": "Off we go",
                 "numberOfFreeSeats": 4,
                 "user": userId
@@ -83,11 +95,12 @@ export async function rideTest() {
                 "origin": "Seligenstadt",
                 "destination": "Hattersheim",
                 "title": "Titel",
+                "price": 40,
                 "description": "Off we go",
+                "vehicle": vehicleId,
                 "numberOfFreeSeats": 4,
                 "user": userId
             }).then(res => {
-                printToConsole(res.body)
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body._id).to.equal(rideId);
             })
@@ -97,11 +110,12 @@ export async function rideTest() {
 
         it(`should return 400 and text 'Bad Request'`, async () => {
             return await chai.request(app).post(`/ride/update/${rideId}`).send({
-                "date": {},
+                "date": "",
                 "origin": "Seligenstadt",
                 "destination": "Hattersheim",
                 "title": "Titel",
                 "description": "Off we go",
+                "vehicle": vehicleId,
                 "numberOfFreeSeats": 4,
                 "user": userId
             }).then(res => {
@@ -119,7 +133,6 @@ export async function rideTest() {
         })
 
         it('user deletion\n', async () => {
-            printToConsole(userId)
             return await chai.request(app).delete(`/user/delete/${userId}`).then(res => {
                 chai.expect(res.status).to.equal(200)
                 chai.expect(res.body._id).to.equal(`${userId}`)
