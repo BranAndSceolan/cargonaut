@@ -9,22 +9,42 @@ Go to [docu](docu) for non-code elements of the project.
 
 [src](backend/src) contains the code, while [config](config) adds some values needed for docker.
 
+There are different options for config. You can choose them by naming them as NODE_ENV Value.
+
+If you want to use the configurations in docker_dev.json, write NODE_ENV=docker_dev while starting the application.
+
+Use docker_prod for production. (uses authentication **!!!NOT YET SAFE, BECAUSE NO HTTPS IS USED!!!**)
+
+Use docker_dev for development. (no authentication)
+
+Use test for chai tests. (Keep in mind: the chai tests ignore authentication!)
+
 #
 
-## Build
-(in backend)
-``npm start``
+## enter the backend directory
+``cd backend``
 
-### mongo and node server
-(in root)
+## make sure all dependencies are installed
+``npm install``
+
+## build and execute (blocking the terminal, but giving you some extra information)
+### development
 ``NODE_ENV=docker_dev docker-compose up --build``
+### production
+``NODE_ENV=docker_prod docker-compose up --build``
 
-``NODE_ENV=docker_dev docker-compose up --build``
+## build and execute (not blocking the terminal)
+### development
+``NODE_ENV=docker_dev docker-compose up --build --detach``
+### production
+``NODE_ENV=docker_prod docker-compose up --build --detach``
 
+## start chai tests
+make sure the containers were already build at least once
+in backend directory and start the database using
 
-``sudo docker-compose exec mongo bash``
+``docker start cargonaut_mongo``
 
-(get access to mongoDB-bash in terminal)
+Start server in test mode using
 
-### start tests
 ``NODE_ENV=test npm run test``
