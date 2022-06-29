@@ -42,12 +42,9 @@ export async function evaluationTest() {
                     "ride": rideId,
                     "user": userId
                 }).then(res => {
-                    console.log("userId: " + userId + "\n");
-                    console.log("rideId: " +rideId + "\n");
                     evaluationId = res.body._id;
                     console.log("evaluationId: " + evaluationId + "\n");
                     chai.expect(res.status).to.equal(201);
-                    console.log("res.body._id : " + res.body._id + "\n")
                     chai.expect(res.body._id).to.equal(evaluationId);
                 })
             })

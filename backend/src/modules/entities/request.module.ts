@@ -28,7 +28,6 @@ export class RequestModule extends EntityModule {
             requestId = await this.mongo.addRequest(new RequestClass(requestData.requestStatus, requestData.date, requestData.user, requestData.trackingStatus, cargo));
         }
         if (requestId) {
-            printToConsole('[+] New request with id ' + requestId.toString() + ' saved.');
             return requestId
         } else {
             return null

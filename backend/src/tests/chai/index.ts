@@ -2,9 +2,9 @@ import chaiHttp from "chai-http";
 import chai from "chai";
 import {app} from '../../index';
 // import {evaluationTest} from "./evaluation.test";
-// import {requestTest} from "./request.test";
+import {requestTest} from "./request.test";
 // import {rideTest} from "./ride.test";
-import {userTest} from "./user.test";
+// import {userTest} from "./user.test";
 // import {vehicleTest} from "./vehicle.test";
 
 
@@ -20,9 +20,9 @@ describe('Base Route Test', () => {
     })
 })
 
-userTest()
+// userTest()
 // evaluationTest()
-// requestTest()
+requestTest()
 // rideTest()
 // vehicleTest()
 

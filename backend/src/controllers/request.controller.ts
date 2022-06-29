@@ -22,7 +22,7 @@ export class RequestController {
      * @param res
      */
     public create(req: Request, res: Response): void {
-        if (req.body && req.body.date && req.body.user && req.body.cargo){
+        if (req.body && req.body.date && req.body.user){
             let cargo = undefined
             if (req.body.cargo){
                 cargo = req.body.cargo
@@ -30,7 +30,7 @@ export class RequestController {
 
             this.requestModule.createRequest(new RequestClass(requestStatus.pending, req.body.date, req.body.user, trackingStatus.pending ,cargo)).then(result =>{
                 if (result) {
-                    res.status(200).send(result);
+                    res.status(201).send(result);
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
