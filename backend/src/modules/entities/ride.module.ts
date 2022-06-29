@@ -21,13 +21,13 @@ export class RideModule extends EntityModule {
     async createRide(rideData: Ride): Promise<mongoose.Types.ObjectId | null> {
         let rideId;
         if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.user && rideData.price && rideData.pendingReqs && rideData.vehicle && rideData.accReqs) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.price, rideData.user,rideData.vehicle, rideData.pendingReqs, rideData.accReqs));
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.vehicle, rideData.price, rideData.user, rideData.pendingReqs, rideData.accReqs));
         } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.price && rideData.user) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.price, rideData.user,rideData.vehicle, undefined, undefined));
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.vehicle, rideData.price, rideData.user, undefined, undefined));
         } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.price && rideData.user && rideData.vehicle && rideData.pendingReqs) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.price, rideData.user,rideData.vehicle, rideData.pendingReqs, undefined));
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.vehicle, rideData.price, rideData.user, rideData.pendingReqs, undefined));
         } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.price && rideData.user && rideData.vehicle && rideData.accReqs) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.price, rideData.user, rideData.vehicle,undefined, rideData.accReqs));
+            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.vehicle, rideData.price, rideData.user, undefined, rideData.accReqs));
         }
         if (rideId) {
             return rideId
@@ -77,7 +77,7 @@ export class RideModule extends EntityModule {
     }
 
     async updateRide(id: mongoose.Types.ObjectId, newRide: Ride): Promise<Ride | null> {
-        return this.mongo.updateRide(id, newRide)
+        return this.mongo.updateRide(id, newRide);
     }
 
 }

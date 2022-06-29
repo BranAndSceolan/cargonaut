@@ -32,6 +32,8 @@ export class RideController {
         }
         if (! req.body.date){
             res.status(400).send("Missing date!")
+        } else if (! req.body.vehicle) {
+            res.status(400).send("Missing vehicle id!")
         } else if (! req.body.destination){
             res.status(400).send("Missing destination!")
         } else if (! req.body.origin){
@@ -59,7 +61,7 @@ export class RideController {
             if(req.body.vehicle) {
                 vehicle = req.body.vehicle
             }
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
                 if (result) {
                     res.status(201).send(result);
                 } else {
@@ -125,7 +127,9 @@ export class RideController {
             res.status(400).send("Missing date!")
         } else if (! req.body.destination){
             res.status(400).send("Missing destination!")
-        }else if (! req.params.id){
+        }else if (! req.body.vehicle){
+            res.status(400).send("Missing vehicle id!")
+        } else if (! req.params.id){
             res.status(400).send("Missing id!")
         } else if (! req.body.origin){
             res.status(400).send("Missing origin!")
@@ -152,7 +156,7 @@ export class RideController {
             if(req.body.vehicle) {
                 vehicle = req.body.vehicle
             }
-            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
+            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
                 if (result) {
                     res.status(200).send(result);
                 } else {

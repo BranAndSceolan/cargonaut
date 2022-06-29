@@ -5,7 +5,7 @@ import mongoose from "mongoose";
  */
 export interface Ride {
     "_id"?: mongoose.Types.ObjectId,
-    "date": string,
+    "date": Date,
     "origin": string,
     "destination": string,
     "title": string,
@@ -23,7 +23,7 @@ export interface Ride {
 
 export class RideClass implements Ride {
     _id?: mongoose.Types.ObjectId;
-    date: string;
+    date: Date;
     origin: string;
     destination: string;
     title: string;
@@ -36,7 +36,7 @@ export class RideClass implements Ride {
     accReqs?: mongoose.Types.ObjectId[];
 
 
-    constructor(date: string, origin: string, destination:string, title: string, description: string, numberOfFreeSeats: number, price: number, user: mongoose.Types.ObjectId, vehicle: mongoose.Types.ObjectId, pendingReqs?: mongoose.Types.ObjectId[], accReqs?: mongoose.Types.ObjectId[], _id?: mongoose.Types.ObjectId) {
+    constructor(date: Date, origin: string, destination:string, title: string, description: string, numberOfFreeSeats: number, vehicle: mongoose.Types.ObjectId ,price: number, user: mongoose.Types.ObjectId, pendingReqs?: mongoose.Types.ObjectId[], accReqs?: mongoose.Types.ObjectId[], _id?: mongoose.Types.ObjectId) {
         this._id = _id;
         this.date = date;
         this.origin = origin;
