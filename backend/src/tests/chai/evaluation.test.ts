@@ -1,7 +1,6 @@
 import {app} from '../../index';
 import chai from 'chai';
 import chaiHttp from "chai-http";
-import {printToConsole} from "../../modules/util/util.module";
 import mongoose from "mongoose";
 import {vehicleType} from "../../models/vehicle.model";
 
@@ -53,7 +52,6 @@ export async function evaluationTest() {
                 "pendingReqs" : [],
                 "accReqs": []
             }).then(res => {
-                console.log(rideId)
                 rideId = res.body;
             })
             return await chai.request(app).post('/eval/create').send({
@@ -62,7 +60,6 @@ export async function evaluationTest() {
                 "user": userId
             }).then(res => {
                 evaluationId = res.body;
-                console.log("evaluationId: " + evaluationId + "\n");
                 chai.expect(res.status).to.equal(201);
                 chai.expect(res.body).to.equal(evaluationId);
             })
@@ -136,7 +133,6 @@ export async function evaluationTest() {
         })
 
         it('user deletion\n', async () => {
-            printToConsole(userId)
             return await chai.request(app).delete(`/user/delete/${userId}`).then(res => {
                 chai.expect(res.status).to.equal(200)
                 chai.expect(res.body._id).to.equal(`${userId}`)

@@ -68,7 +68,6 @@ export async function vehicleTest() {
         it(`should return 200 and the correct vehicle`, async () => {
             return await chai.request(app).get(`/vehicle/findById/${vehicleId}`).then(async res => {
                 chai.expect(res.status).to.equal(200);
-                console.log(res.body)
                 chai.expect(res.body._id).to.equal(vehicleId);
             })
         })
