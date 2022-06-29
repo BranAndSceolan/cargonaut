@@ -3,6 +3,7 @@ import {MongoModule} from "../modules/mongo/mongo.module";
 import mongoose from "mongoose";
 import {VehicleModule} from "../modules/entities/vehicle.module";
 import {VehicleClass} from "../models/vehicle.model";
+import {printToConsole} from "../modules/util/util.module";
 
 /**
  * Controller for all labelIds, providing all functionalities e.g. (create, read, update, delete)
@@ -41,6 +42,9 @@ export class VehicleController {
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
+            }).catch((err)=>{
+                printToConsole(err)
+                res.send(500)
             });
         } else {
             res.status(400).send("Bad Request")
