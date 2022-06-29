@@ -1,7 +1,10 @@
 <template>
   <div class="row w-100 ml-2 mr-1 mt-1 entryContainer align-items-center">
     <div class="col col-xl-2 p-0">
-      <img class="float-left" alt="Car picture" src="../assets/amarok-d8f.png">
+      <img v-if="this.name === 'standard car'" class="float-left" alt="Car picture" src="../assets/standardcar.jpg">
+      <img v-else-if="this.name === 'truck'" class="float-left" alt="Car picture" src="../assets/truck.jpg">
+      <img v-else-if="this.name === 'motorcycle'" class="float-left" alt="Car picture" src="../assets/motorcycle.jpg">
+      <img v-else class="float-left" alt="Car picture" src="../assets/standardcar.jpg">
     </div>
     <div class="col col-xl-2 ml-xl-4">
       <p class="mb-0"> {{name}}</p>
@@ -13,8 +16,12 @@
       <p class="mb-0"> Platz: {{room}}</p>
     </div>
     <div class="col-lg-1.5">
+      <button>
         <font-awesome-icon class="icon mr-lg-4" icon="fa-solid fa-pen"></font-awesome-icon>
+      </button>
+      <button v-on:click="sendDelete">
         <font-awesome-icon class="icon ml-lg-4" icon="fa-solid fa-trash"></font-awesome-icon>
+      </button>
     </div>
   </div>
 </template>
@@ -23,9 +30,16 @@
 export default {
   name: 'CarEntry',
   props: {
+    id: String,
     name: String,
     seats: String,
-    room: String
+    room: String,
+    index: Number
+  },
+  methods: {
+    sendDelete () {
+      this.$emit('delete', this.id, this.index)
+    }
   }
 }
 </script>
@@ -50,6 +64,10 @@ img {
   max-width: 200px;
   min-width: 100px;
   height: auto;
+}
+button {
+  border: none;
+  background-color: transparent;
 }
 
 </style>

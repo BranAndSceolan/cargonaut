@@ -14,14 +14,15 @@
       <div class="row mx-4">
         <OverBar title="Fahrzeuge" v-on:contentHidden="carsHidden = $event" address="/createVeh"></OverBar>
         <div class="w-100 mr-5" v-if="!carsHidden">
-          <CarEntry v-for="vehicle in this.user.vehicles" v-bind:key="vehicle.id" :name="vehicle.type" :seats="vehicle.numberOfSeats" :room="vehicle.spaceLength"></CarEntry>
+          <CarEntry v-on:delete="deleteVehicle" v-for="(vehicle, index) in this.userVehicles" v-bind:key="vehicle._id"
+                    :id="vehicle._id" :index="index" :name="vehicle.type" :seats="vehicle.numberOfSeats" :room="vehicle.spaceLength"></CarEntry>
         </div>
       </div>
       <div class="row mx-4">
         <OverBar class="mb-4" title="Angebote" v-on:contentHidden="offersHidden = $event" address="/create" ></OverBar>
         <div class="col w-100">
           <div v-if="!offersHidden" class="card-columns">
-            <travel-card class="mx-4 mt-4" v-for="offer in userOffers" v-bind:key="offer.id"  :title="offer.title" :origin="offer.origin"
+            <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer._id" :id="offer._id"  :title="offer.title" :origin="offer.origin"
                          :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
                          :width="'X'" :price="offer.price" :date="offer.date">
             </travel-card>
@@ -34,7 +35,6 @@
 <script>
 import OverBar from '../components/OverBar'
 import CarEntry from '../components/CarEntry'
-import ReviewEntry from '@/components/ReviewEntry'
 import axios from 'axios'
 import TravelCard from '../components/travel-card'
 export default {
@@ -44,6 +44,7 @@ export default {
     return {
       user: {},
       offers: [],
+      userVehicles: [],
       reviewsHidden: false,
       carsHidden: false,
       offersHidden: false
@@ -54,15 +55,35 @@ export default {
       this.user = response.data
       this.getVehicles()
     })
-    axios.get('/ride/getAll').then(response => (this.offers = response.data))
+    axios.get('/ride/getAll').then(response => {
+      this.getOffers(response.data)
+    })
   },
   methods: {
     getVehicles () {
       for (const i in this.user.vehicles) {
-        axios.get('/vehicle/findById/' + this.user.vehicles[i]).then(response => (this.user.vehicles.push(response.data))).catch((reason) => {
+        axios.get('/vehicle/findById/' + this.user.vehicles[i]).then(response => {
+          this.userVehicles.push(response.data)
+        }).catch((reason) => {
           console.log(reason)
         })
       }
+    },
+    deleteVehicle (id, index) {
+      this.userVehicles.splice(index, 1)
+      this.user.vehicles.splice(index, 1)
+      axios.delete('/vehicle/delete/' + id).then(() => {
+        axios.post('/user/update/' + this.user._id, this.user)
+      })
+    },
+    getOffers (offers) {
+      console.log('Offers: ', offers)
+      for (const i in offers) {
+        if (offers[i].user === this.user._id) {
+          this.offers.push(offers[i])
+        }
+      }
+      console.log('Useroffers: ', this.offers)
     }
   },
   computed: {

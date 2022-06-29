@@ -6,7 +6,7 @@
     <b-card-body class="body">
       <div class="info">
         <div class="head"> Create Vehicle </div>
-        <b-dropdown text="Type" variant="secondary" class="title row">
+        <b-dropdown :text="title" variant="secondary" class="title row">
           <b-dropdown-item-btn v-on:click="selectType('pick up truck')">pick up truck</b-dropdown-item-btn>
           <b-dropdown-item-btn v-on:click="selectType('standard car')">standard car</b-dropdown-item-btn>
           <b-dropdown-item-btn v-on:click="selectType('truck')">truck</b-dropdown-item-btn>
@@ -29,37 +29,46 @@
     <b-card-footer class="foot">
       <b-button id="create" v-on:click="create" class="create"> Create </b-button>
     </b-card-footer>
+    <warning-component v-if="warning"></warning-component>
   </b-card>
 </template>
 
 <script>
 import axios from 'axios'
+import WarningComponent from '../components/WarningComponent'
 
 export default {
   name: 'CreateVehicleView.vue',
+  components: { WarningComponent },
   data () {
     return {
-      title: '',
-      seat: '',
-      space: '',
+      title: 'truck',
+      seat: Number,
+      space: Number,
       desc: '',
-      id: ''
+      id: '',
+      warning: false
     }
   },
   methods: {
     create () {
-      console.log(this.title, this.desc, this.seat)
-      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
+      if (this.seat === undefined || this.space === undefined) {
+        this.warning = true
+        return
+      }
+      if (this.title !== '' && this.desc !== '' && this.price !== '') {
         axios.post('/vehicle/create',
           {
             type: this.title,
-            numberOfSeats: 4,
+            numberOfSeats: this.seat,
             notes: 'looks ugly, but moves'
           })
           .then(response => {
             this.id = response.data
             this.addVehicleToUser()
           }).catch(reason => { console.log(reason) })
+      } else {
+        this.warning = true
       }
     },
     selectType (type) {
@@ -82,6 +91,9 @@ export default {
           .then(response => (this.$router.push('/overview')))
       })
     }
+  },
+  mounted () {
+    this.warning = false
   }
 }
 
