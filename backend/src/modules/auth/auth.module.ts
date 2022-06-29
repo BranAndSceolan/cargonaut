@@ -27,16 +27,15 @@ export class AuthModule {
                 registerName,
                 new Date(registerBirthdate),
                 registerMail,
-                registerPass,
-                registerDescription
+                registerDescription,
+                registerPass
             ))
         if (newUser){
             if (config.get('disableAuth') == "true") {
                 return res.status(200).send(newUser._id)
             } else{
                 req.session.signInName = registerName;
-                return res.status(200).send("Congratulations! You are know registered! \n" +
-                    "Whether driving for others or searching for a driver, cargonaut is always with you!")
+                return res.status(200).send(newUser._id)
             }
 
         } else {

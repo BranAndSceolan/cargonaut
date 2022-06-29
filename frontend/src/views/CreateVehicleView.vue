@@ -6,15 +6,19 @@
     <b-card-body class="body">
       <div class="info">
         <div class="head"> Create Vehicle </div>
-        <b-input-group id="title" class="title row">
-          <b-form-input v-model="title" placeholder="Title" class="input shadow-sm"></b-form-input>
-        </b-input-group>
+        <b-dropdown text="Type" variant="secondary" class="title row">
+          <b-dropdown-item-btn v-on:click="selectType('pick up truck')">pick up truck</b-dropdown-item-btn>
+          <b-dropdown-item-btn v-on:click="selectType('standard car')">standard car</b-dropdown-item-btn>
+          <b-dropdown-item-btn v-on:click="selectType('truck')">truck</b-dropdown-item-btn>
+          <b-dropdown-item-btn v-on:click="selectType('motorcycle')">motorcycle</b-dropdown-item-btn>
+          <b-dropdown-item-btn v-on:click="selectType('other')">other</b-dropdown-item-btn>
+        </b-dropdown>
         <div class="row">
           <b-input-group id="sitze" class="seat">
-            <b-form-input v-model="seat" placeholder="Sitze" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="seat" type="number" placeholder="Sitze" class="input shadow-sm"></b-form-input>
           </b-input-group>
           <b-input-group id="platz" class="space">
-            <b-form-input v-model="space" placeholder="Platz" class="input shadow-sm"></b-form-input>
+            <b-form-input v-model="space" type="number" placeholder="Platz" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
         <b-input-group id="desc" class="desc row">
@@ -29,8 +33,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
-
 import axios from 'axios'
 
 export default {
@@ -40,21 +42,45 @@ export default {
       title: '',
       seat: '',
       space: '',
-      desc: ''
+      desc: '',
+      id: ''
     }
   },
   methods: {
     create () {
+      console.log(this.title, this.desc, this.seat)
       if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
-        axios.post('/ride/create',
+        axios.post('/vehicle/create',
           {
             type: this.title,
-            numberOfSeats: this.seat,
-            notes: this.desc
+            numberOfSeats: 4,
+            notes: 'looks ugly, but moves'
           })
-          .then().catch(reason => { console.log(reason) })
-        this.$router.push('/overview')
+          .then(response => {
+            this.id = response.data
+            this.addVehicleToUser()
+          }).catch(reason => { console.log(reason) })
       }
+    },
+    selectType (type) {
+      this.title = type
+    },
+    addVehicleToUser () {
+      axios.get('/user/current').then(response => {
+        const user = response.data
+        user.vehicles.push(this.id)
+        axios.post('/user/update/' + user._id, user)
+          .then(response => (this.$router.push('/overview')))
+      })
+    },
+    removeVehicleFromUser () {
+      axios.get('/user/current').then(response => {
+        const user = response.data
+        const index = user.vehicles.indexOf(this.id)
+        user.vehicles.splice(index, 1)
+        axios.post('/user/update/' + user._id, user)
+          .then(response => (this.$router.push('/overview')))
+      })
     }
   }
 }

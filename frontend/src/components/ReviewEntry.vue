@@ -2,7 +2,7 @@
   <div class="shadow review">
     <div class="row bar">
       <div class="col-sm-1">
-        <img class="profilePic" alt="User Picture" src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Helmut_Kohl_%281996%29.jpg">
+        <img class="profilePic" alt="User Picture" src="../assets/ProfilPicture.jpg">
       </div>
       <div class="col-xl-6 ">
         <div class="name"> {{ name }}</div>

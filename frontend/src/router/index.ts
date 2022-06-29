@@ -9,7 +9,7 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'home',
     component: HomeView,
-    redirect: to => { return { path: '/overview' } }
+    redirect: to => { return { path: '/login' } }
   },
   {
     path: '/about',
@@ -40,8 +40,9 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/CreateVehicleView.vue')
   },
   {
-    path: '/createReview',
+    path: '/createReview/:id/:user',
     name: 'createReview',
+    props: true,
     component: () => import('../views/CreateReviewView.vue')
   },
   {

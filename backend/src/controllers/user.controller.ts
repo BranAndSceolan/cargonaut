@@ -64,8 +64,8 @@ export class UserController {
                     userName.trim(),
                     new Date(birthdate.trim()),
                     email.trim(),
-                    password.trim(),
                     description,
+                    password.trim(),
                     vehicleIds,
                     undefined
                 )
@@ -194,7 +194,7 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
-        let newEval : number = 0;
+        let newEval = 0;
         if(req.body.averageEvalOfRides){
             newEval = req.body.averageEvalOfRides
         }
@@ -213,7 +213,7 @@ export class UserController {
             userName = req.session.signInName
         }
         const user: User | null = await this.userModule.getUserByName(userName)
-        let avgEval: number = 0;
+        let avgEval = 0;
         if( user?.averageEvalOfRides) {
             avgEval = user.averageEvalOfRides
         }
@@ -230,8 +230,8 @@ export class UserController {
                     userName.trim(),
                     new Date(birthdate.trim()),
                     email.trim(),
-                    password.trim(),
                     description,
+                    undefined,
                     vehicleIds,
                     avgEval
                 )
