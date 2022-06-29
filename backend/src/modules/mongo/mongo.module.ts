@@ -136,7 +136,6 @@ export class MongoModule {
                 name: newUser.name,
                 birthdate: newUser.birthdate,
                 email: newUser.email,
-                password: newUser.password,
                 description: newUser.description,
                 averageEvalOfRides: newUser.averageEvalOfRides,
                 vehicles: newUser.vehicles
@@ -155,6 +154,7 @@ export class MongoModule {
                 numberOfFreeSeats: newRide.numberOfFreeSeats,
                 user: newRide.user,
                 price: newRide.price,
+                vehicle: newRide.vehicle,
                 pendingReqs: newRide.pendingReqs,
                 accReqs: newRide.accReqs
             }

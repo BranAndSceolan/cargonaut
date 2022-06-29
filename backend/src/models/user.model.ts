@@ -9,7 +9,7 @@ export interface User {
     "name": string,
     "birthdate": Date,
     "email": string,
-    "password": string,
+    "password"?: string,
     "description": string,
     "averageEvalOfRides"?: number,
     "vehicles"?: mongoose.Types.ObjectId[]
@@ -23,12 +23,12 @@ export class UserClass implements User {
     name: string;
     birthdate: Date;
     email: string;
-    password: string;
+    password?: string;
     description: string;
     averageEvalOfRides?: number;
     vehicles?: mongoose.Types.ObjectId[];
 
-    constructor(name: string, birthdate: Date, email: string, password: string, description: string, vehicles?: mongoose.Types.ObjectId[], averageEvalOfRides?: number, _id?: mongoose.Types.ObjectId) {
+    constructor(name: string, birthdate: Date, email: string, description: string, password?: string, vehicles?: Array<mongoose.Types.ObjectId> | undefined, averageEvalOfRides?: number, _id?: mongoose.Types.ObjectId) {
         this._id = _id;
         this.name = name;
         this.birthdate = birthdate;

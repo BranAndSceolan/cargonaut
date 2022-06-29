@@ -13,7 +13,7 @@ import {
     vehicleRouter
 } from "./routes/index"
 import session from "express-session";
-import helmet from "helmet";
+//const helmet = require("helmet")
 
 const mongo: MongoModule = new MongoModule();
 mongo.connectToMongo().then(mongoose => {
@@ -39,7 +39,7 @@ declare module "express-session" {
 // Boot express
 export const app: Application = express();
 app.use(express.urlencoded({extended: false}));
-app.use(helmet())
+// app.use(helmet())
 app.use(session({
     resave: true, // save session even if not modified
     saveUninitialized: true, // save session even if not used

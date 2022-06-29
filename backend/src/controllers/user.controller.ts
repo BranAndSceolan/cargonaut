@@ -64,8 +64,8 @@ export class UserController {
                     userName.trim(),
                     new Date(birthdate.trim()),
                     email.trim(),
-                    password.trim(),
                     description,
+                    password.trim(),
                     vehicleIds,
                     undefined
                 )
@@ -73,7 +73,6 @@ export class UserController {
             if (id) {
                 res.status(201).send(id)
             } else {
-                console.log(res)
                 res.sendStatus(500)
             }
         }).catch((err: Error) => {
@@ -128,7 +127,7 @@ export class UserController {
 
     /**
      * DELETE
-     * deletes a user with a specific id from database
+     * deletes an user with an specific id from database
      * @param req
      * HTTP-Request containing the id of User document in the params (in the URL) (if sessions are used to identify the user
      * (eg in production, the id is ignored)
@@ -194,7 +193,7 @@ export class UserController {
             res.status(400).send("Password missing")
             return
         }
-        let newEval : number = 0;
+        let newEval = 0;
         if(req.body.averageEvalOfRides){
             newEval = req.body.averageEvalOfRides
         }
@@ -213,11 +212,11 @@ export class UserController {
             userName = req.session.signInName
         }
         const user: User | null = await this.userModule.getUserByName(userName)
-        let avgEval: number = 0;
+        let avgEval = 0;
         if( user?.averageEvalOfRides) {
             avgEval = user.averageEvalOfRides
         }
-        if (user && user._id) {
+        if (user?._id) {
             const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(user._id)
             avgEval = ((avgEval * evalsN) + newEval) / (evalsN + 1)
         } else{
@@ -230,14 +229,14 @@ export class UserController {
                     userName.trim(),
                     new Date(birthdate.trim()),
                     email.trim(),
-                    password.trim(),
                     description,
+                    undefined,
                     vehicleIds,
                     avgEval
                 )
             ).then((result: User | null) => {
                 if (result) {
-                    res.status(201).send(result)
+                    res.status(200).send(result)
                 }
             }).catch((err: Error) => {
                 res.sendStatus(500)

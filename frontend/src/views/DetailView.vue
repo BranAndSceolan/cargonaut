@@ -1,7 +1,7 @@
 <template>
  <div>
    <div>
-     <img class="banner shadow" alt="Car Banner" src="https://motorblock.at/wp-content/uploads/2019/04/Fiat-Multipla-Rendering-768x487.jpg">
+     <img class="banner shadow" alt="Car Banner" src="../assets/amarok-d8f.png">
    </div>
    <div class="bar">
      <div class="own-card">
@@ -44,7 +44,6 @@
        <div class="col-4">
          <div class="row justify-content-center">
            <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
-           <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
          </div>
          <div class="row justify-content-center">
            <p>{{ offer.destination }}</p>
@@ -63,7 +62,7 @@
      <CarEntry v-for="(car, index) in cars" v-bind:key="index" :name="car.name" :seats="car.seats" :room="car.room"></CarEntry>
    </div>
    <div class="area">
-     <OverBar class="mb-4" title="Reviews" v-on:contentHidden="reviewsHidden = $event" address="/createReview"></OverBar>
+     <OverBar class="mb-4" title="Reviews" v-on:contentHidden="reviewsHidden = $event" :address=address ></OverBar>
      <div v-if="!reviewsHidden">
        <review-entry v-bind:key="index" v-for="(review, index) in reviews" :name="review.name" :date="review.date"
        :desc="review.desc" :stars="review.stars"></review-entry>
@@ -82,7 +81,8 @@ export default {
   name: 'DetailView',
   components: { ReviewEntry, CarEntry, OverBar },
   props: {
-    id: String
+    id: String,
+    creator: String
   },
   data () {
     return {
@@ -107,7 +107,12 @@ export default {
     }
   },
   mounted () {
-    axios.get('/ride/findById/' + this.id).then(response => (this.offer = response.data))
+    axios.get('/ride/findById/' + this.id).then(response => { this.offer = response.data })
+  },
+  computed: {
+    address: function () {
+      return '/createReview/' + this.id + '/' + this.offer.user
+    }
   }
 }
 </script>
