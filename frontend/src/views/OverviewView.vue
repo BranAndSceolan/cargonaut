@@ -4,16 +4,18 @@
       <b-input-group class="search">
         <template #prepend>
           <b-input-group-text class="icon">
-            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+            <button v-on:click="applyOptions">
+              <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+            </button>
           </b-input-group-text>
         </template>
-        <b-form-input></b-form-input>
+        <b-form-input v-model="searchVal"></b-form-input>
 
         <template #append>
           <b-dropdown text="Sort" variant="secondary">
-            <b-dropdown-item-btn v-on:click="sort('price')">Price</b-dropdown-item-btn>
-            <b-dropdown-item-btn v-on:click="sort('seats')">Seats</b-dropdown-item-btn>
-            <b-dropdown-item-btn v-on:click="sort('date')">Date</b-dropdown-item-btn>
+            <b-dropdown-item-btn v-on:click="setSort('price')">Price</b-dropdown-item-btn>
+            <b-dropdown-item-btn v-on:click="setSort('seats')">Seats</b-dropdown-item-btn>
+            <b-dropdown-item-btn v-on:click="setSort('date')">Date</b-dropdown-item-btn>
           </b-dropdown>
         </template>
       </b-input-group>
@@ -28,7 +30,7 @@
             </div>
           </div>
         </div>
-        <filter-list v-on:priceFilter="filter" v-on:seatsFilter="filter" class="col-2 offset-1"></filter-list>
+        <filter-list v-on:priceFilter="setFilter" v-on:seatsFilter="setFilter" class="col-2 offset-1"></filter-list>
       </div>
     </div>
   </div>
@@ -45,47 +47,57 @@ export default {
   data () {
     return {
       offers: [],
-      sortVal: 'default',
-      searchVal: ''
+      sortVal: '',
+      searchVal: '',
+      filterString: '',
+      filterType: ''
     }
   },
   methods: {
     getOffers () {
       axios.get('/ride/getAll').then(response => (this.offers = response.data))
     },
-    filter (filterString, filterType) {
-      axios.get('/ride/getAll').then(response => {
-        this.offers = response.data
-        console.log(filterString, filterType)
-        const filterAr = filterString.split('|')
-        const compare = {
-          '<': function (x, y) { return x < y },
-          '=': function (x, y) { return x === y },
-          '>': function (x, y) { return x > y }
-        }
-        switch (filterType) {
-          case 'price':
-            for (const offer in this.offers) {
-              if (compare[filterAr[0]](this.offers[Number(offer)].price, Number(filterAr[1])) === false) {
-                this.offers.splice(Number(offer), 1)
-              }
-            }
-            break
-          case 'room':
-            break
-          case 'seats':
-            for (const offer in this.offers) {
-              if (compare[filterAr[0]](this.offers[Number(offer)].numberOfFreeSeats, Number(filterAr[1])) === false) {
-                this.offers.splice(Number(offer), 1)
-              }
-            }
-            break
-        }
-      })
+    setFilter (filterString, filterType) {
+      this.filterString = filterString
+      this.filterType = filterType
+      this.applyOptions()
     },
-    sort (sortVal) {
+    setSort (sortVal) {
       this.sortVal = sortVal
-      switch (sortVal) {
+      this.applyOptions()
+    },
+    filter () {
+      console.log(this.filterType, this.filterString)
+      if (this.filterString === '') return
+      if (this.filterType === '') return
+      const filterAr = this.filterString.split('|')
+      const compare = {
+        '<': function (x, y) { return x < y },
+        '=': function (x, y) { return x === y },
+        '>': function (x, y) { return x > y }
+      }
+      switch (this.filterType) {
+        case 'price':
+          for (const offer in this.offers) {
+            if (compare[filterAr[0]](this.offers[Number(offer)].price, Number(filterAr[1])) === false) {
+              this.offers.splice(Number(offer), 1)
+            }
+          }
+          break
+        case 'room':
+          break
+        case 'seats':
+          for (const offer in this.offers) {
+            if (compare[filterAr[0]](this.offers[Number(offer)].numberOfFreeSeats, Number(filterAr[1])) === false) {
+              this.offers.splice(Number(offer), 1)
+            }
+          }
+          break
+      }
+    },
+    sort () {
+      if (this.sortVal === '') return
+      switch (this.sortVal) {
         case 'price':
           this.offers.sort((a, b) => a.price - b.price)
           break
@@ -98,7 +110,18 @@ export default {
       }
     },
     search () {
-      this.offers.filter(offer => offer.title === this.searchVal)
+      if (this.searchVal === '') return
+      if (this.searchVal === undefined) return
+      if (this.searchVal === null) return
+      this.offers = this.offers.filter(offer => offer.title.includes(this.searchVal))
+    },
+    applyOptions () {
+      axios.get('/ride/getAll').then(response => {
+        this.offers = response.data
+        this.search()
+        this.filter()
+        this.sort()
+      })
     }
   },
   mounted () {
@@ -117,5 +140,9 @@ export default {
 }
 .icon {
   background: white;
+}
+button {
+  border: none;
+  background-color: white;
 }
 </style>

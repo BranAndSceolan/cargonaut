@@ -13,8 +13,12 @@
       <p class="mb-0"> Platz: {{room}}</p>
     </div>
     <div class="col-lg-1.5">
+      <button>
         <font-awesome-icon class="icon mr-lg-4" icon="fa-solid fa-pen"></font-awesome-icon>
+      </button>
+      <button v-on:click="sendDelete">
         <font-awesome-icon class="icon ml-lg-4" icon="fa-solid fa-trash"></font-awesome-icon>
+      </button>
     </div>
   </div>
 </template>
@@ -23,9 +27,17 @@
 export default {
   name: 'CarEntry',
   props: {
+    id: String,
     name: String,
     seats: String,
-    room: String
+    room: String,
+    index: Number
+  },
+  methods: {
+    sendDelete () {
+      console.log(this.id)
+      this.$emit('delete', this.id, this.index)
+    }
   }
 }
 </script>
@@ -50,6 +62,10 @@ img {
   max-width: 200px;
   min-width: 100px;
   height: auto;
+}
+button {
+  border: none;
+  background-color: transparent;
 }
 
 </style>

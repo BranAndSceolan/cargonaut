@@ -14,7 +14,8 @@
       <div class="row mx-4">
         <OverBar title="Fahrzeuge" v-on:contentHidden="carsHidden = $event" address="/createVeh"></OverBar>
         <div class="w-100 mr-5" v-if="!carsHidden">
-          <CarEntry v-for="vehicle in this.user.vehicles" v-bind:key="vehicle.id" :name="vehicle.type" :seats="vehicle.numberOfSeats" :room="vehicle.spaceLength"></CarEntry>
+          <CarEntry v-on:delete="deleteVehicle" v-for="(vehicle, index) in this.userVehicles" v-bind:key="vehicle._id"
+                    :id="vehicle._id" :index="index" :name="vehicle.type" :seats="vehicle.numberOfSeats" :room="vehicle.spaceLength"></CarEntry>
         </div>
       </div>
       <div class="row mx-4">
@@ -34,7 +35,6 @@
 <script>
 import OverBar from '../components/OverBar'
 import CarEntry from '../components/CarEntry'
-import ReviewEntry from '@/components/ReviewEntry'
 import axios from 'axios'
 import TravelCard from '../components/travel-card'
 export default {
@@ -44,6 +44,7 @@ export default {
     return {
       user: {},
       offers: [],
+      userVehicles: [],
       reviewsHidden: false,
       carsHidden: false,
       offersHidden: false
@@ -59,10 +60,20 @@ export default {
   methods: {
     getVehicles () {
       for (const i in this.user.vehicles) {
-        axios.get('/vehicle/findById/' + this.user.vehicles[i]).then(response => (this.user.vehicles.push(response.data))).catch((reason) => {
+        axios.get('/vehicle/findById/' + this.user.vehicles[i]).then(response => {
+          this.userVehicles.push(response.data)
+          console.log(this.userVehicles)
+        }).catch((reason) => {
           console.log(reason)
         })
       }
+    },
+    deleteVehicle (id, index) {
+      this.userVehicles.splice(index, 1)
+      this.user.vehicles.splice(index, 1)
+      axios.delete('/vehicle/delete/' + id).then(() => {
+        axios.post('/user/update/' + this.user._id, this.user)
+      })
     }
   },
   computed: {
