@@ -42,6 +42,6 @@ export default {
   margin-left: 1rem;
 }
 .box {
-  margin-right: 20rem;
+  margin-right: 12rem;
 }
 </style>
