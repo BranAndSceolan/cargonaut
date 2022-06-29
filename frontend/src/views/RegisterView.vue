@@ -10,10 +10,10 @@
           <b-form-input v-model="name" placeholder="Name" class="input shadow-sm"></b-form-input>
         </b-input-group>
         <b-input-group id="sitze" class="date">
-          <b-form-input v-model="date" placeholder="Geburtsdatum (YYYY-MM-DD)" class="input shadow-sm"></b-form-input>
+          <b-form-input type="date" v-model="date" placeholder="Geburtsdatum (YYYY-MM-DD)" class="input shadow-sm"></b-form-input>
         </b-input-group>
         <b-input-group id="platz" class="email">
-          <b-form-input v-model="email" placeholder="E-Mail" class="input shadow-sm"></b-form-input>
+          <b-form-input type="email" v-model="email" placeholder="E-Mail" class="input shadow-sm"></b-form-input>
         </b-input-group>
         <b-input-group id="desc" class="desc">
           <b-textarea rows="3" v-model="desc" no-resize placeholder="Beschreibung" class="input desc shadow"></b-textarea>
@@ -31,14 +31,17 @@
     <b-card-footer class="foot">
       <b-button id="create" v-on:click="create" class="create"> Create </b-button>
     </b-card-footer>
+    <warning-component v-if="warning"></warning-component>
   </b-card>
 </template>
 
 <script>
 import axios from 'axios'
+import WarningComponent from '../components/WarningComponent'
 
 export default {
   name: 'RegisterView.vue',
+  components: { WarningComponent },
   data () {
     return {
       name: '',
@@ -46,17 +49,28 @@ export default {
       email: '',
       password1: '',
       password2: '',
-      desc: ''
+      desc: '',
+      warning: false
     }
   },
   methods: {
     create () {
       if (this.name !== '' && this.email !== '' && this.desc !== '' && this.date !== '' && (this.password1 !== '' && this.password1 === this.password2)) {
+        const formDate = this.dateMaker()
         axios.post('/user/create',
-          { name: this.name, birthdate: this.date, email: this.email, description: this.desc, password: this.password1 })
+          { name: this.name, birthdate: formDate, email: this.email, description: this.desc, password: this.password1 })
           .then(response => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
+      } else {
+        this.warning = true
       }
+    },
+    dateMaker () {
+      const dateParts = this.date.toString().split('.')
+      return dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]
     }
+  },
+  mounted () {
+    this.warning = false
   }
 }
 </script>

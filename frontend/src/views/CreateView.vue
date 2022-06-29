@@ -11,7 +11,7 @@
         </b-input-group>
         <div class="row">
           <b-input-group id="sitze" class="seat">
-            <b-form-input v-model="seat" placeholder="Sitze" class="input shadow-sm"></b-form-input>
+            <b-form-input type="number" v-model="seat" placeholder="Sitze" class="input shadow-sm"></b-form-input>
           </b-input-group>
           <b-input-group id="platz" class="space">
             <b-form-input v-model="space" placeholder="Platz" type="number" class="input shadow-sm"></b-form-input>
@@ -23,32 +23,22 @@
       </div>
       <div class="data">
         <b-dropdown id="dropdown-1" text="Fahrzeug" class="m-md-2 dropdown">
-          <b-dropdown-item>First Action</b-dropdown-item>
-          <b-dropdown-item>Second Action</b-dropdown-item>
-          <b-dropdown-item>Third Action</b-dropdown-item>
+          <b-dropdown-item-btn v-on:click="fillVehicleInfo(index)" v-for="(vehicle, index) in vehicles" v-bind:key="index">{{vehicle.type}}</b-dropdown-item-btn>
         </b-dropdown>
-        <div class="row">
+        <div class="row mb-5">
           <b-input-group id="herkunft" class="town">
             <b-form-input v-model="navData[0].town" placeholder="Herkunft" class="input shadow-sm"></b-form-input>
           </b-input-group>
-          <b-input-group id="hdate" class="date">
-            <b-form-input v-model="navData[0].date" placeholder="Datum" class="input shadow-sm"></b-form-input>
+          <b-input-group id="date" class="date">
+            <b-form-input type="date" v-model="navData[0].date" placeholder="Datum" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
-        <div class="row">
-          <b-input-group id="platz" class="town">
-            <b-form-input v-model="navData[1].town" placeholder="Zwischenstop" class="input shadow-sm"></b-form-input>
-          </b-input-group>
-          <b-input-group id="breakdate" class="date">
-            <b-form-input v-model="navData[1].date" placeholder="Datum" class="input shadow-sm"></b-form-input>
-          </b-input-group>
-        </div>
-        <div class="row">
+        <div class="row mt-1">
           <b-input-group id="platz" class="town">
             <b-form-input v-model="navData[2].town" placeholder="Ziel" class="input shadow-sm"></b-form-input>
           </b-input-group>
           <b-input-group id="zdate" class="date">
-            <b-form-input v-model="navData[2].date" placeholder="Datum" class="input shadow-sm"></b-form-input>
+            <b-form-input type="date" v-model="navData[2].date" placeholder="Datum" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
       </div>
@@ -60,15 +50,18 @@
             <b-form-input v-model="price" placeholder="Preis" type="number" class="input shadow-sm price" id="price"></b-form-input>
           </b-input-group-append>
         </b-input-group>
+      <warning-component v-if="warning"></warning-component>
     </b-card-footer>
   </b-card>
 </template>
 
 <script>
 import axios from 'axios'
+import WarningComponent from '../components/WarningComponent'
 
 export default {
   name: 'CreateView.vue',
+  components: { WarningComponent },
   data () {
     return {
       title: '',
@@ -76,7 +69,9 @@ export default {
       space: '',
       desc: '',
       navData: [{ town: '', date: '' }, { town: '', date: '' }, { town: '', date: '' }],
-      price: ''
+      price: '',
+      vehicles: [],
+      warning: false
     }
   },
   methods: {
@@ -96,8 +91,26 @@ export default {
             accReqs: []
           })
           .then(response => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
+      } else {
+        this.warning = true
       }
+    },
+    fillVehicleInfo (index) {
+      const vehicle = this.vehicles[index]
+      this.seat = vehicle.numberOfSeats
+      this.desc = vehicle.notes
     }
+  },
+  mounted () {
+    axios.get('/user/current').then(response => {
+      const vehicleIdArray = response.data.vehicles
+      for (const i in vehicleIdArray) {
+        axios.get('/vehicle/findById/' + vehicleIdArray[i]).then(response => {
+          this.vehicles.push(response.data)
+        })
+      }
+    })
+    this.warning = false
   }
 }
 </script>
