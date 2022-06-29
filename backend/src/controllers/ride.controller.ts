@@ -24,26 +24,52 @@ export class RideController {
      * @param res
      */
     public async create(req: Request, res: Response): Promise<void> {
-        let userid = undefined
-        if(config.get('disableAuth') == "true") {
-                userid = req.body.user
+        let user
+        if (config.get('disableAuth') == "true") {
+            user = await userController.userModule.getUserById(req.body.user)
         } else {
-            const user = await userController.userModule.getUserByName(req.session.signInName)
-            userid = user?._id
+            user = await userController.userModule.getUserByName(req.session.signInName)
         }
-        if (req.body && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && userid && req.body.pendingReqs && req.body.accReqs){
-
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.price, userid, req.body.pendingReqs, req.body.accReqs)).then(result =>{
+        if (! req.body.date){
+            res.status(400).send("Missing date!")
+        } else if (! req.body.vehicle) {
+            res.status(400).send("Missing vehicle id!")
+        } else if (! req.body.destination){
+            res.status(400).send("Missing destination!")
+        } else if (! req.body.origin){
+            res.status(400).send("Missing origin!")
+        } else if (! req.body.description){
+            res.status(400).send("Missing description!")
+        } else if (! req.body.numberOfFreeSeats){
+            res.status(400).send("Missing number of free seats!")
+        } else if (! req.body.title){
+            res.status(400).send("missing title!")
+        } else if (! req.body.price){
+            res.status(400).send("Missing price!")
+        } else if (! user?._id) {
+            res.status(400).send("Couldn't find user or no user given")
+        } else {
+            let pendingReqs = undefined
+            if (req.body.pendingReqs) {
+                pendingReqs = req.body.pendingReqs
+            }
+            let accReqs = undefined
+            if (req.body.accReqs) {
+                accReqs = req.body.accReqs
+            }
+            let vehicle = undefined
+            if(req.body.vehicle) {
+                vehicle = req.body.vehicle
+            }
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
                 if (result) {
-                    res.status(200).send(result);
+                    res.status(201).send(result);
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
-            }).catch(err=>{
+            }).catch(err => {
                 res.status(500).send(err)
             });
-        } else {
-            res.status(400).send("Bad Request")
         }
     }
 
@@ -57,6 +83,7 @@ export class RideController {
             }
         }).catch(() => res.status(500).send("Internal Server Error"));
     }
+
     /**
      *  get all rides
      * @param _req
@@ -90,28 +117,54 @@ export class RideController {
     }
 
     public async update(req: Request, res: Response): Promise<void> {
-        const user = await userController.userModule.getUserByName(req.session.signInName)
-        if (req.body && req.params.id && req.body.date && req.body.origin && req.body.destination && req.body.title && req.body.description && req.body.numberOfFreeSeats && req.body.price && user?._id){
-            let accReq = undefined
-            let penReq = undefined
-            if (req.body.pendingReqs){
-                penReq = req.body.pendingReqs
+        let user
+        if (config.get('disableAuth') == "true") {
+            user = await userController.userModule.getUserById(req.body.user)
+        } else {
+            user = await userController.userModule.getUserByName(req.session.signInName)
+        }
+        if (! req.body.date){
+            res.status(400).send("Missing date!")
+        } else if (! req.body.destination){
+            res.status(400).send("Missing destination!")
+        }else if (! req.body.vehicle){
+            res.status(400).send("Missing vehicle id!")
+        } else if (! req.params.id){
+            res.status(400).send("Missing id!")
+        } else if (! req.body.origin){
+            res.status(400).send("Missing origin!")
+        } else if (! req.body.description){
+            res.status(400).send("Missing description!")
+        } else if (! req.body.numberOfFreeSeats){
+            res.status(400).send("Missing number of free seats!")
+        } else if (! req.body.title){
+            res.status(400).send("missing title!")
+        } else if (! req.body.price){
+            res.status(400).send("Missing price!")
+        } else if (! user?._id) {
+            res.status(400).send("Couldn't find user or no user given")
+        } else {
+            let pendingReqs = undefined
+            if (req.body.pendingReqs) {
+                pendingReqs = req.body.pendingReqs
             }
-            if (req.body.accReqs){
-                accReq = req.body.accReqs
+            let accReqs = undefined
+            if (req.body.accReqs) {
+                accReqs = req.body.accReqs
             }
-            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.price, user._id, penReq, accReq)).then(result =>{
+            let vehicle = undefined
+            if(req.body.vehicle) {
+                vehicle = req.body.vehicle
+            }
+            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
                 if (result) {
                     res.status(200).send(result);
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
+            }).catch(err => {
+                res.status(500).send(err)
             });
-        } else {
-            if(!user){
-                res.sendStatus(500)
-            }
-            res.status(400).send("Bad Request")
         }
     }
 

@@ -36,7 +36,6 @@ export class VehicleModule extends EntityModule {
             vehicleId = await this.mongo.addVehicle(new VehicleClass(vehicleData.type, vehicleData.numberOfSeats, vehicleData.notes, width, height, lenght));
         }
         if (vehicleId) {
-            printToConsole('[+] New vehicle with id ' + vehicleId.toString() + ' saved.');
             return vehicleId
         } else {
             return null

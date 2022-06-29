@@ -12,8 +12,8 @@ cuid: system
   "description": "We go from munich to berlin!",
   "numberOfFreeSeats": 4,
   "price": 20,
-  "user": "620cbeaecc90432d95b598a0",
-"pendingReqs" : [],
+  "user": "62bc5b978b4b9bbd4ac38ae0",
+  "pendingReqs" : [],
 "accReqs": []
 }
 
@@ -32,6 +32,7 @@ cuid: system
   "numberOfFreeSeats": 3,
   "price": 20,
   "user": "620cbeaecc90432d95b598a",
+  "vehicle": "62b1b878d87d2267525e9e5b",
   "pendingReqs" : ["620cbeaecc90432d95b598a0"],
   "accReqs": []
 }

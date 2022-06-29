@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 export interface Req {
     "_id"?: mongoose.Types.ObjectId,
     "requestStatus": requestStatus
-    "date": string,
+    "date": Date,
     "user": mongoose.Types.ObjectId,
     "cargo"?: string,
     "trackingStatus": trackingStatus
@@ -19,11 +19,11 @@ export class RequestClass implements Req {
     _id?: mongoose.Types.ObjectId;
     requestStatus: requestStatus;
     user: mongoose.Types.ObjectId;
-    date: string;
+    date: Date;
     cargo?: string;
     trackingStatus: trackingStatus;
 
-    constructor(requestStatus: requestStatus, date: string, user: mongoose.Types.ObjectId,trackingStatus: trackingStatus,  cargo?: string, _id?: mongoose.Types.ObjectId) {
+    constructor(requestStatus: requestStatus, date: Date, user: mongoose.Types.ObjectId,trackingStatus: trackingStatus,  cargo?: string, _id?: mongoose.Types.ObjectId) {
         this._id = _id;
         this.requestStatus = requestStatus;
         this.date = date;

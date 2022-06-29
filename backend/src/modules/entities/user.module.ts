@@ -19,7 +19,6 @@ export class UserModule extends EntityModule {
      */
     async createUser(user: User): Promise<mongoose.Types.ObjectId | null> {
         const userId: mongoose.Types.ObjectId | null = await this.mongo.addUser(user)
-        printToConsole('[+] New user with id ' + userId + 'saved.');
         if (userId) {
             return userId;
         } else {
@@ -42,7 +41,6 @@ export class UserModule extends EntityModule {
      */
     getUserById(id: any): Promise<User| null> {
         return this.mongo.findUser({_id: id}).then(user => {
-            printToConsole(user);
             return user;
         }).catch(err => {
             printToConsole(err);
@@ -67,7 +65,6 @@ export class UserModule extends EntityModule {
      */
     getUserByName(username: string): Promise<User | null> {
         return this.mongo.findUser({name: username}).then(user => {
-            printToConsole(user);
             return user;
         }).catch(err => {
             printToConsole(err);
@@ -81,7 +78,6 @@ export class UserModule extends EntityModule {
      */
     async deleteUser(id: mongoose.Types.ObjectId): Promise<User | null> {
         const user: User | null = await this.mongo.deleteUser(id);
-        printToConsole("[-] deleted user " + user)
         return user
     }
 

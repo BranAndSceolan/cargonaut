@@ -6,6 +6,7 @@ import {User} from "../../models/user.model";
 import {Vehicle} from "../../models/vehicle.model";
 
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires -- require is needed for using non primitive types!
 const mongoose = require('mongoose')
 
 /**
@@ -24,7 +25,7 @@ export const evaluationSchema = new Schema<Evaluation>({
  */
 export const requestSchema = new Schema<Req>({
     requestStatus: {type: String, enum: ['pending', 'accepted', 'denied'], required: true},
-    date: {type: String, required: true},
+    date: {type: Date, required: true},
     user: {type: mongoose.Types.ObjectId, required: true},
     cargo: {type: String, required: false},
     trackingStatus: {type: String, enum: ['pending', 'departed', 'arrived'], required: true}
@@ -35,7 +36,7 @@ export const requestSchema = new Schema<Req>({
  * create a rideSchema corresponding to the document Ride interface
  */
 export const rideSchema = new Schema<Ride>({
-    date: {type: String, required: true},
+    date: {type: Date, required: true},
     origin: {type: String, required: true},
     destination: {type: String, required: true},
     title: {type: String, required: true},
@@ -43,6 +44,7 @@ export const rideSchema = new Schema<Ride>({
     numberOfFreeSeats: {type: Number, required: true},
     price: {type: Number, required: true},
     user: {type: mongoose.Types.ObjectId, required: true},
+    vehicle: {type: mongoose.Types.ObjectId, required: true},
     pendingReqs: {type: [mongoose.Types.ObjectId], required: false},
     accReqs: {type: [mongoose.Types.ObjectId], required: false}
 });
