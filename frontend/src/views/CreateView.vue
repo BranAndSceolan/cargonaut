@@ -75,11 +75,22 @@ export default {
     }
   },
   methods: {
+    dateMaker () {
+      if (this.date.toString().includes('/')) {
+        const dateParts = this.date.toString().split('/')
+        return dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]
+      } else if (this.date.toString().includes('.')) {
+        const dateParts = this.date.toString().split('.')
+        return dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]
+      } else {
+        return this.date
+      }
+    },
     create () {
       if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
         axios.post('/ride/create',
           {
-            date: this.navData[0].date,
+            date: this.dateMaker(),
             origin: this.navData[0].town,
             destination: this.navData[2].town,
             title: this.title,
