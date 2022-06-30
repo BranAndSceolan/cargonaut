@@ -43,7 +43,7 @@ pages:
   stage: deploy
   script:
     - npm cache clean -f
-    - npm install -g n
+    - npm install -g n 14.0.0
     - cd frontend
     - npm install
     - npm run build
