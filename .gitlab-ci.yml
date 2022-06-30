@@ -3,6 +3,7 @@ stages:
   - build-frontend
   - build-docker
 
+
 build-backend:
   stage: build-backend
   tags:
@@ -26,7 +27,7 @@ build-docker:
   tags:
     - docker
   script:
-    - NODE_ENV=test_docker_free npm run test
+    - NODE_ENV=test npm run test
   rules:
     - when: never
 
@@ -35,15 +36,19 @@ build-docker:
  #   - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "22-implement-pipeline"
 #
 
-#pages:
-#  stage: deploy
-#  tags:
-#    - alpine
-#  script:
-#    - echo 'Just declare artifact...'
-#  artifacts:
-#    paths:
-#    - src/public
-#  rules:
-#    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-#
+pages:
+  stage: deploy
+  tags:
+    - npm
+    - docker
+  script:
+    - cd frontend
+    - npm install
+    - npm run build
+    - cd ..
+    - cd backend
+    - NODE_ENV=docker_prod npm run test
+  artifacts:
+    paths:
+    - src/public
+
