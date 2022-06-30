@@ -2,8 +2,8 @@ import {Request, Response} from "express";
 import {MongoModule} from "../modules/mongo/mongo.module";
 import mongoose from "mongoose";
 import {RideModule} from "../modules/entities/ride.module";
-import {RideClass} from "../models/ride.model";
-import {userController} from "./index";
+import {RideClass, RidePlusClass} from "../models/ride.model";
+import {userController, vehicleController} from "./index";
 import config from "config";
 
 /**
@@ -89,9 +89,26 @@ export class RideController {
      * @param _req
      * @param res
      */
-    public getAll(_req: Request, res: Response) {
-        this.rideModule.getAllRides().then((result: any) => {
+    public async getAll(_req: Request, res: Response) {
+        this.rideModule.getAllRides().then(async (result: any) => {
             if (result) {
+                for (const resultElement of result) {
+                  const vehicle = await vehicleController.vehicleModule.findVehicleById(resultElement.vehicle)
+                    let height = "height: no information given"
+                    let width = "width: no information given"
+                    let length = "length: no information given"
+                    if (vehicle?.spaceHeight){
+                        height = "estimated height: " + vehicle.spaceHeight
+                    }
+                    if (vehicle?.spaceWidth){
+                        width = "estimated width: " + vehicle.spaceWidth
+                    }
+                    if (vehicle?.spaceLength){
+                        length = "estimated length: " + vehicle.spaceLength
+                    }
+                    result = new RidePlusClass(result.date, result.origin, result.destination, result.title, result.description, result.numberOfFreeSeats, result.vehicle, result.price, result.userId, result.pendingReqs, result.accReqs, height, width, length )
+
+                }
                 res.status(200).send(result);
             } else {
                 res.status(500).send("Internal Server Error (seems like the objects don't exist)")

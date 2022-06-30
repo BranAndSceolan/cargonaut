@@ -22,10 +22,10 @@
       <div class="row">
         <div class="col-9">
           <div class="row">
-            <div class="col-4" v-for="offer in offers" v-bind:key="offer._id">
+            <div class="col-4" v-for="offer in offers" v-bind:key="offer._id" >
               <travel-card class="mx-4 mt-4" :id="offer._id" :title="offer.title" :origin="offer.origin"
-                           :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
-                           :width="'X'" :price="offer.price" :date="offer.date">
+                           :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="offer.height" :length="offer.length"
+                           :width="offer.width" :price="offer.price" :date="offer.date">
               </travel-card>
             </div>
           </div>
@@ -47,6 +47,7 @@ export default {
   data () {
     return {
       offers: [],
+      vehicle: '',
       sortVal: '',
       searchVal: '',
       filterString: '',
