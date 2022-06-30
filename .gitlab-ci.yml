@@ -42,7 +42,7 @@ pages:
   - npm
   stage: deploy
   script:
-    - npm i node@lts
+    - npm i -g node@lts
     - cd frontend
     - npm install
     - npm run build
