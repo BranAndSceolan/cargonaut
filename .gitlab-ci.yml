@@ -42,6 +42,8 @@ pages:
   - npm
   stage: deploy
   script:
+    - npm cache clean -f
+    - npm install -g n
     - cd frontend
     - npm install
     - npm run build
