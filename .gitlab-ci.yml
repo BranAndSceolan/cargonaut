@@ -39,10 +39,9 @@ build-docker:
 
 pages:
   tags:
-  - alpine
+  - npm
   stage: deploy
   script:
-    - apt get nodejs npm
     - cd frontend
     - npm install
     - npm run build
