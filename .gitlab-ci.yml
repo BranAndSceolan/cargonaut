@@ -2,6 +2,7 @@ stages:
   - build-backend
   - build-frontend
   - build-docker
+  - pages
 
 
 build-backend:
