@@ -39,9 +39,6 @@ build-docker:
 
 pages:
   stage: deploy
-  tags:
-    - npm
-    - docker
   script:
     - cd frontend
     - npm install
