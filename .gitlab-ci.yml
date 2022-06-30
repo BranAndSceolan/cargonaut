@@ -38,7 +38,8 @@ build-docker:
 #
 
 pages:
-  image: alpine
+  tags:
+  - alpine
   stage: deploy
   script:
     - apt get nodejs npm
