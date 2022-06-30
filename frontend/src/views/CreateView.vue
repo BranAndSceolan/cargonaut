@@ -71,7 +71,8 @@ export default {
       navData: [{ town: '', date: '' }, { town: '', date: '' }, { town: '', date: '' }],
       price: '',
       vehicles: [],
-      warning: false
+      warning: false,
+      vehicle: {}
     }
   },
   methods: {
@@ -88,7 +89,8 @@ export default {
             numberOfFreeSeats: Number(this.seat),
             user: 'none',
             pendingReqs: [],
-            accReqs: []
+            accReqs: [],
+            vehicle: this.vehicle._id
           })
           .then(response => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
       } else {
@@ -99,6 +101,7 @@ export default {
       const vehicle = this.vehicles[index]
       this.seat = vehicle.numberOfSeats
       this.desc = vehicle.notes
+      this.vehicle = vehicle
     }
   },
   mounted () {

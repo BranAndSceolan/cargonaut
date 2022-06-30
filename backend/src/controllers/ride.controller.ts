@@ -30,9 +30,10 @@ export class RideController {
         } else {
             user = await userController.userModule.getUserByName(req.session.signInName)
         }
-        if (! req.body.date){
+        console.log(user?._id)
+        /*if (! req.body.date){
             res.status(400).send("Missing date!")
-        } else if (! req.body.vehicle) {
+        } else */if (! req.body.vehicle) {
             res.status(400).send("Missing vehicle id!")
         } else if (! req.body.destination){
             res.status(400).send("Missing destination!")
@@ -61,7 +62,8 @@ export class RideController {
             if(req.body.vehicle) {
                 vehicle = req.body.vehicle
             }
-            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
+            console.log(vehicle)
+            this.rideModule.createRide(new RideClass(new Date("12.12.2015"), req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, user._id, vehicle, pendingReqs, accReqs)).then(result => {
                 if (result) {
                     res.status(201).send(result);
                 } else {
@@ -156,7 +158,7 @@ export class RideController {
             if(req.body.vehicle) {
                 vehicle = req.body.vehicle
             }
-            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
+            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, user._id, vehicle, pendingReqs, accReqs)).then(result => {
                 if (result) {
                     res.status(200).send(result);
                 } else {
