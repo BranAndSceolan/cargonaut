@@ -10,18 +10,23 @@ import {vehicleTest} from "./vehicle.test";
 
 chai.use(chaiHttp);
 
+const agent = chai.request.agent(app)
+
 // Test base route to return string
 describe('Base Route Test', () => {
     it(`should return a html file`, () => {
-        return chai.request(app).get('/')
+        return agent.get('/')
             .then(res  => {
                 chai.expect(res).to.be.html
             })
     })
 })
 
-userTest()
-requestTest()
-rideTest()
-vehicleTest()
-evaluationTest()
+describe('other tests', ()=>{
+    userTest(agent)
+    requestTest(agent)
+    rideTest(agent)
+    vehicleTest(agent)
+    evaluationTest(agent)
+})
+

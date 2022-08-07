@@ -1,13 +1,13 @@
-import {app} from '../../index';
 import chai from 'chai';
 import chaiHttp from "chai-http";
 import * as mongoose from "mongoose";
+import request from "superagent";
 
 
 chai.use(chaiHttp);
 chai.expect;
 
-export async function rideTest() {
+export async function rideTest(agent : ChaiHttp.Agent) {
 
     let userId: mongoose.Types.ObjectId;
     let vehicleId: mongoose.Types.ObjectId;
@@ -20,23 +20,23 @@ export async function rideTest() {
         // Create with a single reference to a ride and a user
 
         it(`prepares test`, async () => {
-            await chai.request(app).post('/user/create').send({
+            await agent.post('/user/create').send({
                 "name": "Achmed",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",
                 "description": "Hallo ich bin der Hans"
-            }).then(res => {
+            }).then((res: request.Response) => {
                 userId = res.body;
             })
-            await chai.request(app).post('/vehicle/create').send({
+            await agent.post('/vehicle/create').send({
                 "type": "standard car",
                 "numberOfSeats": 4,
                 "notes": "looks ugly, but moves"
-            }).then(res => {
+            }).then((res: request.Response) => {
                 vehicleId = res.body;
             })
-            return await chai.request(app).post('/ride/create').send({
+            return await agent.post('/ride/create').send({
                 "date": "1-12-2022",
                 "origin": "munich",
                 "destination": "berlin",
@@ -48,7 +48,7 @@ export async function rideTest() {
                 "vehicle": vehicleId,
                 "pendingReqs": [],
                 "accReqs": []
-            }).then(res => {
+            }).then((res: request.Response) => {
                 rideId = res.body;
                 chai.expect(res.status).to.equal(201);
                 chai.expect(res.body)
@@ -58,7 +58,7 @@ export async function rideTest() {
         // Create - Bad Request due to empty field .
 
         it(`should return 400 and text 'Bad Request'`, async () => {
-            return await chai.request(app).post('/ride/create').send({
+            return await agent.post('/ride/create').send({
                 "date": "6-23-2022",
                 "origin": "",
                 "destination": "Hattersheim",
@@ -75,13 +75,13 @@ export async function rideTest() {
         // Read routes:
 
         it(`should return 200 and all rides`, async () => {
-            return await chai.request(app).get('/ride/getAll').then(res => {
+            return await agent.get('/ride/getAll').then((res: request.Response) => {
                 chai.expect(res.status).to.equal(200);
             })
         })
 
         it(`should return 200 and the correct rides`, async () => {
-            return await chai.request(app).get(`/ride/findById/${rideId}`).then(async res => {
+            return await agent.get(`/ride/findById/${rideId}`).then(async (res: request.Response) => {
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body._id).to.equal(rideId);
             })
@@ -90,7 +90,7 @@ export async function rideTest() {
         // Update routes:
 
         it(`should return 200 and the updated item`, async () => {
-            return await chai.request(app).post(`/ride/update/${rideId}`).send({
+            return await agent.post(`/ride/update/${rideId}`).send({
                 "date": "6-23-2022",
                 "origin": "Seligenstadt",
                 "destination": "Hattersheim",
@@ -100,7 +100,7 @@ export async function rideTest() {
                 "vehicle": vehicleId,
                 "numberOfFreeSeats": 4,
                 "user": userId
-            }).then(res => {
+            }).then((res: request.Response) => {
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body._id).to.equal(rideId);
             })
@@ -109,7 +109,7 @@ export async function rideTest() {
         // Update - Bad Request due to empty field.
 
         it(`should return 400 and text 'Bad Request'`, async () => {
-            return await chai.request(app).post(`/ride/update/${rideId}`).send({
+            return await agent.post(`/ride/update/${rideId}`).send({
                 "date": "",
                 "origin": "Seligenstadt",
                 "destination": "Hattersheim",
@@ -118,7 +118,7 @@ export async function rideTest() {
                 "vehicle": vehicleId,
                 "numberOfFreeSeats": 4,
                 "user": userId
-            }).then(res => {
+            }).then((res: request.Response) => {
                 chai.expect(res.status).to.equal(400);
             })
         })
@@ -126,14 +126,14 @@ export async function rideTest() {
         // Delete routes:
 
         it(`should return 200 and the deleted ride`, async () => {
-            return await chai.request(app).delete(`/ride/delete/${rideId}`).then(res => {
+            return await agent.delete(`/ride/delete/${rideId}`).then((res: request.Response) => {
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body._id).to.equal(rideId);
             })
         })
 
         it('user deletion\n', async () => {
-            return await chai.request(app).delete(`/user/delete/${userId}`).then(res => {
+            return await agent.delete(`/user/delete/${userId}`).then((res: request.Response) => {
                 chai.expect(res.status).to.equal(200)
                 chai.expect(res.body._id).to.equal(`${userId}`)
             });
