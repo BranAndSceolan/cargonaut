@@ -6,6 +6,7 @@ import {printToConsole} from "../modules/util/util.module";
 import mongoose from "mongoose";
 import {evaluationController} from "./index";
 import config from "config";
+import argon2 from "argon2";
 
 
 /** USER CONTROLLER
@@ -28,47 +29,55 @@ export class UserController {
      * A HTTP-Response which will be send containing a status code, and,
      * if successful, the id of the newly created User document.
      */
-    public create(req: Request, res: Response): void {
+    public async create(req: Request, res: Response): Promise<void> {
         const userName = req.body.name
-        if (!userName || userName.trim() == ""){
+        if (!userName || userName.trim() == "") {
             res.status(400).send("Username missing")
             return
         }
-        const password = req.body.password
-        if (!password || password.trim() == ""){
+        let password = req.body.password
+        if (!password || password.trim() == "") {
             res.status(400).send("Password missing")
             return
         }
+        // hash password using argon2id algorithm and randomly set salt
+        try {
+            password = await argon2.hash(password)
+        } catch (e){
+            printToConsole("error while password hashing")
+            res.status(500).send("internal Server Error. Something went wrong, we are sorry.")
+            return
+        }
         const description = req.body.description
-        if(!description) {
+        if (!description) {
             res.status(400).send("Description missing")
             return
         }
         const birthdate = req.body.birthdate
-        if (!birthdate || !( typeof birthdate == 'string') || birthdate.trim() == ""){
+        if (!birthdate || !(typeof birthdate == 'string') || birthdate.trim() == "") {
             res.status(400).send("Birthdate missing")
             return
         }
         const email = req.body.email
-        if (!email || email.trim() == ""){
+        if (!email || email.trim() == "") {
             res.status(400).send("Password missing")
             return
         }
         let vehicleIds: Array<mongoose.Types.ObjectId> | undefined = undefined
-        if (req.body.vehicles){
+        if (req.body.vehicles) {
             vehicleIds = req.body.vehicles
         }
 
         this.userModule.createUser(
-                new UserClass(
-                    userName.trim(),
-                    new Date(birthdate.trim()),
-                    email.trim(),
-                    description,
-                    password.trim(),
-                    vehicleIds,
-                    undefined
-                )
+            new UserClass(
+                userName.trim(),
+                new Date(birthdate.trim()),
+                email.trim(),
+                description,
+                password.trim(),
+                vehicleIds,
+                undefined
+            )
         ).then((id: mongoose.Types.ObjectId | null) => {
             if (id) {
                 res.status(201).send(id)
