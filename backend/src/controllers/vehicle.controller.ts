@@ -2,8 +2,9 @@ import {Request, Response} from "express";
 import {MongoModule} from "../modules/mongo/mongo.module";
 import mongoose from "mongoose";
 import {VehicleModule} from "../modules/entities/vehicle.module";
-import {VehicleClass} from "../models/vehicle.model";
+import {Vehicle, VehicleClass} from "../models/vehicle.model";
 import {printToConsole} from "../modules/util/util.module";
+import {userController} from "./index";
 
 /**
  * Controller for all labelIds, providing all functionalities e.g. (create, read, update, delete)
@@ -83,13 +84,29 @@ export class VehicleController {
      * @param req
      * @param res
      */
-    public delete(req: Request, res: Response): void {
+    public async delete(req: Request, res: Response): Promise<void> {
         const id: string | undefined = req.params.id;
-        this.vehicleModule.deleteVehicle(new mongoose.Types.ObjectId(id)).then((result: any) => {
+        const obId : mongoose.Types.ObjectId = new mongoose.Types.ObjectId(id)
+        // get user and remove vehicle id
+        const user = await userController.userModule.getUserByName(req.session.signInName)
+        if (id && user?._id && user?.vehicles && user.vehicles.includes(obId)){
+            printToConsole("vor löschen:" + user.vehicles)
+            const index = user.vehicles.indexOf(obId)
+            user.vehicles = user.vehicles.splice(index, 1)
+            printToConsole("nach löschen:" + user.vehicles)
+            await userController.userModule.updateUser(user._id, user)
+            printToConsole("updated user"+ user)
+        } else {
+            res.status(500).send("Internal Server Error")
+            return
+        }
+        this.vehicleModule.deleteVehicle(new mongoose.Types.ObjectId(id)).then((result: Vehicle| null) => {
             if (result) {
                 res.status(200).send(result); //deleted Entity
+                return
             } else {
                 res.status(500).send("Internal Server Error")
+                return
             }
         }).catch(() => res.status(500).send("Internal Server Error"));
     }
