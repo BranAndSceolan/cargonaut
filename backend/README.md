@@ -45,6 +45,12 @@ in backend directory and start the database using
 
 ``docker start cargonaut_mongo``
 
-Start server in test mode using
+Start server in test mode using (server mustn't be running already. If you want to do this directly after building the docker files, you have to stop the cargonaut container)
 
 ``NODE_ENV=test npm run test``
+
+## If there are problems:
+ Try deleting the image
+ ``docker-compose down --volumes``
+ ``docker rmi cargonaut_mongo cargonaut``
+ Then rebuild the container
