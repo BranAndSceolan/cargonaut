@@ -27,6 +27,7 @@ jobs:
       - run: |
           cd backend
           npm ci
-          NODE_ENV=docker_dev docker start cargonaut_mongo
-          docker-compose stop cargonaut
+          NODE_ENV=docker_dev docker-compose up --build --detach
+          docker-compose stop
+          docker start cargonaut_mongo
           NODE_ENV=test npm run test`
