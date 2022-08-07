@@ -24,7 +24,7 @@ export async function rideTest(agent : ChaiHttp.Agent) {
                 "name": "Achmed",
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
-                "password": "",
+                "password": "123",
                 "description": "Hallo ich bin der Hans"
             }).then((res: request.Response) => {
                 userId = res.body;
