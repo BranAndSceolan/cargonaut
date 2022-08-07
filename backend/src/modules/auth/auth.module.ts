@@ -3,14 +3,15 @@ import {User, UserClass} from "../../models/user.model";
 import {userController} from "../../controllers";
 import mongoose from "mongoose";
 import config from "config";
-
+import argon2 from "argon2";
+import {printToConsole} from "../util/util.module";
 
 export class AuthModule {
 
     async register(req: Request, res: Response) {
 //Check if username is already defined (from a previous session)
         const registerName: string = req.body.name.trim();
-        const registerPass: string = req.body.password.trim();
+        let registerPass: string = req.body.password.trim();
         const registerBirthdate: string = req.body.birthdate.trim();
         const registerMail: string = req.body.email.trim()
         const registerDescription: string = req.body.description.trim()
@@ -20,6 +21,14 @@ export class AuthModule {
         const user: User | null = await userController.userModule.getUserByName(registerName.trim())
         if (user?.name){
             return res.status(401).send("Name bereits vergeben!")
+        }
+        // hash password using argon2id algorithm and randomly set salt
+        try {
+            registerPass = await argon2.hash(registerPass)
+        } catch (e){
+            printToConsole("error while password hashing")
+            res.status(500).send("internal Server Error. Something went wrong, we are sorry.")
+            return
         }
 
         const newUser: null| mongoose.Types.ObjectId = await userController.userModule.createUser(
@@ -42,16 +51,30 @@ export class AuthModule {
         const signInName: string = req.body.name;
         const signInPass: string = req.body.password;
 
-        const user : User | null = await userController.userModule.getUserByName(signInName)
-        if (user && signInPass == user.password) {
-            req.session.signInName = signInName;
-            res.sendStatus(200);
-        } else {
+        const user: User | null = await userController.userModule.getUserByName(signInName)
+        if (!user?.password) {
             res.status(404);
             res.contentType("text/urilist");
-            res.send("Your name or password seem to be wrong.");
+            res.send("Your name or password seems to be wrong.");
+            return
         }
-
+        try {
+            if (await argon2.verify(user.password, signInPass)) {
+                // password match
+                req.session.signInName = signInName;
+                res.sendStatus(200);
+            } else {
+                // password did not match
+                res.status(404);
+                res.contentType("text/urilist");
+                res.send("Your name or password seems to be wrong.");
+                return
+            }
+        } catch (err) {
+            // internal failure
+            res.status(500).send("internal Error")
+            return
+        }
     }
 
     async getCurrent(req: Request, res: Response) {
