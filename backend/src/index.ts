@@ -4,6 +4,7 @@ import * as path from "path";
 import {PORT} from "./config/config.json";
 import {MongoModule} from "./modules/mongo/mongo.module";
 import config from "config";
+import rateLimit from "express-rate-limit"
 import * as crypto from "crypto";
 import {
     evalRouter,
@@ -13,7 +14,7 @@ import {
     vehicleRouter
 } from "./routes/index"
 import session from "express-session";
-//const helmet = require("helmet")
+import helmet from "helmet";
 
 const mongo: MongoModule = new MongoModule();
 mongo.connectToMongo().then(mongoose => {
@@ -39,7 +40,14 @@ declare module "express-session" {
 // Boot express
 export const app: Application = express();
 app.use(express.urlencoded({extended: false}));
-// app.use(helmet())
+app.use(helmet())
+const rateLimitOptions = rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    max: 60, // Limit each IP to 60 requests per `window` (here, per 1 minute)
+    standardHeaders: false, // Do not return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false,
+})
+
 app.use(session({
     resave: true, // save session even if not modified
     saveUninitialized: true, // save session even if not used
@@ -55,6 +63,8 @@ app.use(express.json())
 app.use(express.urlencoded({
     extended: true
 }));
+
+app.use(rateLimitOptions)
 
 // Application routing
 app.use('/user', userRouter)
