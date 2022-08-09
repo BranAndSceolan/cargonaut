@@ -16,7 +16,7 @@ npm run build
 ```
 
 ### IN CASE OF PROBLEMS
--> version to new
+-> version too new or dependency conflicts
 ```
 npm --legacy-peer-deps install
 ```
