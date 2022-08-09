@@ -15,6 +15,7 @@ import {
 } from "./routes/index"
 import session from "express-session";
 import helmet from "helmet";
+import mongoose from "mongoose";
 
 const mongo: MongoModule = new MongoModule();
 mongo.connectToMongo().then(mongoose => {
@@ -31,8 +32,10 @@ mongo.connectToMongo().then(mongoose => {
 
 // add "signInName" to session store
 declare module "express-session" {
+
     interface Session {
         signInName: string;
+        singInId: mongoose.Types.ObjectId;
     }
 }
 

@@ -41,6 +41,7 @@ export class AuthModule {
             ))
         if (newUser){
             req.session.signInName = registerName;
+            req.session.singInId = newUser._id;
             return res.status(200).send(newUser._id)
         } else {
            return res.status(500).send("Something went wrong registering!")
@@ -59,9 +60,10 @@ export class AuthModule {
             return
         }
         try {
-            if (await argon2.verify(user.password, signInPass)) {
+            if (user._id && await argon2.verify(user.password, signInPass)) {
                 // password match
                 req.session.signInName = signInName;
+                req.session.singInId = user._id;
                 res.sendStatus(200);
             } else {
                 // password did not match

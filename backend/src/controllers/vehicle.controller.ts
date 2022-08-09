@@ -43,6 +43,8 @@ export class VehicleController {
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
+                // in aktuellen Nutzer einfügen
+               // userController.userModule.updateUser()
             }).catch((err)=>{
                 printToConsole(err)
                 res.send(500)
