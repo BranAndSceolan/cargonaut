@@ -176,5 +176,21 @@ export class MongoModule {
     async findEvaluationsNumber(filter: any): Promise<number>{
         return schemes.evaluationModel.find(filter).count()
     }
+
+    async linkVehicleToUser(userId: mongoose.Types.ObjectId, newVehId: mongoose.Types.ObjectId): Promise<User| null>{
+        return schemes.userModel.findOneAndUpdate({_id: userId},{
+          $push: {
+              vehicles: {newVehId}
+          }
+        })
+    }
+
+    async unlinkVehicleFromUser(userId: mongoose.Types.ObjectId, oldVehId: mongoose.Types.ObjectId): Promise<User| null>{
+        return schemes.userModel.findOneAndUpdate({_id: userId}, {
+            $pullAll:{
+                vehicles: {oldVehId}
+            }
+        })
+    }
 }
 

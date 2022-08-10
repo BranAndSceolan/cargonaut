@@ -20,6 +20,11 @@ router.post('/update/:id', (req: Request, res: Response) => {
     authModule.checkLogin(req, res,() => requestController.update(req, res))
 })
 
+// PUT Routes
+router.put('/update/:id', (req: Request, res: Response) => {
+    authModule.checkLogin(req, res,() => requestController.update(req, res))
+})
+
 // GET Routes
 router.get('/getAll', (req: Request, res: Response) => {
     authModule.checkLogin(req, res,() => requestController.getAll(req,res))

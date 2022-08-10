@@ -5,6 +5,7 @@ import {VehicleModule} from "../modules/entities/vehicle.module";
 import {Vehicle, VehicleClass} from "../models/vehicle.model";
 import {printToConsole} from "../modules/util/util.module";
 import {userController} from "./index";
+import {User} from "../models/user.model";
 
 /**
  * Controller for all labelIds, providing all functionalities e.g. (create, read, update, delete)
@@ -43,14 +44,64 @@ export class VehicleController {
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
-                // in aktuellen Nutzer einfügen
-               // userController.userModule.updateUser()
             }).catch((err)=>{
                 printToConsole(err)
                 res.send(500)
             });
         } else {
             res.status(400).send("Bad Request")
+        }
+
+    }
+
+
+    /**
+     * calls createVehicle() method of VehicleModule, to create a new Vehicle
+     * @param req
+     * @param res
+     */
+    public createAndLinkToUser(req: Request, res: Response): void {
+        if ( req.body && req.body.type && req.body.numberOfSeats && req.body.notes){
+            let width: number | undefined = undefined;
+            let height: number | undefined = undefined;
+            let length: number | undefined = undefined;
+            if (req.body.spaceWidth && typeof req.body.spaceWidth == 'number'){
+                width = req.body.spaceWidth
+            }
+            if (req.body.spaceHeight && typeof req.body.spaceHeight == 'number'){
+                height = req.body.spaceHeight
+            }
+            if (req.body.spaceLength && typeof req.body.spaceLength == 'number'){
+                length = req.body.spaceLength
+            }
+            this.vehicleModule.createVehicle(new VehicleClass(req.body.type, req.body.numberOfSeats, req.body.notes, width, height, length)).then( (newCarId: mongoose.Types.ObjectId| null)=> {
+                if (newCarId) {
+                    userController.userModule.linkVehicle(req.session.singInId, newCarId).then((updatedUser: User | null)=>{
+                        if (updatedUser && updatedUser.vehicles && updatedUser.vehicles.includes(newCarId)){
+                            updatedUser.password = "********"
+                            res.status(201).send(updatedUser)
+                            return
+                        } else{
+                         res.sendStatus(500)
+                            return
+                        }
+                    }).catch((err)=>{
+                        printToConsole(err)
+                        res.sendStatus(500)
+                        return
+                    });
+                } else{
+                    res.sendStatus(500)
+                    return
+                }
+            }).catch((err)=>{
+                printToConsole(err)
+                res.sendStatus(500)
+                return
+            });
+        } else {
+            res.status(400).send("Bad Request")
+            return
         }
 
     }
@@ -89,26 +140,39 @@ export class VehicleController {
     public async delete(req: Request, res: Response): Promise<void> {
         const id: string | undefined = req.params.id;
         const obId : mongoose.Types.ObjectId = new mongoose.Types.ObjectId(id)
-        // get user and remove vehicle id
-        const user = await userController.userModule.getUserByName(req.session.signInName)
-        if (id && user?._id && user?.vehicles && user.vehicles.includes(obId)){
-            printToConsole("vor löschen:" + user.vehicles)
-            const index = user.vehicles.indexOf(obId)
-            user.vehicles = user.vehicles.splice(index, 1)
-            printToConsole("nach löschen:" + user.vehicles)
-            await userController.userModule.updateUser(user._id, user)
-            printToConsole("updated user"+ user)
-        } else {
-            res.status(500).send("Internal Server Error")
-            return
-        }
-        this.vehicleModule.deleteVehicle(new mongoose.Types.ObjectId(id)).then((result: Vehicle| null) => {
+        this.vehicleModule.deleteVehicle(obId).then((result: Vehicle| null) => {
             if (result) {
                 res.status(200).send(result); //deleted Entity
                 return
             } else {
                 res.status(500).send("Internal Server Error")
                 return
+            }
+        }).catch(() => res.status(500).send("Internal Server Error"));
+    }
+
+    /**
+     * calls deleteVehicle() method of vehicle.module, to delete a vehicle specified by id and unlink from currently logged-in user
+     * @param req
+     * @param res
+     */
+    public async deleteAndUnlink(req: Request, res: Response): Promise<void> {
+        const id: string | undefined = req.params.id;
+        const objectId = new mongoose.Types.ObjectId(id)
+        // remove vehicle id
+        userController.userModule.unlinkVehicle(req.session.singInId, objectId).then((user: User | null) => {
+            if (user?.vehicles?.includes(objectId)) {
+                res.sendStatus(500)
+            } else {
+                this.vehicleModule.deleteVehicle(new mongoose.Types.ObjectId(id)).then((result: Vehicle | null) => {
+                    if (result) {
+                        res.status(200).send(result); //deleted Entity
+                        return
+                    } else {
+                        res.status(500).send("Internal Server Error")
+                        return
+                    }
+                }).catch(() => res.status(500).send("Internal Server Error"));
             }
         }).catch(() => res.status(500).send("Internal Server Error"));
     }

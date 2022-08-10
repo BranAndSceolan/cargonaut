@@ -4,7 +4,7 @@ import {MongoModule} from "../modules/mongo/mongo.module";
 import {UserModule} from "../modules/entities/user.module";
 import {printToConsole} from "../modules/util/util.module";
 import mongoose from "mongoose";
-import {evaluationController} from "./index";
+import {evaluationController, vehicleController} from "./index";
 import config from "config";
 import argon2 from "argon2";
 
@@ -132,6 +132,24 @@ export class UserController {
             res.sendStatus(500)
             printToConsole(err)
         })
+    }
+
+    //** GETUSERVEHICLES
+    public async getUserVehicles(req: Request, res: Response): Promise<void>{
+        const userId = req.session.singInId
+        const user = await this.userModule.getUserById(userId)
+        const vehicles = []
+        if(user){
+            for (const vehicleId in user.vehicles){
+                const vehicle = await vehicleController.vehicleModule.findVehicleById(new mongoose.Types.ObjectId(vehicleId))
+                vehicles.push(vehicle)
+            }
+            res.status(200).send(vehicles)
+            return
+        } else {
+            res.sendStatus(404)
+            return;
+        }
     }
 
     /**
