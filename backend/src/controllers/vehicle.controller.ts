@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import {VehicleModule} from "../modules/entities/vehicle.module";
 import {Vehicle, VehicleClass} from "../models/vehicle.model";
 import {printToConsole} from "../modules/util/util.module";
-import {userController} from "./index";
+import {requestController, rideController, userController} from "./index";
 import {User} from "../models/user.model";
 
 /**
@@ -158,13 +158,29 @@ export class VehicleController {
      */
     public async deleteAndUnlink(req: Request, res: Response): Promise<void> {
         const id: string | undefined = req.params.id;
-        const objectId = new mongoose.Types.ObjectId(id)
+        const vehicleId = new mongoose.Types.ObjectId(id)
         // remove vehicle id
-        userController.userModule.unlinkVehicle(req.session.singInId, objectId).then((user: User | null) => {
-            if (user?.vehicles?.includes(objectId)) {
+        userController.userModule.unlinkVehicle(req.session.singInId, vehicleId).then(async (user: User | null) => {
+            if (user?.vehicles?.includes(vehicleId)) {
                 res.sendStatus(500)
             } else {
-                this.vehicleModule.deleteVehicle(new mongoose.Types.ObjectId(id)).then((result: Vehicle | null) => {
+                // remove rides involving this vehicle
+                const rides = await rideController.rideModule.getRidesByVehicle(vehicleId)
+                rideController.rideModule.deleteRidesByVehicle(vehicleId)
+                // Mark requests as rideDeleted
+                for (const ride of rides) {
+                    if (ride.pendingReqs) {
+                        for (const request of ride.pendingReqs) {
+                            requestController.requestModule.setToRideDeleted(request)
+                        }
+                    }
+                    if (ride.accReqs) {
+                        for (const request of ride.accReqs) {
+                            requestController.requestModule.setToRideDeleted(request)
+                        }
+                    }
+                }
+                this.vehicleModule.deleteVehicle(vehicleId).then((result: Vehicle | null) => {
                     if (result) {
                         res.status(200).send(result); //deleted Entity
                         return

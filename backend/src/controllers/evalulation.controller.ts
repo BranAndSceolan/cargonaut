@@ -68,13 +68,19 @@ export class EvaluationController {
      */
     public delete(req: Request, res: Response): void {
         const id: string | undefined = req.params.id;
-        this.evaluationModule.deleteEvaluation(new mongoose.Types.ObjectId(id)).then((result: any) => {
-            if (result) {
-                res.status(200).send(result); //deleted Entity
-            } else {
-                res.status(500).send("Internal Server Error")
-            }
-        }).catch(() => res.status(500).send("Internal Server Error"));
+        let obId: mongoose.Types.ObjectId
+        try {
+            obId = new mongoose.Types.ObjectId(id)
+            this.evaluationModule.deleteEvaluation(obId).then((result: any) => {
+                if (result) {
+                    res.status(200).send(result); //deleted Entity
+                } else {
+                    res.status(500).send("Internal Server Error")
+                }
+            }).catch(() => res.status(500).send("Internal Server Error"));
+        } catch (e) {
+            res.sendStatus(400)
+        }
     }
 
 }

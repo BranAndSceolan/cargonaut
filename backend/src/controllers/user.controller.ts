@@ -4,9 +4,11 @@ import {MongoModule} from "../modules/mongo/mongo.module";
 import {UserModule} from "../modules/entities/user.module";
 import {printToConsole} from "../modules/util/util.module";
 import mongoose from "mongoose";
-import {evaluationController, vehicleController} from "./index";
+import {evaluationController, requestController, rideController, vehicleController} from "./index";
 import config from "config";
 import argon2 from "argon2";
+import {Vehicle} from "../models/vehicle.model";
+import {Req} from "../models/request.model";
 
 
 /** USER CONTROLLER
@@ -180,6 +182,54 @@ export class UserController {
             res.sendStatus(500)
         }
 
+    }
+
+    /**
+     * DELETENDUNLINK
+     * deletes an user with an specific id from database
+     * @param req
+     * HTTP-Request containing the id of User document in the params (in the URL) (if sessions are used to identify the user
+     * (eg in production, the id is ignored)
+     * @param res
+     * HTTP-Request containing a status code and if successful, the deleted user in its body
+     */
+    public async deleteAndUnlink(req: Request, res: Response): Promise<void> {
+            this.userModule.deleteUser(req.session.singInId).then(async (user: User | null) => {
+                if (user && user._id) {
+                    for (const veh in user.vehicles) {
+                        const vehicle: Vehicle | null = await vehicleController.vehicleModule.deleteVehicle(new mongoose.Types.ObjectId(veh))
+                        // remove rides involving this vehicle
+                        if (vehicle?._id) {
+                            const rides = await rideController.rideModule.getRidesByVehicle(vehicle._id)
+                            rideController.rideModule.deleteRidesByVehicle(vehicle?._id)
+                            // Mark requests as rideDeleted
+                            for (const ride of rides) {
+                                if (ride.pendingReqs) {
+                                    for (const request of ride.pendingReqs) {
+                                        requestController.requestModule.setToRideDeleted(request)
+                                    }
+                                }
+                                if (ride.accReqs) {
+                                    for (const request of ride.accReqs) {
+                                        requestController.requestModule.setToRideDeleted(request)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    const reqs: Req[] = await requestController.requestModule.getByUser(user._id)
+                        for (const req of reqs) {
+                            if (req._id) {
+                                requestController.requestModule.deleteRequest(req._id)
+                                requestController.requestModule.unlinkRequestFromRides(req._id)
+                            }
+                        }
+
+                        res.status(200).send(user);
+                    } else {
+                        res.sendStatus(500);
+                    }
+            })
     }
 
     /**

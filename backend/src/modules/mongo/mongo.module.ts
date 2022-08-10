@@ -6,7 +6,7 @@ import {Vehicle} from "../../models/vehicle.model";
 import {User} from "../../models/user.model";
 import {Ride} from "../../models/ride.model";
 import {Evaluation} from "../../models/evaluation.model";
-import {Req} from "../../models/request.model"
+import {Req, requestStatus} from "../../models/request.model"
 
 /**
  * Basic functions for interacting with MongoDB
@@ -189,6 +189,39 @@ export class MongoModule {
         return schemes.userModel.findOneAndUpdate({_id: userId}, {
             $pullAll:{
                 vehicles: {oldVehId}
+            }
+        })
+    }
+
+    async setRequestToDeletedRide(reqId: mongoose.Types.ObjectId): Promise<Req | null> {
+        return schemes.requestModel.findOneAndUpdate({_id: reqId},{
+            $set:{
+                requestStatus : requestStatus.rideDeleted
+            }
+        })
+    }
+
+    async getRideByVehicle(vehicleId: mongoose.Types.ObjectId):Promise<Ride[]> {
+        return schemes.rideModel.find({vehicle: vehicleId})
+    }
+
+    async deleteRidesByVehicle(vehicleId: mongoose.Types.ObjectId): Promise<void>{
+        schemes.rideModel.deleteMany({vehicle: vehicleId})
+    }
+
+    async getRequestByUser(userId: mongoose.Types.ObjectId): Promise<Req[]>{
+        return schemes.requestModel.find({user: userId})
+    }
+
+    async unlinkRequestFromRides(reqId : mongoose.Types.ObjectId){
+        schemes.rideModel.updateMany({accReqs:{ $elemMatch: { $eq: reqId }}},{
+         $pullAll:{
+             accReqs: reqId
+         }
+        })
+        schemes.rideModel.updateMany({pendingReqs:{ $elemMatch: { $eq: reqId }}},{
+            $pullAll:{
+                pendingReqs: reqId
             }
         })
     }

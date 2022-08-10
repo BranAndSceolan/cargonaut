@@ -73,6 +73,55 @@ export class RideController {
         }
     }
 
+    /**
+     * calls createRide() method of RideModule, to create a new ride
+     * @param req
+     * @param res
+     */
+    public async createAndLink(req: Request, res: Response): Promise<void> {
+        if (! req.body.date){
+            res.status(400).send("Missing date!")
+        } else if (! req.body.vehicle) {
+            res.status(400).send("Missing vehicle id!")
+        } else if (! req.body.destination){
+            res.status(400).send("Missing destination!")
+        } else if (! req.body.origin){
+            res.status(400).send("Missing origin!")
+        } else if (! req.body.description){
+            res.status(400).send("Missing description!")
+        } else if (! req.body.numberOfFreeSeats){
+            res.status(400).send("Missing number of free seats!")
+        } else if (! req.body.title){
+            res.status(400).send("missing title!")
+        } else if (! req.body.price){
+            res.status(400).send("Missing price!")
+        } else if (! req.session.singInId) {
+            res.status(400).send("Couldn't find user or no user given")
+        } else {
+            let pendingReqs = undefined
+            if (req.body.pendingReqs) {
+                pendingReqs = req.body.pendingReqs
+            }
+            let accReqs = undefined
+            if (req.body.accReqs) {
+                accReqs = req.body.accReqs
+            }
+            let vehicle = undefined
+            if(req.body.vehicle) {
+                vehicle = req.body.vehicle
+            }
+            this.rideModule.createRide(new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, req.session.singInId, vehicle, pendingReqs, accReqs)).then(result => {
+                if (result) {
+                    res.status(201).send(result);
+                } else {
+                    res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+                }
+            }).catch(err => {
+                res.status(500).send(err)
+            });
+        }
+    }
+
     public get(req: Request, res: Response) {
         const id = req.params.id;
         this.rideModule.findRideById(new mongoose.Types.ObjectId(id)).then((result: any) => {

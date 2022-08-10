@@ -54,3 +54,6 @@ router.delete('/delete/:id', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => userController.delete(req, res))
 })
 
+router.delete('/deleteAndUnlink/:id', (req: Request, res: Response) => {
+    authModule.checkLogin(req, res, () => userController.deleteAndUnlink(req, res))
+})

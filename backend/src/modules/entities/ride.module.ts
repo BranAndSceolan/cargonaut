@@ -24,10 +24,6 @@ export class RideModule extends EntityModule {
             rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.vehicle, rideData.price, rideData.user, rideData.pendingReqs, rideData.accReqs));
         } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.price && rideData.user) {
             rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.vehicle, rideData.price, rideData.user, undefined, undefined));
-        } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.price && rideData.user && rideData.vehicle && rideData.pendingReqs) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.vehicle, rideData.price, rideData.user, rideData.pendingReqs, undefined));
-        } else if (rideData && rideData.date && rideData.origin && rideData.destination && rideData.title && rideData.description && rideData.numberOfFreeSeats && rideData.price && rideData.user && rideData.vehicle && rideData.accReqs) {
-            rideId = await this.mongo.addRide(new RideClass(rideData.date, rideData.origin, rideData.destination, rideData.title, rideData.description, rideData.numberOfFreeSeats, rideData.vehicle, rideData.price, rideData.user, undefined, rideData.accReqs));
         }
         if (rideId) {
             return rideId
@@ -62,6 +58,13 @@ export class RideModule extends EntityModule {
         return this.mongo.deleteRide(id);
     }
 
+    async getRidesByVehicle(vheId: mongoose.Types.ObjectId): Promise<Ride[]> {
+        return this.mongo.getRideByVehicle(vheId)
+    }
+
+    async deleteRidesByVehicle(vehId: mongoose.Types.ObjectId){
+        this.mongo.deleteRidesByVehicle(vehId)
+    }
 
     /**
      * calls deleteAllRides() method of mongo.module, to delete all rides

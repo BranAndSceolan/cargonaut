@@ -8,7 +8,7 @@ import request from "superagent";
 chai.use(chaiHttp);
 chai.expect;
 
-export async function evaluationTest(agent: ChaiHttp.Agent): Promise<boolean> {
+export async function evaluationTest(agent: ChaiHttp.Agent) {
 
     let userId: mongoose.Types.ObjectId;
     let rideId: mongoose.Types.ObjectId;
@@ -139,6 +139,4 @@ export async function evaluationTest(agent: ChaiHttp.Agent): Promise<boolean> {
         })
 
     })
-
-    return true
 }
