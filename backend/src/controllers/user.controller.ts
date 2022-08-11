@@ -142,9 +142,11 @@ export class UserController {
         const user = await this.userModule.getUserById(userId)
         const vehicles = []
         if(user){
-            for (const vehicleId in user.vehicles){
-                const vehicle = await vehicleController.vehicleModule.findVehicleById(new mongoose.Types.ObjectId(vehicleId))
-                vehicles.push(vehicle)
+            if (user.vehicles) {
+                for (const vehicleId of user.vehicles) {
+                    const vehicle = await vehicleController.vehicleModule.findVehicleById(new mongoose.Types.ObjectId(vehicleId))
+                    vehicles.push(vehicle)
+                }
             }
             res.status(200).send(vehicles)
             return
@@ -201,17 +203,17 @@ export class UserController {
                         // remove rides involving this vehicle
                         if (vehicle?._id) {
                             const rides = await rideController.rideModule.getRidesByVehicle(vehicle._id)
-                            rideController.rideModule.deleteRidesByVehicle(vehicle?._id)
+                            await rideController.rideModule.deleteRidesByVehicle(vehicle?._id)
                             // Mark requests as rideDeleted
                             for (const ride of rides) {
                                 if (ride.pendingReqs) {
                                     for (const request of ride.pendingReqs) {
-                                        requestController.requestModule.setToRideDeleted(request)
+                                        await requestController.requestModule.setToRideDeleted(request)
                                     }
                                 }
                                 if (ride.accReqs) {
                                     for (const request of ride.accReqs) {
-                                        requestController.requestModule.setToRideDeleted(request)
+                                        await requestController.requestModule.setToRideDeleted(request)
                                     }
                                 }
                             }

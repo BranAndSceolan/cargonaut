@@ -71,6 +71,16 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
             })
         })
 
+        // get both vehicles
+        it ('should return vehicle 0 and 1', async ()=>{
+            await agent.get('/user/vehicles').then((res: request.Response) => {
+                chai.expect(res.status).to.equal(200)
+                printToConsole(res.body)
+                    chai.expect(res.body).to.exist
+                }
+            )
+        })
+
         // create two rides for vehicle 0
         it (`should return 201 `, async () => {
             await agent.post('/ride/createAndLink').send({
