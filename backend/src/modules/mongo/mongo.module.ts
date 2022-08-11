@@ -7,6 +7,8 @@ import {User} from "../../models/user.model";
 import {Ride} from "../../models/ride.model";
 import {Evaluation} from "../../models/evaluation.model";
 import {Req, requestStatus} from "../../models/request.model"
+import {printToConsole} from "../util/util.module";
+
 
 /**
  * Basic functions for interacting with MongoDB
@@ -144,6 +146,7 @@ export class MongoModule {
     }
 
     async updateRide(id: mongoose.Types.ObjectId, newRide: Ride): Promise<Ride | null> {
+        printToConsole("new ride:" + newRide.pendingReqs)
         return schemes.rideModel.findOneAndUpdate({_id: id}, {
             $set: {
                 date: newRide.date,
@@ -178,19 +181,20 @@ export class MongoModule {
     }
 
     async linkVehicleToUser(userId: mongoose.Types.ObjectId, newVehId: mongoose.Types.ObjectId): Promise<User| null>{
-        return schemes.userModel.findOneAndUpdate({_id: userId},{
+        const res = await schemes.userModel.findOneAndUpdate({_id: userId},{
           $push: {
-              vehicles: {newVehId}
+              vehicles: newVehId
           }
         })
+        return res
     }
 
     async unlinkVehicleFromUser(userId: mongoose.Types.ObjectId, oldVehId: mongoose.Types.ObjectId): Promise<User| null>{
         return schemes.userModel.findOneAndUpdate({_id: userId}, {
             $pullAll:{
-                vehicles: {oldVehId}
+                vehicles: [oldVehId]
             }
-        })
+        }, {new: true})
     }
 
     async setRequestToDeletedRide(reqId: mongoose.Types.ObjectId): Promise<Req | null> {

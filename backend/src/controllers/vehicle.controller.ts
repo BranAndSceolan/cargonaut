@@ -74,23 +74,18 @@ export class VehicleController {
             if (req.body.spaceLength && typeof req.body.spaceLength == 'number'){
                 length = req.body.spaceLength
             }
-            this.vehicleModule.createVehicle(new VehicleClass(req.body.type, req.body.numberOfSeats, req.body.notes, width, height, length)).then( (newCarId: mongoose.Types.ObjectId| null)=> {
+            this.vehicleModule.createVehicle(new VehicleClass(req.body.type, req.body.numberOfSeats, req.body.notes, width, height, length)).then( async (newCarId: mongoose.Types.ObjectId | null) => {
                 if (newCarId) {
-                    userController.userModule.linkVehicle(req.session.singInId, newCarId).then((updatedUser: User | null)=>{
-                        if (updatedUser && updatedUser.vehicles && updatedUser.vehicles.includes(newCarId)){
-                            updatedUser.password = "********"
-                            res.status(201).send(updatedUser)
-                            return
-                        } else{
-                         res.sendStatus(500)
-                            return
-                        }
-                    }).catch((err)=>{
+                    try {
+                        await userController.userModule.linkVehicle(req.session.singInId, newCarId)
+                        res.status(201).send(newCarId)
+                        return
+                    } catch (err) {
                         printToConsole(err)
                         res.sendStatus(500)
                         return
-                    });
-                } else{
+                    }
+                } else {
                     res.sendStatus(500)
                     return
                 }
@@ -162,6 +157,7 @@ export class VehicleController {
         // remove vehicle id
         userController.userModule.unlinkVehicle(req.session.singInId, vehicleId).then(async (user: User | null) => {
             if (user?.vehicles?.includes(vehicleId)) {
+                printToConsole("user "+user)
                 res.sendStatus(500)
             } else {
                 // remove rides involving this vehicle
@@ -185,12 +181,19 @@ export class VehicleController {
                         res.status(200).send(result); //deleted Entity
                         return
                     } else {
+                        printToConsole("no result from delete entity")
                         res.status(500).send("Internal Server Error")
                         return
                     }
-                }).catch(() => res.status(500).send("Internal Server Error"));
+                }).catch((err) => {
+                    printToConsole(err)
+                    res.status(500).send("Internal Server Error")
+                });
             }
-        }).catch(() => res.status(500).send("Internal Server Error"));
+        }).catch((err) => {
+            printToConsole(err)
+            res.status(500).send("Internal Server Error")
+        });
     }
 
 }

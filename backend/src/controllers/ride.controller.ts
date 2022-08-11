@@ -5,6 +5,7 @@ import {RideModule} from "../modules/entities/ride.module";
 import {RideClass} from "../models/ride.model";
 import {userController} from "./index";
 import config from "config";
+import {printToConsole} from "../modules/util/util.module";
 
 /**
  * Controller for all rides, providing all functionalities e.g. (create, read, update, delete)
@@ -166,12 +167,7 @@ export class RideController {
     }
 
     public async update(req: Request, res: Response): Promise<void> {
-        let user
-        if (config.get('disableAuth') == "true") {
-            user = await userController.userModule.getUserById(req.body.user)
-        } else {
-            user = await userController.userModule.getUserByName(req.session.signInName)
-        }
+
         if (! req.body.date){
             res.status(400).send("Missing date!")
         } else if (! req.body.destination){
@@ -190,7 +186,7 @@ export class RideController {
             res.status(400).send("missing title!")
         } else if (! req.body.price){
             res.status(400).send("Missing price!")
-        } else if (! user?._id) {
+        } else if (! req.session.singInId) {
             res.status(400).send("Couldn't find user or no user given")
         } else {
             let pendingReqs = undefined
@@ -205,13 +201,15 @@ export class RideController {
             if(req.body.vehicle) {
                 vehicle = req.body.vehicle
             }
-            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, req.body.vehicle, req.body.price, req.body.user, vehicle, pendingReqs, accReqs)).then(result => {
+            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, vehicle, req.body.price, req.session.singInId, pendingReqs, accReqs)).then(result => {
                 if (result) {
                     res.status(200).send(result);
                 } else {
+                    printToConsole("update Ride no result")
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
                 }
             }).catch(err => {
+                printToConsole(err)
                 res.status(500).send(err)
             });
         }

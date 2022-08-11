@@ -1,7 +1,8 @@
-import { debug } from '../../config/config.json'
+import config from "config";
+
 
 export function printToConsole(s: any){
-    if (debug) {
+    if (config.get("debug")=="true") {
         console.log(s)
     }
 }
