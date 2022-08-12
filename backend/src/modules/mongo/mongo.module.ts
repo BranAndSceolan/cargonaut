@@ -217,13 +217,20 @@ export class MongoModule {
         return schemes.requestModel.find({user: userId})
     }
 
-    async unlinkRequestFromRides(reqId : mongoose.Types.ObjectId){
-        schemes.rideModel.updateMany({accReqs:{ $elemMatch: { $eq: reqId }}},{
+    async addRequestToRide(reqId: mongoose.Types.ObjectId, rideId: mongoose.Types.ObjectId){
+        schemes.rideModel.findOneAndUpdate({_id: rideId},{
+            $push:{ pendingReqs: reqId}
+        })
+    }
+
+
+    async unlinkRequestFromRide(reqId : mongoose.Types.ObjectId){
+        schemes.rideModel.findOneAndUpdate({accReqs:{ $elemMatch: { $eq: reqId }}},{
          $pullAll:{
              accReqs: reqId
          }
         })
-        schemes.rideModel.updateMany({pendingReqs:{ $elemMatch: { $eq: reqId }}},{
+        schemes.rideModel.findOneAndUpdate({pendingReqs:{ $elemMatch: { $eq: reqId }}},{
             $pullAll:{
                 pendingReqs: reqId
             }

@@ -35,7 +35,7 @@ declare module "express-session" {
 
     interface Session {
         signInName: string;
-        singInId: mongoose.Types.ObjectId;
+        signInId: mongoose.Types.ObjectId;
     }
 }
 

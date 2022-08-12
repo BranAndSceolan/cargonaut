@@ -5,7 +5,6 @@ import {UserModule} from "../modules/entities/user.module";
 import {printToConsole} from "../modules/util/util.module";
 import mongoose from "mongoose";
 import {evaluationController, requestController, rideController, vehicleController} from "./index";
-import config from "config";
 import argon2 from "argon2";
 import {Vehicle} from "../models/vehicle.model";
 import {Req} from "../models/request.model";
@@ -126,6 +125,7 @@ export class UserController {
         }
         this.userModule.getUserByName(userName).then((user: User | null) => {
             if (user) {
+                user.password = "******"
                 res.status(200).send(user)
             } else {
                 res.sendStatus(500)
@@ -138,7 +138,7 @@ export class UserController {
 
     //** GETUSERVEHICLES
     public async getUserVehicles(req: Request, res: Response): Promise<void>{
-        const userId = req.session.singInId
+        const userId = req.session.signInId
         const user = await this.userModule.getUserById(userId)
         const vehicles = []
         if(user){
@@ -166,14 +166,9 @@ export class UserController {
      * HTTP-Request containing a status code and if successful, the deleted user in its body
      */
     public async delete(req: Request, res: Response): Promise<void> {
-        let user = undefined
-        if(config.get('disableAuth') == "true"){
-            user = await this.userModule.getUserById(req.params.id)
-        } else {
-            user = await this.userModule.getUserByName(req.session.signInName)
-        }
-        if (user?._id) {
-            this.userModule.deleteUser(new mongoose.Types.ObjectId(user._id)).then((user: User | null) => {
+        const userId = req.session.signInId
+        if (userId) {
+            this.userModule.deleteUser(new mongoose.Types.ObjectId(userId)).then((user: User | null) => {
                 if (user) {
                     res.status(200).send(user);
                 } else {
@@ -196,7 +191,7 @@ export class UserController {
      * HTTP-Request containing a status code and if successful, the deleted user in its body
      */
     public async deleteAndUnlink(req: Request, res: Response): Promise<void> {
-            this.userModule.deleteUser(req.session.singInId).then(async (user: User | null) => {
+            this.userModule.deleteUser(req.session.signInId).then(async (user: User | null) => {
                 if (user && user._id) {
                     for (const veh in user.vehicles) {
                         const vehicle: Vehicle | null = await vehicleController.vehicleModule.deleteVehicle(new mongoose.Types.ObjectId(veh))
@@ -223,7 +218,7 @@ export class UserController {
                         for (const req of reqs) {
                             if (req._id) {
                                 requestController.requestModule.deleteRequest(req._id)
-                                requestController.requestModule.unlinkRequestFromRides(req._id)
+                                requestController.requestModule.unlinkRequestFromRide(req._id)
                             }
                         }
 
@@ -251,6 +246,70 @@ export class UserController {
         })
     }
 
+
+
+    public async updateSafer(req: Request, res: Response) {
+        const password = req.body.password
+        if (!password || password.trim() == "") {
+            res.status(400).send("Password missing")
+            return
+        }
+        const description = req.body.description
+        if (!description) {
+            res.status(400).send("Description missing")
+            return
+        }
+        const birthdate = req.body.birthdate
+        if (!birthdate || !(typeof birthdate == 'string') || birthdate.trim() == "") {
+            res.status(400).send("Birthdate missing")
+            return
+        }
+        const email = req.body.email
+        if (!email || email.trim() == "") {
+            res.status(400).send("Password missing")
+            return
+        }
+        let vehicleIds: Array<mongoose.Types.ObjectId> | undefined = undefined
+        if (req.body.vehicles) {
+            vehicleIds = req.body.vehicles
+        }
+        const userName = req.body.name
+        if (!userName || userName.trim() == "") {
+            res.status(400).send("Username missing")
+            return
+        }
+        const user: User | null = await this.userModule.getUserById(req.session.signInId)
+        let avgEval = 0;
+        if (user?.averageEvalOfRides) {
+            avgEval = user.averageEvalOfRides
+        }
+        if (user?._id) {
+            this.userModule.updateUser(
+                user?._id,
+                new UserClass(
+                    userName.trim(),
+                    new Date(birthdate.trim()),
+                    email.trim(),
+                    description,
+                    undefined,
+                    vehicleIds,
+                    avgEval
+                )
+            ).then((result: User | null) => {
+                if (result) {
+                    res.status(200).send(result)
+                }
+            }).catch((err: Error) => {
+                res.sendStatus(500)
+                printToConsole(`Something went wrong updating an User. \nERROR: ${err}`)
+            })
+        }
+    }
+    /***
+     * UPDATE USER - DEPRECATED: Not safe: allows anybody to change another users profile!
+     * @param req
+     * @param res
+     */
     public async update(req: Request, res: Response): Promise<void> {
         const password = req.body.password
         if (!password || password.trim() == "") {
@@ -280,16 +339,11 @@ export class UserController {
         if (req.body.vehicles) {
             vehicleIds = req.body.vehicles
         }
-        let userName = undefined
-        if(config.get('disableAuth') == "true"){
-            userName = req.body.name
+         const userName = req.body.name
             if (!userName || userName.trim() == "") {
                 res.status(400).send("Username missing")
                 return
             }
-        } else{
-            userName = req.session.signInName
-        }
         const user: User | null = await this.userModule.getUserByName(userName)
         let avgEval = 0;
         if( user?.averageEvalOfRides) {

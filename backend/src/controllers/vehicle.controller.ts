@@ -77,7 +77,7 @@ export class VehicleController {
             this.vehicleModule.createVehicle(new VehicleClass(req.body.type, req.body.numberOfSeats, req.body.notes, width, height, length)).then( async (newCarId: mongoose.Types.ObjectId | null) => {
                 if (newCarId) {
                     try {
-                        await userController.userModule.linkVehicle(req.session.singInId, newCarId)
+                        await userController.userModule.linkVehicle(req.session.signInId, newCarId)
                         res.status(201).send(newCarId)
                         return
                     } catch (err) {
@@ -155,7 +155,12 @@ export class VehicleController {
         const id: string | undefined = req.params.id;
         const vehicleId = new mongoose.Types.ObjectId(id)
         // remove vehicle id
-        userController.userModule.unlinkVehicle(req.session.singInId, vehicleId).then(async (user: User | null) => {
+        const user = await userController.userModule.getUserById(req.session.signInId)
+        if (!user?.vehicles?.includes(vehicleId)){
+            res.sendStatus(401)
+            return
+        }
+        userController.userModule.unlinkVehicle(req.session.signInId, vehicleId).then(async (user: User | null) => {
             if (user?.vehicles?.includes(vehicleId)) {
                 printToConsole("user "+user)
                 res.sendStatus(500)

@@ -3,6 +3,7 @@ import chaiHttp from "chai-http";
 import {requestStatus, trackingStatus} from "../../models/request.model";
 import mongoose from "mongoose";
 import request from "superagent";
+import {randomInt} from "crypto";
 
 
 chai.use(chaiHttp);
@@ -12,6 +13,7 @@ export async function requestTest(agent: ChaiHttp.Agent) {
 
     let userId: mongoose.Types.ObjectId;
     let requestId: mongoose.Types.ObjectId;
+    let userName = randomInt(0, 9999999999) + "C"
 
     describe('Request Route Tests', async () => {
 
@@ -21,7 +23,7 @@ export async function requestTest(agent: ChaiHttp.Agent) {
 
         it(`should return 201 and id of created request`, async () => {
             await agent.post('/user/create').send({
-                "name": "äasfnk",
+                "name": userName,
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",

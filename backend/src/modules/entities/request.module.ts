@@ -78,6 +78,10 @@ export class RequestModule extends EntityModule {
         return await this.mongo.getRequestByUser(userId)
     }
 
+    async addToRide(reqId: mongoose.Types.ObjectId, rideId: mongoose.Types.ObjectId){
+        return await this.mongo.addRequestToRide(reqId, rideId)
+    }
+
     async setToRideDeleted(reqId: mongoose.Types.ObjectId): Promise<Req| null> {
        return await this.mongo.setRequestToDeletedRide(reqId)
     }
@@ -86,7 +90,7 @@ export class RequestModule extends EntityModule {
         return this.mongo.updateReq(id, newReq)
     }
 
-    async unlinkRequestFromRides(reqId: mongoose.Types.ObjectId){
-        await this.mongo.unlinkRequestFromRides(reqId)
+    async unlinkRequestFromRide(reqId: mongoose.Types.ObjectId){
+        await this.mongo.unlinkRequestFromRide(reqId)
     }
 }
