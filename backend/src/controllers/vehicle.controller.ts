@@ -162,7 +162,6 @@ export class VehicleController {
         }
         userController.userModule.unlinkVehicle(req.session.signInId, vehicleId).then(async (user: User | null) => {
             if (user?.vehicles?.includes(vehicleId)) {
-                printToConsole("user "+user)
                 res.sendStatus(500)
             } else {
                 // remove rides involving this vehicle

@@ -218,23 +218,23 @@ export class MongoModule {
     }
 
     async addRequestToRide(reqId: mongoose.Types.ObjectId, rideId: mongoose.Types.ObjectId){
-        schemes.rideModel.findOneAndUpdate({_id: rideId},{
+        return schemes.rideModel.findOneAndUpdate({_id: rideId},{
             $push:{ pendingReqs: reqId}
-        })
+        }, {new: true})
     }
 
 
     async unlinkRequestFromRide(reqId : mongoose.Types.ObjectId){
-        schemes.rideModel.findOneAndUpdate({accReqs:{ $elemMatch: { $eq: reqId }}},{
-         $pullAll:{
+        await schemes.rideModel.updateMany({accReqs:{ $elemMatch: { $eq: reqId }}},{
+         $pull:{
              accReqs: reqId
          }
         })
-        schemes.rideModel.findOneAndUpdate({pendingReqs:{ $elemMatch: { $eq: reqId }}},{
-            $pullAll:{
+        return schemes.rideModel.findOneAndUpdate({pendingReqs:{ $elemMatch: { $eq: reqId }}},{
+            $pull:{
                 pendingReqs: reqId
             }
-        })
+        }, {new: true})
     }
 
     async updateEvaluations(userId: mongoose.Types.ObjectId, newAvg: number){

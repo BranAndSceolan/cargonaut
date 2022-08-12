@@ -348,11 +348,7 @@ export class UserController {
                 }
                 if (user?._id) {
                     const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(user._id)
-                    printToConsole("evalsN: " + evalsN)
-                    printToConsole("newEval " + newEval)
-                    printToConsole("avgEval " + avgEval)
                     avgEval = ((avgEval * (evalsN - 1 )) + newEval) / (evalsN)
-                    printToConsole("avgEval " + avgEval)
                 } else {
                     res.status(500).send("Sure that is a valid user?")
                 }

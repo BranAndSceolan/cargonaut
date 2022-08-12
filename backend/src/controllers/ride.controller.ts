@@ -154,7 +154,7 @@ export class RideController {
             res.status(400).send("missing title!")
         } else if (! req.body.price){
             res.status(400).send("Missing price!")
-        } else if (! req.session.signInId) {
+        } else if (! req.body.user) {
             res.status(400).send("Couldn't find user or no user given")
         } else {
             let pendingReqs = undefined
@@ -169,7 +169,7 @@ export class RideController {
             if(req.body.vehicle) {
                 vehicle = req.body.vehicle
             }
-            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, vehicle, req.body.price, req.session.signInId, pendingReqs, accReqs)).then(result => {
+            this.rideModule.updateRide(new mongoose.Types.ObjectId(req.params.id), new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, vehicle, req.body.price, req.body.user, pendingReqs, accReqs)).then(result => {
                 if (result) {
                     res.status(200).send(result);
                 } else {
@@ -203,9 +203,7 @@ export class RideController {
             res.status(400).send("missing title!")
         } else if (! req.body.price){
             res.status(400).send("Missing price!")
-        } else if (! req.session.signInId) {
-            res.status(400).send("Couldn't find user or no user given")
-        } else {
+        }  else {
             let pendingReqs = undefined
             if (req.body.pendingReqs) {
                 pendingReqs = req.body.pendingReqs
@@ -219,7 +217,9 @@ export class RideController {
                 vehicle = req.body.vehicle
             }
             const ride = await this.rideModule.findRideById(id)
-            if (ride && ride?.user == req.session.signInId) {
+            printToConsole("user "+ride?.user)
+            printToConsole("Signid "+req.session.signInId)
+            if (ride && ride.user && ride.user == req.session.signInId) {
                 this.rideModule.updateRide(id, new RideClass(req.body.date, req.body.origin, req.body.destination, req.body.title, req.body.description, req.body.numberOfFreeSeats, vehicle, req.body.price, req.session.signInId, pendingReqs, accReqs)).then(result => {
                     if (result) {
                         res.status(200).send(result);

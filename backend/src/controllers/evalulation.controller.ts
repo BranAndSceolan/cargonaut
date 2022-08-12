@@ -5,7 +5,6 @@ import {EvaluationModule} from "../modules/entities/evaluation.module";
 import {EvaluationClass} from "../models/evaluation.model";
 import {User} from "../models/user.model";
 import {evaluationController, userController} from "./index";
-import {printToConsole} from "../modules/util/util.module";
 
 /**
  * Controller for all evaluations, providing all functionalities e.g. (create, read, update, delete)
@@ -49,7 +48,6 @@ export class EvaluationController {
                     }
                     if (user?._id) {
                         const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(user._id)
-                        printToConsole("numberEvals "+evalsN)
                         avgEval = ((avgEval * (evalsN - 1)) + req.body.result) / (evalsN)
                         await evaluationController.evaluationModule.updateEvals(user._id, avgEval)
                     } else {

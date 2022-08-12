@@ -3,6 +3,7 @@ import {MongoModule} from "../modules/mongo/mongo.module";
 import mongoose from "mongoose";
 import {RequestModule} from "../modules/entities/request.module";
 import {RequestClass, requestStatus, trackingStatus} from "../models/request.model";
+import {printToConsole} from "../modules/util/util.module";
 
 /**
  * Controller for all requests, providing all functionalities e.g. (create, read, update, delete)
@@ -42,6 +43,7 @@ export class RequestController {
     }
 
     public createAndLinkToRide(req: Request, res: Response){
+        printToConsole(req.body)
         if (!(req.body && req.body.date && req.body.ride)) {
             res.status(400).send("Bad Request")
         } else {
@@ -51,8 +53,16 @@ export class RequestController {
             }
 
             this.requestModule.createRequest(new RequestClass(requestStatus.pending, req.body.date, req.session.signInId, trackingStatus.pending, cargo)).then(async result => {
+                let id
                 if (result) {
-                    await this.requestModule.addToRide(result._id, new mongoose.Types.ObjectId(req.body.ride))
+                    try {
+                      id = new mongoose.Types.ObjectId(req.body.ride)
+                    } catch (e) {
+                        printToConsole(e)
+                        res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+                        return
+                    }
+                    await this.requestModule.addToRide(result._id, id)
                     res.status(201).send(result);
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
@@ -63,8 +73,15 @@ export class RequestController {
     }
 
     public get(req: Request, res: Response) {
-        const id = req.params.id;
-        this.requestModule.findRequestById(new mongoose.Types.ObjectId(id)).then((result: any) => {
+        let id
+        try {
+            id = new mongoose.Types.ObjectId(req.params.id)
+        } catch (e) {
+            printToConsole(e)
+            res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+            return
+        }
+        this.requestModule.findRequestById(id).then((result: any) => {
             if (result) {
                 res.status(200).send(result);
             } else {
@@ -94,8 +111,15 @@ export class RequestController {
      * @param res
      */
     public delete(req: Request, res: Response): void {
-        const id: string | undefined = req.params.id;
-        this.requestModule.deleteRequest(new mongoose.Types.ObjectId(id)).then((result: any) => {
+        let id
+        try {
+            id = new mongoose.Types.ObjectId(req.params.id)
+        } catch (e) {
+            printToConsole(e)
+            res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+            return
+        }
+        this.requestModule.deleteRequest(id).then((result: any) => {
             if (result) {
                 res.status(200).send(result); //deleted Entity
             } else {
@@ -111,23 +135,42 @@ export class RequestController {
      * @param res
      */
     public deleteAndUnlink(req: Request, res: Response): void {
-        const id = new mongoose.Types.ObjectId(req.params.id)
+        let id: mongoose.Types.ObjectId
+        try {
+            id = new mongoose.Types.ObjectId(req.params.id)
+        } catch (e) {
+            printToConsole(e)
+            res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+            return
+        }
         if (! id){
             res.sendStatus(400)
             return
         }
         this.requestModule.deleteRequest(id).then(async (result: any) => {
             if (result) {
+                printToConsole(result)
                 await this.requestModule.unlinkRequestFromRide(id)
                 res.status(200).send(result); //deleted Entity
             } else {
+                printToConsole("No result!")
                 res.status(500).send("Internal Server Error")
             }
-        }).catch(() => res.status(500).send("Internal Server Error"));
+        }).catch((e) => {
+            printToConsole(e),
+            res.status(500).send("Internal Server Error")
+        });
     }
 
     public update(req: Request, res: Response): void {
-        const id: mongoose.Types.ObjectId | undefined = new mongoose.Types.ObjectId(req.params.id);
+        let id: mongoose.Types.ObjectId
+        try {
+            id = new mongoose.Types.ObjectId(req.params.id)
+        } catch (e) {
+            printToConsole(e)
+            res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+            return
+        }
         if (req.body && req.body.date && req.session.signInId && id) {
             let status = undefined
             if (req.body.requestStatus) {
@@ -154,7 +197,14 @@ export class RequestController {
     }
 
     public async updateSafer(req: Request, res: Response): Promise<void> {
-        const id: mongoose.Types.ObjectId | undefined = new mongoose.Types.ObjectId(req.params.id);
+        let id: mongoose.Types.ObjectId
+        try {
+            id = new mongoose.Types.ObjectId(req.params.id)
+        } catch (e) {
+            printToConsole(e)
+            res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+            return
+        }
         if (req.body && req.body.date && req.session.signInId && id) {
             let status = undefined
             if (req.body.requestStatus) {

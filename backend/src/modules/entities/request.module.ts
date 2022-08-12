@@ -91,6 +91,6 @@ export class RequestModule extends EntityModule {
     }
 
     async unlinkRequestFromRide(reqId: mongoose.Types.ObjectId){
-        await this.mongo.unlinkRequestFromRide(reqId)
+        return  this.mongo.unlinkRequestFromRide(reqId)
     }
 }

@@ -1,22 +1,24 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import request from "superagent";
-import {printToConsole} from "../../modules/util/util.module";
 import mongoose from "mongoose";
 import {vehicleType} from "../../models/vehicle.model";
 import {requestStatus} from "../../models/request.model";
 import {randomInt} from "crypto";
+import {printToConsole} from "../../modules/util/util.module";
 
 chai.use(chaiHttp);
 chai.expect;
 
 export async function newRoutesTest(agent: ChaiHttp.Agent) {
 
+    let requestR3Id : mongoose.Types.ObjectId
     let vehicleId1U0 : mongoose.Types.ObjectId
     let vehicleId0U0 : mongoose.Types.ObjectId
     let requestId: mongoose.Types.ObjectId
     let userId0 : mongoose.Types.ObjectId
     let userId1 : mongoose.Types.ObjectId
+    let R3Id : mongoose.Types.ObjectId
     let R2Id : mongoose.Types.ObjectId
     let R1Id : mongoose.Types.ObjectId
     let R0Id : mongoose.Types.ObjectId
@@ -75,7 +77,6 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
         it ('should return vehicle 0 and 1', async ()=>{
             await agent.get('/user/vehicles').then((res: request.Response) => {
                 chai.expect(res.status).to.equal(200)
-                printToConsole(res.body)
                     chai.expect(res.body).to.exist
                 }
             )
@@ -99,6 +100,9 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
                 chai.expect(res.status).to.equal(201);
                 chai.expect(res.body).to.exist
             })
+            await agent.get("/ride/findById/"+R0Id).then((res: request.Response)=>{
+                printToConsole(res.body)
+            })
             return await agent.post('/ride/create').send({
                 "date": "1-12-2022",
                 "origin": "Test",
@@ -117,9 +121,9 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
             })
         })
 
-        // create one ride for vehicle 1
+        // create two rides for vehicle 1
         it (`should return 201 and id of vehicle`, async () => {
-                return await agent.post('/ride/create').send({
+                await agent.post('/ride/create').send({
                     "date": "1-12-2022",
                     "origin": "munich",
                     "destination": "berlin",
@@ -135,6 +139,22 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
                     chai.expect(res.status).to.equal(201);
                     chai.expect(res.body).to.exist
                 })
+            return await agent.post('/ride/create').send({
+                "date": "1-12-2022",
+                "origin": "munich",
+                "destination": "berlin",
+                "title": "R3",
+                "description": "We go from munich to berlin!",
+                "numberOfFreeSeats": 4,
+                "price": 20,
+                "vehicle": vehicleId1U0,
+                "pendingReqs": [],
+                "accReqs": []
+            }).then((res: request.Response) => {
+                R3Id = res.body
+                chai.expect(res.status).to.equal(201);
+                chai.expect(res.body).to.exist
+            })
         })
 
         // make a Request as User1 for R0
@@ -143,7 +163,6 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
                     "name": userName1,
                     "password": "123"
                 }).then((res: request.Response) => {
-                    printToConsole("Res: " + res.text)
                     chai.expect(res.status).to.equal(200);
                 })
                 await agent.post('/req/create').send({
@@ -161,6 +180,7 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
                     "title": "R0",
                     "description": "We go from munich to berlin!",
                     "numberOfFreeSeats": 4,
+                    "user": userId0,
                     "price": 20,
                     "vehicle": vehicleId0U0,
                     "pendingReqs": [requestId],
@@ -173,6 +193,99 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
                     chai.expect(res1.body.pendingReqs).to.contain(requestId)
                 }
             )
+        })
+
+        // make a request as user 1 for R3, automatically link to R3
+        it ( "create request, automatically link to R3", async ()=>{
+            await agent.post('/req/createAndLink').send({
+                "date": "6-23-2022",
+                "user": userId1,
+                "ride": R3Id
+            }).then((res: request.Response) => {
+                requestR3Id = res.body;
+                chai.expect(res.status).to.equal(201);
+                chai.expect(res.body).to.equal(requestR3Id);
+            })
+            await agent.get("/ride/findById/"+ R3Id).then((result: request.Response)=>{
+                chai.expect(result.status).to.equal(200)
+                chai.expect(result.body.pendingReqs).to.contain(requestR3Id)
+                })
+            }
+        )
+
+        it ("update Request by user 1 as user 0 with new function, should fail", async ()=>{
+            await agent.post("/user/login").send(
+                {
+                    "name": userName0,
+                    "password": "123"
+                }).then((res: request.Response) => {
+                chai.expect(res.status).to.equal(200);
+                })
+            await agent.put("/req/updateNew/"+ requestR3Id).send({
+                "date": "6-23-2022",
+                "user": userId1,
+                "ride": R3Id
+            }).then( (result : request.Response)=>{
+                chai.expect(result.status).to.equal(401)
+            })
+            return agent.post("/user/login").send(
+               {
+                   "name": userName1,
+                   "password": "123"
+               }).then((res: request.Response) => {
+               chai.expect(res.status).to.equal(200);
+           })
+        })
+
+        // delete and automatically unlink request from ride
+        it(`should delete and automatically unlink request from ride`, async ()=>{
+            await agent.delete("/req/deleteAndUnlink/"+ requestR3Id).then((result: request.Response)=>{
+                chai.expect(result.status).to.equal(200)
+            })
+            return await agent.get("/ride/findById/"+ R3Id).then((result: request.Response)=>{
+                chai.expect(result.status).to.equal(200)
+                chai.expect(result.body.pendingReqs).to.not.contain(requestR3Id)
+            })
+
+        })
+
+        // try to update ride with wrong user using the new route: should fail
+        it(`try to update ride with wrong user using the new route: should fail`, async ()=>{
+            await agent.post("/user/login").send(
+                {
+                    "name": userName1,
+                    "password": "123"
+                }).then((res: request.Response) => {
+                chai.expect(res.status).to.equal(200);
+            })
+            return  agent.put("/ride/updateNew/"+ R0Id).send({
+                "date": "1-12-2022",
+                "origin": "munich",
+                "destination": "berlin",
+                "title": "R0",
+                "description": "We go from munich to berlin!",
+                "numberOfFreeSeats": 4,
+                "price": 20,
+                "vehicle": vehicleId0U0,
+                "pendingReqs": [requestId],
+                "accReqs": []
+            }).then((result: request.Response)=>{
+                chai.expect(result.status).to.equal(401)
+            })
+
+        })
+
+        // try to update user0 as user 1 with new route: should fail
+        it("try to update user0 as user 1: should fail", async ()=>{
+            agent.put("/user/updateNew/"+userId0).send(
+                {"name": userName1,
+                "birthdate": "1-1-1901",
+                "email": "hans@aol.de",
+                "password": "123",
+                "description": "Ich bin der Hans und ich kann's"}
+            ).then((res: request.Response)=>{
+                chai.expect(res.status).to.equal(401)
+            })
         })
 
         // evaluate R2 by User0 as User1
@@ -211,7 +324,6 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
             })
             return await agent.get('/user/getByName/'+ userName0).then((res: request.Response)=>{
                 chai.expect(res.status).to.equal(200)
-                printToConsole(res.body)
                 chai.expect(res.body.averageEvalOfRides).to.equal(4)
             })
         })
@@ -230,7 +342,6 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
             })
             return await agent.get('/user/getByName/'+ userName0).then((res: request.Response)=>{
                 chai.expect(res.status).to.equal(200)
-                printToConsole(res.body)
                 chai.expect(res.body.averageEvalOfRides).to.equal(4)
             })
         })
@@ -246,7 +357,6 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
                 chai.expect(res.status).to.equal(200);
             })
             const res = await agent.delete("/vehicle/deleteAndUnlink/"+ vehicleId0U0)
-            printToConsole("delete and unlink result "+res.text)
             chai.expect(res.status).to.equal(200)
             // is the vehicle gone?
             await agent.get(`/vehicle/findById/`+vehicleId0U0)
@@ -265,6 +375,18 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
 
             // is Req status ride deleted?
             agent.get("/req/findById/"+ requestId).then((res:request.Response)=>{
+                chai.expect(res.status).to.equal(200)
+                chai.expect(res.body.requestStatus).to.equal(requestStatus.rideDeleted)
+            })
+        })
+
+        // removing R3 should also remove the affected request
+        it("removing R3 should mark the affected request as belonging to a deleted ride", async ()=>{
+            await agent.delete("/ride/deleteAndUnlink/"+R3Id).then((res: request.Response)=>{
+                chai.expect(res.status).to.equal(200)
+                chai.expect(res.body._id).to.equal(R3Id)
+            })
+            return agent.get("/req/findById/"+requestR3Id, async (res: request.Response)=>{
                 chai.expect(res.status).to.equal(200)
                 chai.expect(res.body.requestStatus).to.equal(requestStatus.rideDeleted)
             })
