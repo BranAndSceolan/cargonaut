@@ -37,7 +37,8 @@ export class RequestClass implements Req {
 export enum requestStatus {
     accepted = 'accepted',
     pending = 'pending',
-    denied = 'denied'
+    denied = 'denied',
+    rideDeleted = 'rideDeleted'
 }
 
 export enum trackingStatus{

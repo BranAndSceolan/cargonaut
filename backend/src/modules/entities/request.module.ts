@@ -74,7 +74,23 @@ export class RequestModule extends EntityModule {
             })
     }
 
+    async getByUser(userId: mongoose.Types.ObjectId): Promise< Req[] >{
+        return await this.mongo.getRequestByUser(userId)
+    }
+
+    async addToRide(reqId: mongoose.Types.ObjectId, rideId: mongoose.Types.ObjectId){
+        return await this.mongo.addRequestToRide(reqId, rideId)
+    }
+
+    async setToRideDeleted(reqId: mongoose.Types.ObjectId): Promise<Req| null> {
+       return await this.mongo.setRequestToDeletedRide(reqId)
+    }
+
     async updateRequest(id: mongoose.Types.ObjectId, newReq: Req): Promise<Req | null> {
         return this.mongo.updateReq(id, newReq)
+    }
+
+    async unlinkRequestFromRide(reqId: mongoose.Types.ObjectId){
+        return  this.mongo.unlinkRequestFromRide(reqId)
     }
 }

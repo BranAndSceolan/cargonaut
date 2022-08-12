@@ -64,6 +64,10 @@ export class EvaluationModule extends EntityModule {
     }
 
 
+    async updateEvals(id: mongoose.Types.ObjectId, newAvg: number){
+        return this.mongo.updateEvaluations(id, newAvg)
+    }
+
     /**
      * calls deleteAllEvaluations() method of mongo.module, to delete all evaluations
      */

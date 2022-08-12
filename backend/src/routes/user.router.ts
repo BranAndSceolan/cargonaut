@@ -23,15 +23,22 @@ router.post("/logout", (req: express.Request, res: express.Response) => {
     authModule.checkLogin(req, res, () => authModule.logOut(req, res))
 });
 
-/* // POST Routes
-router.post('/create', (req: Request, res: Response) => {
-     userController.create(req, res)
-})
-*/
 
 router.post('/update/:id', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => userController.update(req, res))
 })
+
+router.put('/update/:id', (req: Request, res: Response) => {
+    authModule.checkLogin(req, res, () => userController.update(req, res))
+})
+
+router.put('/updateNew/:id', (req: Request, res: Response) => {
+    authModule.checkLogin(req, res, () => userController.updateSafer(req, res))
+})
+
+//router.put('/recalc/:id', (req: Request, res: Response) => {
+//    authModule.checkLogin(req, res, () => userController.r(req, res))
+//})
 
 // GET Routes
 router.get('/getAll', (req: Request, res: Response) => {
@@ -40,6 +47,10 @@ router.get('/getAll', (req: Request, res: Response) => {
 
 router.get('/getByName/:name', (req: Request, res: Response) => {
    authModule.checkLogin(req, res, () => userController.getByName(req,res))
+})
+
+router.get('/vehicles', (req: Request, res: Response)=>{
+    authModule.checkLogin(req, res, ()=>{userController.getUserVehicles(req, res)})
 })
 
 router.get('/current', (req: Request, res: Response)=>{
@@ -51,3 +62,6 @@ router.delete('/delete/:id', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => userController.delete(req, res))
 })
 
+router.delete('/deleteAndUnlink/:id', (req: Request, res: Response) => {
+    authModule.checkLogin(req, res, () => userController.deleteAndUnlink(req, res))
+})

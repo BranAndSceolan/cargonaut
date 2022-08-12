@@ -2,7 +2,6 @@ import {NextFunction, Request, Response} from "express";
 import {User, UserClass} from "../../models/user.model";
 import {userController} from "../../controllers";
 import mongoose from "mongoose";
-import config from "config";
 import argon2 from "argon2";
 import {printToConsole} from "../util/util.module";
 
@@ -41,6 +40,7 @@ export class AuthModule {
             ))
         if (newUser){
             req.session.signInName = registerName;
+            req.session.signInId = newUser._id;
             return res.status(200).send(newUser._id)
         } else {
            return res.status(500).send("Something went wrong registering!")
@@ -59,9 +59,10 @@ export class AuthModule {
             return
         }
         try {
-            if (await argon2.verify(user.password, signInPass)) {
+            if (user._id && await argon2.verify(user.password, signInPass)) {
                 // password match
                 req.session.signInName = signInName;
+                req.session.signInId = user._id;
                 res.sendStatus(200);
             } else {
                 // password did not match
@@ -78,18 +79,14 @@ export class AuthModule {
     }
 
     async getCurrent(req: Request, res: Response) {
-        if (config.get('disableAuth') == "true") {
-           res.status(400).send("only works if using sessions!")
-        } else{
-            const user : User | null = await userController.userModule.getUserByName(req.session.signInName)
-            if(user) {
-                if (user?.password) {
-                    user.password = "******"
-                }
-                res.status(200).send(user)
-            }else{
-                res.sendStatus(404)
+        const user : User | null = await userController.userModule.getUserById(req.session.signInId)
+        if(user) {
+            if (user?.password) {
+                user.password = "******"
             }
+            res.status(200).send(user)
+        }else{
+            res.sendStatus(404)
         }
     }
 
@@ -101,13 +98,8 @@ export class AuthModule {
     }
 
     checkLogin(req : Request, res: Response, next: NextFunction) {
-        if (config.get('disableAuth') == "true") return next();
         if (req.session.signInName) {
-            if (req.body.name && req.body.name != req.session.signInName){
-                res.status(401)
-            }else {
-                next()
-            }
+            next()
         } else {
             res.status(401)
         }
