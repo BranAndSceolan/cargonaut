@@ -2,6 +2,7 @@ import chai from 'chai';
 import chaiHttp from "chai-http";
 import * as mongoose from "mongoose";
 import request from "superagent";
+import {randomInt} from "crypto";
 
 
 chai.use(chaiHttp);
@@ -12,6 +13,7 @@ export async function rideTest(agent : ChaiHttp.Agent) {
     let userId: mongoose.Types.ObjectId;
     let vehicleId: mongoose.Types.ObjectId;
     let rideId: mongoose.Types.ObjectId;
+    const userName = randomInt(0, 9999999999) + "d"
 
     describe('Ride Route Tests', async () => {
 
@@ -21,7 +23,7 @@ export async function rideTest(agent : ChaiHttp.Agent) {
 
         it(`prepares test`, async () => {
             await agent.post('/user/create').send({
-                "name": "Achmed",
+                "name": userName,
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",

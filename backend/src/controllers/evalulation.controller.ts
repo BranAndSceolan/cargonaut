@@ -3,6 +3,8 @@ import {MongoModule} from "../modules/mongo/mongo.module";
 import mongoose from "mongoose";
 import {EvaluationModule} from "../modules/entities/evaluation.module";
 import {EvaluationClass} from "../models/evaluation.model";
+import {User} from "../models/user.model";
+import {evaluationController, userController} from "./index";
 
 /**
  * Controller for all evaluations, providing all functionalities e.g. (create, read, update, delete)
@@ -23,8 +25,34 @@ export class EvaluationController {
      */
     public create(req: Request, res: Response): void {
         if (req.body && req.body.result && (req.body.result <= 5) && (req.body.result >= 0) && req.body.ride && req.body.user){
-            this.evaluationModule.createEvaluation(new EvaluationClass(req.body.result, req.body.ride, req.body.user)).then(result =>{
+            this.evaluationModule.createEvaluation(new EvaluationClass(req.body.result, req.body.ride, req.body.user)).then(async result => {
                 if (result) {
+                    res.status(201).send(result);
+                } else {
+                    res.status(500).send("Internal Server Error (seems like the objects don't exist)")
+                }
+            });
+        } else {
+            res.status(400).send("Bad Request")
+        }
+    }
+
+    public createAndAdd(req: Request, res: Response): void {
+        if (req.body && req.body.result && (req.body.result <= 5) && (req.body.result >= 0) && req.body.ride && req.body.user){
+            this.evaluationModule.createEvaluation(new EvaluationClass(req.body.result, req.body.ride, req.body.user)).then(async result => {
+                if (result) {
+                    const user: User | null = await userController.userModule.getUserById(req.body.user)
+                    let avgEval = 0;
+                    if (user?.averageEvalOfRides) {
+                        avgEval = user.averageEvalOfRides
+                    }
+                    if (user?._id) {
+                        const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(user._id)
+                        avgEval = ((avgEval * (evalsN - 1)) + req.body.result) / (evalsN)
+                        await evaluationController.evaluationModule.updateEvals(user._id, avgEval)
+                    } else {
+                        res.status(500).send("Sure that is a valid user?")
+                    }
                     res.status(201).send(result);
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")
@@ -68,13 +96,19 @@ export class EvaluationController {
      */
     public delete(req: Request, res: Response): void {
         const id: string | undefined = req.params.id;
-        this.evaluationModule.deleteEvaluation(new mongoose.Types.ObjectId(id)).then((result: any) => {
-            if (result) {
-                res.status(200).send(result); //deleted Entity
-            } else {
-                res.status(500).send("Internal Server Error")
-            }
-        }).catch(() => res.status(500).send("Internal Server Error"));
+        let obId: mongoose.Types.ObjectId
+        try {
+            obId = new mongoose.Types.ObjectId(id)
+            this.evaluationModule.deleteEvaluation(obId).then((result: any) => {
+                if (result) {
+                    res.status(200).send(result); //deleted Entity
+                } else {
+                    res.status(500).send("Internal Server Error")
+                }
+            }).catch(() => res.status(500).send("Internal Server Error"));
+        } catch (e) {
+            res.sendStatus(400)
+        }
     }
 
 }

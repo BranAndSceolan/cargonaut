@@ -15,6 +15,7 @@ import {
 } from "./routes/index"
 import session from "express-session";
 import helmet from "helmet";
+import mongoose from "mongoose";
 
 const mongo: MongoModule = new MongoModule();
 mongo.connectToMongo().then(mongoose => {
@@ -31,8 +32,10 @@ mongo.connectToMongo().then(mongoose => {
 
 // add "signInName" to session store
 declare module "express-session" {
+
     interface Session {
         signInName: string;
+        signInId: mongoose.Types.ObjectId;
     }
 }
 
@@ -42,8 +45,8 @@ export const app: Application = express();
 app.use(express.urlencoded({extended: false}));
 app.use(helmet())
 const rateLimitOptions = rateLimit({
-    windowMs: 60 * 1000, // 1 minute
-    max: 60, // Limit each IP to 60 requests per `window` (here, per 1 minute)
+    windowMs: 3 * 60 * 1000, // 1 minute
+    max:3* 60, // Limit each IP to 60 requests per `window` (here, per 1 minute)
     standardHeaders: false, // Do not return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false,
 })
@@ -59,7 +62,6 @@ app.use(session({
     cookie: {maxAge: 15*60*1000}
 }));
 app.use(express.json())
-//app.use(cors())
 app.use(express.urlencoded({
     extended: true
 }));

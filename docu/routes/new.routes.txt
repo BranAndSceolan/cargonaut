@@ -1,0 +1,151 @@
+New Routes
+
+======================================================================
+======================================================================
+REQUEST
+======================================================================
+POST /req/createAndLink
+body:
+{
+    "date": date
+    "ride": mongoose.Types.ObjectId
+}
+returns: {
+    mongoose.Types.ObjectId
+}
+difference to old route:
+    does not any longer need "user" to be provided, but gets the user from the session
+    uses "ride" to directly link to concerning ride object by adding the requests id to pendingReqs
+
+======================================================================
+PUT /req/updateNew/:id
+body:
+{
+    requestStatus: requestStatus (optional)
+    trackingStatus: trackingStatus (optional)
+    cargo: string (optional)
+}
+returns: {
+    mongoose.Types.ObjectId
+}
+difference to old route:
+    only updates if the logged-in user is the owner of the request
+    date can not be changed any more
+note:
+    Can't currently completely replace the old update function, because the ride-owner needs to be able to change the statuses.
+    TODO: write a route allowing the ride-owner and ONLY the ride owner to change the statuses of the requests on his rides
+
+======================================================================
+DELETE /req/deleteAndUnlink/:id
+
+difference to old route:
+    Only deletes requests of the currently logged-in user
+    Removes the request id from the concerning rides pendingReqs and accReqs array
+
+======================================================================
+======================================================================
+RIDE
+======================================================================
+create has been updated, uses the session to note down the user now
+======================================================================
+
+PUT /ride/updateNew/:id
+body:
+    "date": string
+    "origin": string
+    "destination": string
+    "title": string
+    "description": string
+    "numberOfFreeSeats": number
+    "price": number
+    "vehicle": mongoose.Types.ObjectId
+    "pendingReqs": [mongoose.Types.ObjectId ],
+    "accReqs": [mongoose.Types.ObjectId ]
+returns: {
+    "_id": mongoose.Types.ObjectId
+    "date": string
+    "origin": string
+    "destination": string
+    "title": string
+    "description": string
+    "numberOfFreeSeats": number
+    "price": number
+    "vehicle": mongoose.Types.ObjectId
+    "pendingReqs": [mongoose.Types.ObjectId],
+    "accReqs": [mongoose.Types.ObjectId]
+}
+difference to old update route:
+    uses put
+    only allows the update, if the logged-in user is the user whose ride is going to be changed
+
+====================================================================
+DELETE /req/deleteAndUnlink/:id
+
+difference to old route:
+    Only deletes rides of the currently logged-in user
+    Marks ride as deleted in all requests concerning this ride
+
+======================================================================
+======================================================================
+USER
+======================================================================
+PUT /user/updateNew/:id
+body:
+{
+    "name": string
+    "birthdate": date
+    "email": string
+    "password": string (optional)
+    "description": string
+    "averageEvalOfRides": number (optional)
+}
+returns: {
+    "_id": mongoose.Types.ObjectId
+    "name": string
+    "birthdate": date
+    "email": string
+    "password": string
+    "description": string
+    "averageEvalOfRides": number
+}
+difference to old update route:
+    uses put
+    only allows the update, if the logged-in user is the user whose data is going to be changed
+
+===========================================================================
+DELETE /user/deleteAndUnlink/:id
+
+difference to old route:
+    only allows the to delete the user, if the logged-in user is the user whose data is going to be deleted
+    removes all rides, vehicles, and requests made by this user and all evaluations concerning this user
+    all requests concerning his rides gain a new status "rideDeleted"
+
+===========================================================================
+===========================================================================
+VEHICLE
+===========================================================================
+POST /vehicle/createAndLink
+body:
+{
+    "type": vehicleType
+    "numberOfSeats": number
+    "notes": string
+}
+returns:
+{
+    mongoose.Type.ObjectId
+}
+
+difference to old route:
+    gets the userId from the session and adds the vehicle to the users vehicles array
+===========================================================================
+DELETE /vehicle/deleteAndUnlink/:id
+
+difference to old route:
+    Only deletes vehicles of the currently logged-in user
+    Deletes all rides using this vehicle
+    Marks ride as deleted in all requests concerning this rides
+
+===========================================================================
+===========================================================================
+
