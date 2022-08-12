@@ -3,6 +3,7 @@ import chaiHttp from "chai-http";
 import * as mongoose from "mongoose";
 import {printToConsole} from "../../modules/util/util.module";
 import request from "superagent";
+import {randomInt} from "crypto";
 
 
 chai.use(chaiHttp);
@@ -11,7 +12,7 @@ chai.expect;
 export async function userTest(agent: ChaiHttp.Agent) {
 
     let userId: mongoose.Types.ObjectId;
-    const userName = "Ferdinand"; // configure user name for tests here!
+    const userName = randomInt(0, 99999999) + "f"
 
     describe('User Route Tests', async () => {
 
@@ -29,6 +30,7 @@ export async function userTest(agent: ChaiHttp.Agent) {
             }).then((res : request.Response)=> {
                 printToConsole(typeof res)
                 userId = res.body;
+                printToConsole(res.body)
                 chai.expect(res.status).to.equal(200);
                 chai.expect(res.body).to.equal(userId);
             })

@@ -24,7 +24,7 @@ cuid: system
 
 ###
 
-DELETE http://localhost:8008/vehicle/delete/62b6e23647710726ec73f323
+DELETE http://localhost:8008/vehicle/delete/62efa53eac7ac50d5b5e6dd4
 Content-Type: application/json
 sessionid: 1111
 cuid: system

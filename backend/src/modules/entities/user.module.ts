@@ -104,4 +104,14 @@ export class UserModule extends EntityModule {
         }
     }
 
+    async linkVehicle(userId: mongoose.Types.ObjectId, newVehId: mongoose.Types.ObjectId): Promise<User| null>{
+        const user: User| null = await this.mongo.linkVehicleToUser(userId, newVehId)
+        return user
+    }
+
+    async unlinkVehicle(userId: mongoose.Types.ObjectId, oldVehId: mongoose.Types.ObjectId): Promise<User|null>{
+        const user : User| null = await this.mongo.unlinkVehicleFromUser(userId, oldVehId)
+        return user
+    }
+
 }

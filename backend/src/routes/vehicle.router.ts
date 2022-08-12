@@ -17,6 +17,10 @@ router.post('/create', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => vehicleController.create(req, res))
 })
 
+router.post('/createAndLink', (req: Request, res: Response)=>{
+    authModule.checkLogin(req, res, ()=>{vehicleController.createAndLinkToUser(req, res)})
+})
+
 // GET Routes
 router.get('/getAll', (req: Request, res: Response) => {
     authModule.checkLogin(req, res,() => vehicleController.getAll(req, res))
@@ -29,4 +33,8 @@ router.get('/findById/:id', (req: Request, res: Response) => {
 // DELETE Routes
 router.delete('/delete/:id', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => vehicleController.delete(req, res))
+})
+
+router.delete('/deleteAndUnlink/:id', (req: Request, res: Response) => {
+    authModule.checkLogin(req, res, () => vehicleController.deleteAndUnlink(req, res))
 })

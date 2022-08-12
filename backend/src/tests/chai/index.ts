@@ -6,6 +6,7 @@ import {requestTest} from "./request.test";
 import {rideTest} from "./ride.test";
 import {userTest} from "./user.test";
 import {vehicleTest} from "./vehicle.test";
+import {newRoutesTest} from "./newRoutes.test";
 
 
 chai.use(chaiHttp);
@@ -28,5 +29,6 @@ describe('other tests', ()=>{
     rideTest(agent)
     vehicleTest(agent)
     evaluationTest(agent)
+    newRoutesTest(agent)
 })
 
