@@ -52,7 +52,7 @@ export class RequestController {
 
             this.requestModule.createRequest(new RequestClass(requestStatus.pending, req.body.date, req.session.signInId, trackingStatus.pending, cargo)).then(async result => {
                 if (result) {
-                    await this.requestModule.addToRide(result._id, req.body.ride)
+                    await this.requestModule.addToRide(result._id, new mongoose.Types.ObjectId(req.body.ride))
                     res.status(201).send(result);
                 } else {
                     res.status(500).send("Internal Server Error (seems like the objects don't exist)")

@@ -3,7 +3,7 @@ import {MongoModule} from "../modules/mongo/mongo.module";
 import mongoose from "mongoose";
 import {EvaluationModule} from "../modules/entities/evaluation.module";
 import {EvaluationClass} from "../models/evaluation.model";
-import {User, UserClass} from "../models/user.model";
+import {User} from "../models/user.model";
 import {evaluationController, userController} from "./index";
 import {printToConsole} from "../modules/util/util.module";
 
@@ -51,15 +51,7 @@ export class EvaluationController {
                         const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(user._id)
                         printToConsole("numberEvals "+evalsN)
                         avgEval = ((avgEval * (evalsN - 1)) + req.body.result) / (evalsN)
-                        await userController.userModule.updateUser(user._id, new UserClass(
-                            user.name,
-                            user.birthdate,
-                            user.email,
-                            user.description,
-                            user.password,
-                            user.vehicles,
-                            avgEval
-                            ))
+                        await evaluationController.evaluationModule.updateEvals(user._id, avgEval)
                     } else {
                         res.status(500).send("Sure that is a valid user?")
                     }
