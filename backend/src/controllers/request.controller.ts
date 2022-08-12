@@ -205,7 +205,7 @@ export class RequestController {
             res.status(500).send("Internal Server Error (seems like the objects don't exist)")
             return
         }
-        if (req.body && req.body.date && req.session.signInId && id) {
+        if (req.body  && req.session.signInId && id) {
             let status = undefined
             if (req.body.requestStatus) {
                 status = req.body.requestStatus
@@ -221,7 +221,7 @@ export class RequestController {
 
             const request = await this.requestModule.findRequestById(id)
             if (request && request.user == req.session.signInId) {
-                this.requestModule.updateRequest(id, new RequestClass(status, req.body.date, req.session.signInId, tStatus, cargo)).then((result: any) => {
+                this.requestModule.updateRequest(id, new RequestClass(status, request.date, req.session.signInId, tStatus, cargo)).then((result: any) => {
                     if (result) {
                         res.status(200).send(result);
                     } else {

@@ -244,5 +244,9 @@ export class MongoModule {
             }
         }, {new: true})
     }
+
+    async deleteEvalsByUser(userId: mongoose.Types.ObjectId){
+        return schemes.userModel.deleteMany({user: userId})
+    }
 }
 

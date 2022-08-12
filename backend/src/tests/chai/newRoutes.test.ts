@@ -199,7 +199,6 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
         it ( "create request, automatically link to R3", async ()=>{
             await agent.post('/req/createAndLink').send({
                 "date": "6-23-2022",
-                "user": userId1,
                 "ride": R3Id
             }).then((res: request.Response) => {
                 requestR3Id = res.body;
@@ -224,7 +223,6 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
             await agent.put("/req/updateNew/"+ requestR3Id).send({
                 "date": "6-23-2022",
                 "user": userId1,
-                "ride": R3Id
             }).then( (result : request.Response)=>{
                 chai.expect(result.status).to.equal(401)
             })
@@ -277,12 +275,13 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
 
         // try to update user0 as user 1 with new route: should fail
         it("try to update user0 as user 1: should fail", async ()=>{
-            agent.put("/user/updateNew/"+userId0).send(
-                {"name": userName1,
+            agent.put("/user/updateNew/"+userId0).send({
+                "name": userName1,
                 "birthdate": "1-1-1901",
                 "email": "hans@aol.de",
                 "password": "123",
-                "description": "Ich bin der Hans und ich kann's"}
+                "description": "Ich bin der Hans und ich kann's"
+                }
             ).then((res: request.Response)=>{
                 chai.expect(res.status).to.equal(401)
             })
@@ -393,7 +392,7 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
         })
 
         // remove user0 check for v1 r2 and eval
-        it('should remove user 0, v1 r2 and eval', async ()=> {
+        it('should remove user 0, v1, r2 and eval', async ()=> {
             agent.delete("/user/deleteAndUnlink/"+ userId0).then( async (res: request.Response)=>{
                 chai.expect(res.status).to.equal(200)
                 const resV1 = await agent.get("/vehicle/findById/"+ vehicleId1U0)

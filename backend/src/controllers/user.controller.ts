@@ -221,7 +221,7 @@ export class UserController {
                                 requestController.requestModule.unlinkRequestFromRide(req._id)
                             }
                         }
-
+                        await this.userModule.mongo.deleteEvalsByUser(user._id)
                         res.status(200).send(user);
                     } else {
                         res.sendStatus(500);
