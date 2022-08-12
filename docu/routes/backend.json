@@ -2,12 +2,12 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Backend Routes",
-    "description": "",
+    "description": "the new backend routes",
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "https"
+      "url": "http://localhost:8008"
     }
   ],
   "paths": {

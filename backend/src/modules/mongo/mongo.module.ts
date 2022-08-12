@@ -236,5 +236,13 @@ export class MongoModule {
             }
         })
     }
+
+    async updateEvaluations(userId: mongoose.Types.ObjectId, newAvg: number){
+        return schemes.userModel.findOneAndUpdate({_id: userId},{
+            $set: {
+                averageEvalOfRides: newAvg
+            }
+        }, {new: true})
+    }
 }
 

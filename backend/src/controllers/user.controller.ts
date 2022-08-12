@@ -278,11 +278,7 @@ export class UserController {
             res.status(400).send("Username missing")
             return
         }
-        const user: User | null = await this.userModule.getUserById(req.session.signInId)
-        let avgEval = 0;
-        if (user?.averageEvalOfRides) {
-            avgEval = user.averageEvalOfRides
-        }
+        const user: User | null = await this.userModule.getUserByName(userName)
         if (user?._id) {
             this.userModule.updateUser(
                 user?._id,
@@ -293,7 +289,7 @@ export class UserController {
                     description,
                     undefined,
                     vehicleIds,
-                    avgEval
+                    undefined
                 )
             ).then((result: User | null) => {
                 if (result) {
@@ -345,16 +341,24 @@ export class UserController {
                 return
             }
         const user: User | null = await this.userModule.getUserByName(userName)
-        let avgEval = 0;
-        if( user?.averageEvalOfRides) {
-            avgEval = user.averageEvalOfRides
-        }
-        if (user?._id) {
-            const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(user._id)
-            avgEval = ((avgEval * evalsN) + newEval) / (evalsN + 1)
-        } else{
-            res.status(500).send("Sure that is a valid user?")
-        }
+        let avgEval : number | undefined = 0;
+            if ( req.body.averageEvalOfRides) {
+                if (user?.averageEvalOfRides) {
+                    avgEval = user.averageEvalOfRides
+                }
+                if (user?._id) {
+                    const evalsN: number = await evaluationController.evaluationModule.findNumberOfEvaluationsByDriver(user._id)
+                    printToConsole("evalsN: " + evalsN)
+                    printToConsole("newEval " + newEval)
+                    printToConsole("avgEval " + avgEval)
+                    avgEval = ((avgEval * (evalsN - 1 )) + newEval) / (evalsN)
+                    printToConsole("avgEval " + avgEval)
+                } else {
+                    res.status(500).send("Sure that is a valid user?")
+                }
+            } else {
+                avgEval = undefined
+            }
         if (user?._id) {
             this.userModule.updateUser(
                 user?._id,

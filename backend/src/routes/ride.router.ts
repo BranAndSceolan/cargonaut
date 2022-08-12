@@ -16,9 +16,6 @@ router.post('/create', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => rideController.create(req, res))
 })
 
-router.post('/createAndLink', (req: Request, res: Response) => {
-    authModule.checkLogin(req, res, () => rideController.createAndLink(req, res))
-})
 
 router.post('/update/:id', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => rideController.update(req, res))
@@ -26,6 +23,10 @@ router.post('/update/:id', (req: Request, res: Response) => {
 // PUT Routes
 router.put('/update/:id', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => rideController.update(req, res))
+})
+
+router.put('/updateNew/:id', (req: Request, res: Response) => {
+    authModule.checkLogin(req, res, () => rideController.updateSafer(req, res))
 })
 
 // GET Routes
@@ -42,3 +43,6 @@ router.delete('/delete/:id', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => rideController.delete(req, res))
 })
 
+router.delete('/deleteAndUnlink/:id', (req: Request, res: Response) => {
+    authModule.checkLogin(req, res, () => rideController.deleteAndUnlink(req, res))
+})

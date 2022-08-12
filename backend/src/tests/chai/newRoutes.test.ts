@@ -83,7 +83,7 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
 
         // create two rides for vehicle 0
         it (`should return 201 `, async () => {
-            await agent.post('/ride/createAndLink').send({
+            await agent.post('/ride/create').send({
                 "date": "1-12-2022",
                 "origin": "munich",
                 "destination": "berlin",
@@ -99,7 +99,7 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
                 chai.expect(res.status).to.equal(201);
                 chai.expect(res.body).to.exist
             })
-            return await agent.post('/ride/createAndLink').send({
+            return await agent.post('/ride/create').send({
                 "date": "1-12-2022",
                 "origin": "Test",
                 "destination": "Test",
@@ -119,7 +119,7 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
 
         // create one ride for vehicle 1
         it (`should return 201 and id of vehicle`, async () => {
-                return await agent.post('/ride/createAndLink').send({
+                return await agent.post('/ride/create').send({
                     "date": "1-12-2022",
                     "origin": "munich",
                     "destination": "berlin",
@@ -177,7 +177,7 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
 
         // evaluate R2 by User0 as User1
         it('should return 201 and eval id', async ()=> {
-            return await agent.post('/eval/create').send({
+            await agent.post('/eval/create').send({
                 "result": 5,
                 "ride": R2Id,
                 "user": userId0
@@ -185,6 +185,53 @@ export async function newRoutesTest(agent: ChaiHttp.Agent) {
                 evaluationId = res.body;
                 chai.expect(res.status).to.equal(201);
                 chai.expect(res.body).to.equal(evaluationId);
+            })
+            return agent.put("/user/update/" + userId0).send(
+                {
+                    "name": userName0,
+                    "birthdate": "1-1-1901",
+                    "email": "hans@aol.de",
+                    "password": "123",
+                    "averageEvalOfRides": 5,
+                    "description": "Ich bin der Hans und ich kann's"
+                }
+            );
+        })
+
+        // evaluate R2 by User0 as User1
+        it('should return 201 and eval id and average 5 and 3 => 4', async ()=> {
+            await agent.post('/eval/createAndAdd').send({
+                "result": 3,
+                "ride": R2Id,
+                "user": userId0
+            }).then((res: request.Response) => {
+                evaluationId = res.body;
+                chai.expect(res.status).to.equal(201);
+                chai.expect(res.body).to.equal(evaluationId);
+            })
+            return await agent.get('/user/getByName/'+ userName0).then((res: request.Response)=>{
+                chai.expect(res.status).to.equal(200)
+                printToConsole(res.body)
+                chai.expect(res.body.averageEvalOfRides).to.equal(4)
+            })
+        })
+
+        it( 'update without value for averageEvalOfRides (Should not change average Eval of rides ', async ()=> {
+            await agent.put("/user/update/" + userId0).send(
+                {
+                    "name": userName0,
+                    "birthdate": "1-1-1901",
+                    "email": "hans@aol.de",
+                    "password": "123",
+                    "description": "Ich bin der Hans und ich kann's"
+                }).then((res: request.Response)=> {
+                    chai.expect(res.status).to.equal(200)
+                chai.expect(res.body.averageEvalOfRides).to.equal(4)
+            })
+            return await agent.get('/user/getByName/'+ userName0).then((res: request.Response)=>{
+                chai.expect(res.status).to.equal(200)
+                printToConsole(res.body)
+                chai.expect(res.body.averageEvalOfRides).to.equal(4)
             })
         })
 

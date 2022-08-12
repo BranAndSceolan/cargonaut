@@ -32,6 +32,14 @@ router.put('/update/:id', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => userController.update(req, res))
 })
 
+router.put('/updateNew/:id', (req: Request, res: Response) => {
+    authModule.checkLogin(req, res, () => userController.updateSafer(req, res))
+})
+
+//router.put('/recalc/:id', (req: Request, res: Response) => {
+//    authModule.checkLogin(req, res, () => userController.r(req, res))
+//})
+
 // GET Routes
 router.get('/getAll', (req: Request, res: Response) => {
     authModule.checkLogin(req, res, () => userController.getAllUsers(req,res))
