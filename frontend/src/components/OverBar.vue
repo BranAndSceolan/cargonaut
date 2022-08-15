@@ -1,9 +1,9 @@
 <template>
   <div class="block col-12 mt-5 row align-items-center">
-    <div class="col-10">
+    <div class="col-md-10 col-sm-8 col-6">
       <p class="ml-4 my-2"> {{title}}</p>
     </div>
-    <div class="col-2 iconContainer">
+    <div class="col-md-2 col-sm-4 col-6 iconContainer">
       <router-link :to=address class="link">
         <font-awesome-icon class="icon mr-3" icon="fa-solid fa-plus"></font-awesome-icon>
       </router-link>
@@ -51,5 +51,7 @@ export default {
     border: none;
     background-color: transparent;
     padding: 0;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 </style>

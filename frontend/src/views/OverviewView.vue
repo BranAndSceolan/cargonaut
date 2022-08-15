@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-9">
           <div class="row">
-            <div class="col-4" v-for="offer in offers" v-bind:key="offer._id">
+            <div class="col-xl-4 col-lg-6 col-md-8" v-for="offer in offers" v-bind:key="offer._id">
               <travel-card class="mx-4 mt-4" :id="offer._id" :title="offer.title" :origin="offer.origin"
                            :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
                            :width="'X'" :price="offer.price" :date="offer.date">
@@ -30,7 +30,7 @@
             </div>
           </div>
         </div>
-        <filter-list v-on:priceFilter="setFilter" v-on:seatsFilter="setFilter" class="col-2 offset-1"></filter-list>
+        <filter-list v-on:priceFilter="setFilter" v-on:seatsFilter="setFilter" class="col-2 offset-xl-1"></filter-list>
       </div>
     </div>
   </div>
@@ -50,12 +50,23 @@ export default {
       sortVal: '',
       searchVal: '',
       filterString: '',
-      filterType: ''
+      filterType: '',
+      baseOffers: true
     }
   },
   methods: {
     getOffers () {
-      axios.get('/ride/getAll').then(response => (this.offers = response.data))
+      if (this.baseOffers) {
+        this.offers = [{ _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
+          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
+          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
+          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
+          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
+          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
+          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' }]
+      } else {
+        axios.get('/ride/getAll').then(response => (this.offers = response.data))
+      }
     },
     setFilter (filterString, filterType) {
       this.filterString = filterString

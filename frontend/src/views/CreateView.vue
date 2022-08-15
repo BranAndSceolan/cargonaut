@@ -10,10 +10,10 @@
           <b-form-input v-model="title" placeholder="Title" class="input shadow-sm"></b-form-input>
         </b-input-group>
         <div class="row">
-          <b-input-group id="sitze" class="seat">
+          <b-input-group id="sitze" class="seat no-padding">
             <b-form-input type="number" v-model="seat" placeholder="Sitze" class="input shadow-sm"></b-form-input>
           </b-input-group>
-          <b-input-group id="platz" class="space">
+          <b-input-group id="platz" class="space no-padding">
             <b-form-input v-model="space" placeholder="Platz" type="number" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
@@ -179,5 +179,9 @@ export default {
 }
 .create {
   background: #005b52;
+}
+.no-padding {
+  padding-right: 0;
+  padding-left: 0;
 }
 </style>

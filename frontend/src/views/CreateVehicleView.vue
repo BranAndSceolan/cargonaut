@@ -1,7 +1,7 @@
 <template>
   <b-card
     style="width: 25rem; margin: auto; border-radius: 20px"
-    class="mb-2 text-left shadow"
+    class="cardArea mb-2 text-left shadow"
   >
     <b-card-body class="body">
       <div class="info">
@@ -14,10 +14,10 @@
           <b-dropdown-item-btn v-on:click="selectType('other')">other</b-dropdown-item-btn>
         </b-dropdown>
         <div class="row">
-          <b-input-group id="sitze" class="seat">
+          <b-input-group id="sitze" class="seat no-padding">
             <b-form-input v-model="seat" type="number" placeholder="Sitze" class="input shadow-sm"></b-form-input>
           </b-input-group>
-          <b-input-group id="platz" class="space">
+          <b-input-group id="platz" class="space no-padding">
             <b-form-input v-model="space" type="number" placeholder="Platz" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
@@ -79,7 +79,7 @@ export default {
         const user = response.data
         user.vehicles.push(this.id)
         axios.post('/user/update/' + user._id, user)
-          .then(response => (this.$router.push('/overview')))
+          .then(() => (this.$router.push('/overview')))
       })
     },
     removeVehicleFromUser () {
@@ -88,7 +88,7 @@ export default {
         const index = user.vehicles.indexOf(this.id)
         user.vehicles.splice(index, 1)
         axios.post('/user/update/' + user._id, user)
-          .then(response => (this.$router.push('/overview')))
+          .then(() => (this.$router.push('/overview')))
       })
     }
   },
@@ -110,7 +110,7 @@ export default {
 }
 .space {
   width: 45%;
-  margin-left: 17px;
+  margin-left: 23px;
 }
 .info .row {
   margin-left: 0;
@@ -120,8 +120,26 @@ export default {
   background: white;
 }
 .create {
-  margin-left: 7.5rem;
   background: #005b52;
   border-radius: 12px;
+}
+.no-padding {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+@media ( max-width: 420px ){
+  .cardArea {
+    max-width: 300px!important;
+  }
+  .space {
+    width: 45%;
+    margin-left: 15px;
+  }
+  .head{
+    font-size: 24px;
+    color: grey;
+    font-weight: bold;
+  }
 }
 </style>

@@ -79,7 +79,7 @@ export default {
   height: 34px;
   background-color: #005b52;
   margin-left: 12px;
-  top: 265px;
+  top: 262px;
   position: absolute;
 }
 .spacer {
@@ -93,6 +93,7 @@ export default {
 }
 .cityText {
   color: #005b52!important;
+  margin-left: 6px;
 }
 .dateBubble {
   position: absolute;
@@ -108,5 +109,8 @@ p {
 }
 h3 {
   color: #616161;
+}
+* {
+  text-decoration: none;
 }
 </style>

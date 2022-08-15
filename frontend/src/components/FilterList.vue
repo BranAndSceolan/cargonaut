@@ -1,10 +1,10 @@
 <template>
-  <div class="col-2 filter text-left ">
-    <p class="title"> Filter </p>
+  <div class="filter text-left ">
+    <p class="title alignLeft"> Filter </p>
     <div class="ml-3">
       <div class="mt-2">
         <div class="row">
-          <p class="col-9">Platz</p>
+          <p class="col-9 alignLeft">Platz</p>
           <button v-on:click="roomHidden = !roomHidden" class="col-1">
             <font-awesome-icon icon="fa-solid fa-angle-down"></font-awesome-icon>
           </button>
@@ -15,27 +15,27 @@
               <input v-model="roomFilter" @change="roomFilterChange" value="<|1" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> &#60;1m&sup3; </p>
+            <p class="col alignRight"> &#60;1m&sup3; </p>
           </div>
           <div class="row">
             <label class="col-1">
               <input v-model="roomFilter" value="<|5" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> &#60;5m&sup3; </p>
+            <p class="col alignRight"> &#60;5m&sup3; </p>
           </div>
           <div class="row">
             <label class="col-1">
               <input v-model="roomFilter" value=">|5" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> &#62;5m&sup3; </p>
+            <p class="col alignRight"> &#62;5m&sup3; </p>
           </div>
         </div>
       </div>
       <div>
         <div class="row">
-          <p class="col-9">Sitze</p>
+          <p class="col-9 alignLeft">Sitze</p>
           <button v-on:click="seatsHidden = !seatsHidden" class="col-1">
             <font-awesome-icon icon="fa-solid fa-angle-down"></font-awesome-icon>
           </button>
@@ -46,34 +46,34 @@
               <input v-model="seatsFilter" @change="seatsFilterChange" value="=|1" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> 1 Sitz </p>
+            <p class="col alignRight"> 1 Sitz </p>
           </div>
           <div class="row">
             <label class="col-1">
               <input v-model="seatsFilter" @change="seatsFilterChange" value="=|2" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> 2 Sitze </p>
+            <p class="col alignRight"> 2 Sitze </p>
           </div>
           <div class="row">
             <label class="col-1">
               <input v-model="seatsFilter" @change="seatsFilterChange" value="=|3" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> 3 Sitze </p>
+            <p class="col alignRight"> 3 Sitze </p>
           </div>
           <div class="row">
             <label class="col-1">
               <input v-model="seatsFilter" @change="seatsFilterChange" value=">|3" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> >3 Sitze </p>
+            <p class="col alignRight"> >3 Sitze </p>
           </div>
         </div>
       </div>
       <div>
         <div class="row">
-          <p class="col-9">Preis</p>
+          <p class="col-9 alignLeft">Preis</p>
           <button v-on:click="priceHidden = !priceHidden" class="col-1">
             <font-awesome-icon icon="fa-solid fa-angle-down"></font-awesome-icon>
           </button>
@@ -84,35 +84,35 @@
               <input v-model="priceFilter" @change="priceFilterChange" value="<|5" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> &#60;5€ </p>
+            <p class="col alignRight"> &#60;5€ </p>
           </div>
           <div class="row">
             <label class="col-1">
               <input v-model="priceFilter" @change="priceFilterChange" value="<|10" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> &#60;10€ </p>
+            <p class="col alignRight"> &#60;10€ </p>
           </div>
           <div class="row">
             <label class="col-1">
               <input v-model="priceFilter" @change="priceFilterChange" value="<|15" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> &#60;15€ </p>
+            <p class="col alignRight"> &#60;15€ </p>
           </div>
           <div class="row">
             <label class="col-1">
               <input v-model="priceFilter" @change="priceFilterChange" value="<|30" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> &#60;30€ </p>
+            <p class="col alignRight"> &#60;30€ </p>
           </div>
           <div class="row">
             <label class="col-1">
               <input v-model="priceFilter" @change="priceFilterChange" value=">|30" type="radio" name="filter" aria-label="1m" class="checkbox">
               <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
             </label>
-            <p class="col"> >30€ </p>
+            <p class="col alignRight"> >30€ </p>
           </div>
         </div>
       </div>
@@ -159,7 +159,7 @@ export default {
 }
 .filter{
   float: left;
-  width: 10%;
+  width: 150px;
   overflow: visible;
 }
 [type=radio] {
@@ -183,5 +183,11 @@ label, p {
 button {
   border: none;
   background-color: transparent;
+}
+.alignLeft {
+  text-align: left;
+}
+.alignRight {
+  text-align: right;
 }
 </style>
