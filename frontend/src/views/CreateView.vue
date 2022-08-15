@@ -71,16 +71,18 @@ export default {
       navData: [{ town: '', date: '' }, { town: '', date: '' }, { town: '', date: '' }],
       price: '',
       vehicles: [],
-      warning: false
+      warning: false,
+      vehicleId: ''
     }
   },
   methods: {
     create () {
-      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
+      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '' && this.vehicleId === '') {
         axios.post('/ride/create',
           {
             date: this.navData[0].date,
             origin: this.navData[0].town,
+            vehicle: this.vehicleId,
             destination: this.navData[2].town,
             title: this.title,
             description: this.desc,
@@ -90,13 +92,14 @@ export default {
             pendingReqs: [],
             accReqs: []
           })
-          .then(response => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
+          .then(() => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
       } else {
         this.warning = true
       }
     },
     fillVehicleInfo (index) {
       const vehicle = this.vehicles[index]
+      this.vehicleId = vehicle._id
       this.seat = vehicle.numberOfSeats
       this.desc = vehicle.notes
     }
