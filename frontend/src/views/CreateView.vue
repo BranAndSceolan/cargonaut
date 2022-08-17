@@ -105,6 +105,7 @@ export default {
     }
   },
   mounted () {
+    document.title = 'Ride - Cargonaut'
     axios.get('/user/current').then(response => {
       const vehicleIdArray = response.data.vehicles
       for (const i in vehicleIdArray) {

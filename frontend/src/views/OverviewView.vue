@@ -135,6 +135,7 @@ export default {
     }
   },
   mounted () {
+    document.title = 'Cargonaut'
     this.getOffers()
   }
 }

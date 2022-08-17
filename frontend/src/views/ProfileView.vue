@@ -51,6 +51,7 @@ export default {
     }
   },
   mounted () {
+    document.title = 'Profile - Cargonaut'
     axios.get('/user/current').then(response => {
       this.user = response.data
       this.getVehicles()

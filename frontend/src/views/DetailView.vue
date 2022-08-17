@@ -109,6 +109,7 @@ export default {
     }
   },
   mounted () {
+    document.title = 'Detail - Cargonaut'
     axios.get('/ride/findById/' + this.id).then(response => {
       this.offer = response.data
       axios.get('/user/current').then(response => {
@@ -146,9 +147,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  max-width: 1500px!important;
-}
 .banner {
   width: 100%;
   height: 25rem;

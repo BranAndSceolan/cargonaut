@@ -105,11 +105,10 @@ export default {
     }
   },
   mounted () {
-    document.title = 'Vehicle'
+    document.title = 'Vehicle - Cargonaut'
     if (this.id !== '' && this.id.length >= 5) {
       this.initEdit()
     }
-    console.log(this.id)
     this.warning = false
   }
 }

@@ -70,6 +70,7 @@ export default {
     }
   },
   mounted () {
+    document.title = 'Register - Cargonaut'
     this.warning = false
   }
 }
