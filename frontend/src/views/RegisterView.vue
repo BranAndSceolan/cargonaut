@@ -59,7 +59,7 @@ export default {
         const formDate = this.dateMaker()
         axios.post('/user/create',
           { name: this.name, birthdate: formDate, email: this.email, description: this.desc, password: this.password1 })
-          .then(() => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
+          .then(() => (this.$router.push('/profile'))).catch(reason => { console.log(reason) })
       } else {
         this.warning = true
       }

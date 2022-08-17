@@ -5,7 +5,7 @@
   >
     <b-card-body class="body">
       <div class="info">
-        <div class="head"> Create Vehicle </div>
+        <div class="head"> {{headline}} </div>
         <b-dropdown :text="title" variant="secondary" class="title row">
           <b-dropdown-item-btn v-on:click="selectType('pick up truck')">pick up truck</b-dropdown-item-btn>
           <b-dropdown-item-btn v-on:click="selectType('standard car')">standard car</b-dropdown-item-btn>
@@ -27,7 +27,7 @@
       </div>
     </b-card-body>
     <b-card-footer class="foot">
-      <b-button id="create" v-on:click="create" class="create"> Create </b-button>
+      <b-button id="create" v-on:click="buttonClick" class="create"> {{buttonName}} </b-button>
     </b-card-footer>
     <warning-component v-if="warning"></warning-component>
   </b-card>
@@ -46,7 +46,10 @@ export default {
       seat: Number,
       space: Number,
       desc: '',
-      warning: false
+      warning: false,
+      buttonName: 'Erstellen',
+      headline: 'Fahrzeug anlegen',
+      editMode: false
     }
   },
   props: {
@@ -72,11 +75,40 @@ export default {
         this.warning = true
       }
     },
+    edit () {
+      axios.delete('/vehicle/deleteAndUnlink/' + this.id).then(() => {
+        this.create()
+      })
+    },
     selectType (type) {
       this.title = type
+    },
+    getVehicle () {
+      axios.get('/vehicle/findById/' + this.id).then(response => {
+        this.selectType(response.data.type)
+        this.desc = response.data.notes
+        this.seat = response.data.numberOfSeats
+        this.space = response.data.spaceLength
+      }).catch(() => {
+        this.$router.push('/profile')
+      })
+    },
+    initEdit () {
+      this.buttonName = 'Ändern'
+      this.headline = 'Fahrzeug anpassen'
+      this.editMode = true
+      this.getVehicle()
+    },
+    buttonClick () {
+      if (!this.editMode) this.create()
+      else this.edit()
     }
   },
   mounted () {
+    document.title = 'Vehicle'
+    if (this.id !== '' && this.id.length >= 5) {
+      this.initEdit()
+    }
     console.log(this.id)
     this.warning = false
   }
