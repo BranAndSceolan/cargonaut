@@ -1,23 +1,14 @@
 <template>
   <footer class="footer fixed-bottom">
     <div><img src="../assets/cargonaut-white.png" class="logo" alt="Cargonaut logo"></div>
-    <div class="text-white sitemap">
-      <div class="headline">Sitemap</div>
-      <div class="content">
-        <a href="/"> Angebot </a>
-      </div>
-      <div class="content">
-        <a href="/"> Gesuche </a>
-      </div>
-    </div>
     <div class="text-white about-us">
       <div class="headline">About us</div>
       <div class="content">Cargonaut ist ein aufstrebendes Unternehmen in dem Nutzer sich zusammentun können
       um gemeinsam weitere Strecken zu überwinden.</div>
     </div>
-    <div class="text-white socials">
-      <div class="headline">Social Media</div>
-      <div class="ml-4 mt-0">
+    <div class="text-white">
+      <div class="headline sm-text">Social Media</div>
+      <div class="ml-4 mt-0 sm-icon-holder">
         <a class="socialIcons mx-2" href="https://www.Twitter.com/">
           <font-awesome-icon icon="fa-brands fa-twitter" />
         </a>
@@ -67,6 +58,7 @@ a{
 }
 .content{
   font-size: 20px;
+  margin-top: 0!important;
 }
 .footer div{
   margin-left: 30px;
@@ -76,7 +68,7 @@ a{
 
 }
 .about-us{
-  width: 50%;
+  width: 60%;
 }
 .about-us .headline {
   text-align: left;
@@ -90,4 +82,50 @@ div{
 .socialIcons {
   font-size: 2em;
 }
+
+@media (max-width: 1260px) {
+  .logo {
+    margin-right: 5px!important;
+    margin-left: 5px!important;
+  }
+  .about-us {
+    margin-left: 0!important;
+  }
+}
+
+@media (max-width: 1035px) {
+  .sm-text {
+    display: none;
+  }
+  .sm-icon-holder {
+    margin-top: 20px!important;
+  }
+}
+
+@media (max-width: 833px) {
+  .sm-icon-holder {
+    margin-left: 0!important;
+  }
+  .logo {
+    display: none;
+  }
+  .about-us {
+    width: 80%;
+  }
+}
+
+@media (max-width: 630px) {
+  .content {
+    font-size: 15px;
+  }
+}
+@media (max-width: 540px) {
+  .sm-icon-holder {
+    display: none;
+  }
+  .about-us {
+    width: 95%;
+  }
+}
+
 </style>

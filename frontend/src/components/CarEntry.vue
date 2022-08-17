@@ -1,21 +1,21 @@
 <template>
   <div class="row w-100 ml-2 mr-1 mt-1 entryContainer align-items-center">
-    <div class="col col-xl-2 p-0">
+    <div class="col-xl-2 col-lg-3 col-md-3 p-0 img-holder">
       <img v-if="this.name === 'standard car'" class="float-left" alt="Car picture" src="../assets/standardcar.jpg">
       <img v-else-if="this.name === 'truck'" class="float-left" alt="Car picture" src="../assets/truck.jpg">
       <img v-else-if="this.name === 'motorcycle'" class="float-left" alt="Car picture" src="../assets/motorcycle.jpg">
       <img v-else class="float-left" alt="Car picture" src="../assets/standardcar.jpg">
     </div>
-    <div class="col col-xl-2 ml-xl-4">
+    <div class="col-xl-2 col-lg-2 col-md-3 ml-xl-4">
       <p class="mb-0"> {{name}}</p>
     </div>
-    <div class="col col-xl-2 offset-xl-2">
+    <div class="col-xl-2 col-lg-2 col-md-2 offset-xl-2 offset-lg-1 offset-md-0">
       <p class="mb-0"> Seats: {{seats}}</p>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-md-2">
       <p class="mb-0"> Platz: {{room}}</p>
     </div>
-    <div class="col-lg-1.5">
+    <div class="col-2">
       <button>
         <font-awesome-icon class="icon mr-lg-4" icon="fa-solid fa-pen"></font-awesome-icon>
       </button>

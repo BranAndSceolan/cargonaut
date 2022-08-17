@@ -40,7 +40,7 @@ export default {
             ride: this.id,
             user: this.user
           })
-          .then(response => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
+          .then(() => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
       }
     }
   }

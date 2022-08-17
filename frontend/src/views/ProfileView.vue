@@ -77,18 +77,12 @@ export default {
       })
     },
     getOffers (offers) {
-      console.log('Offers: ', offers)
       for (const i in offers) {
         if (offers[i].user === this.user._id) {
           this.offers.push(offers[i])
         }
       }
       console.log('Useroffers: ', this.offers)
-    }
-  },
-  computed: {
-    userOffers () {
-      return this.offers.filter(offer => offer.user === this.user.id)
     }
   }
 }

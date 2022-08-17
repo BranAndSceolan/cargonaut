@@ -10,10 +10,10 @@
           <b-form-input v-model="title" placeholder="Title" class="input shadow-sm"></b-form-input>
         </b-input-group>
         <div class="row">
-          <b-input-group id="sitze" class="seat">
+          <b-input-group id="sitze" class="seat no-padding">
             <b-form-input type="number" v-model="seat" placeholder="Sitze" class="input shadow-sm"></b-form-input>
           </b-input-group>
-          <b-input-group id="platz" class="space">
+          <b-input-group id="platz" class="space no-padding">
             <b-form-input v-model="space" placeholder="Platz" type="number" class="input shadow-sm"></b-form-input>
           </b-input-group>
         </div>
@@ -71,16 +71,18 @@ export default {
       navData: [{ town: '', date: '' }, { town: '', date: '' }, { town: '', date: '' }],
       price: '',
       vehicles: [],
-      warning: false
+      warning: false,
+      vehicleId: ''
     }
   },
   methods: {
     create () {
-      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '') {
+      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '' && this.vehicleId === '') {
         axios.post('/ride/create',
           {
             date: this.navData[0].date,
             origin: this.navData[0].town,
+            vehicle: this.vehicleId,
             destination: this.navData[2].town,
             title: this.title,
             description: this.desc,
@@ -90,13 +92,14 @@ export default {
             pendingReqs: [],
             accReqs: []
           })
-          .then(response => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
+          .then(() => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
       } else {
         this.warning = true
       }
     },
     fillVehicleInfo (index) {
       const vehicle = this.vehicles[index]
+      this.vehicleId = vehicle._id
       this.seat = vehicle.numberOfSeats
       this.desc = vehicle.notes
     }
@@ -176,5 +179,9 @@ export default {
 }
 .create {
   background: #005b52;
+}
+.no-padding {
+  padding-right: 0;
+  padding-left: 0;
 }
 </style>

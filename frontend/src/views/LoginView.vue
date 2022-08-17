@@ -2,7 +2,7 @@
   <b-card
     title="Login"
     style="width: 25rem; margin: auto; border-radius: 20px"
-    className="mb-2 text-left shadow"
+    class="cardArea mb-2 text-left shadow"
   >
     <b-card-body>
       <b-input-group id="login">
@@ -47,7 +47,7 @@ export default {
             name: this.user,
             password: this.password
           })
-          .then(response => (this.$router.push('/overview'))).catch(reason => {
+          .then(() => (this.$router.push('/overview'))).catch(reason => {
             this.warning = true
             console.log(reason)
           })
@@ -80,5 +80,11 @@ export default {
 
 .link {
   color: #005b52;
+}
+
+@media ( max-width: 410px ){
+  .cardArea {
+    max-width: 300px;
+  }
 }
 </style>
