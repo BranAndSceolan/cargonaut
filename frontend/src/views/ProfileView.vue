@@ -23,8 +23,7 @@
         <div class="col w-100">
           <div v-if="!offersHidden" class="card-columns">
             <travel-card class="mx-4 mt-4" v-for="offer in offers" v-bind:key="offer._id" :id="offer._id"  :title="offer.title" :origin="offer.origin"
-                         :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
-                         :width="'X'" :price="offer.price" :date="offer.date">
+                         :destination="offer.destination" :seats="offer.numberOfFreeSeats" :price="offer.price" :date="offer.date" :vehicle="offer.vehicle">
             </travel-card>
           </div>
         </div>
@@ -82,7 +81,6 @@ export default {
           this.offers.push(offers[i])
         }
       }
-      console.log('Useroffers: ', this.offers)
     }
   }
 }

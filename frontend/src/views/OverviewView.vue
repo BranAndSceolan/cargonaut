@@ -24,8 +24,7 @@
           <div class="row">
             <div class="col-xl-4 col-lg-6 col-md-8" v-for="offer in offers" v-bind:key="offer._id">
               <travel-card class="mx-4 mt-4" :id="offer._id" :title="offer.title" :origin="offer.origin"
-                           :destination="offer.destination" :seats="offer.numberOfFreeSeats" :height="'X'" :length="'X'"
-                           :width="'X'" :price="offer.price" :date="offer.date">
+                           :destination="offer.destination" :seats="offer.numberOfFreeSeats" :price="offer.price" :date="offer.date" :vehicle="offer.vehicle">
               </travel-card>
             </div>
           </div>
@@ -65,7 +64,9 @@ export default {
           { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
           { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' }]
       } else {
-        axios.get('/ride/getAll').then(response => (this.offers = response.data))
+        axios.get('/ride/getAll').then(response => {
+          this.offers = response.data
+        })
       }
     },
     setFilter (filterString, filterType) {

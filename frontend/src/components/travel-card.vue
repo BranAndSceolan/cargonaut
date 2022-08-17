@@ -9,7 +9,7 @@
         <h3 class="card-title mb-1"> {{ title }}</h3>
         <div class="mb-3">
           <p class="card-text my-0">Sitze: {{seats}}</p>
-          <p class="card-text">Platz: {{height}}m x {{length}}m x {{width}}m</p>
+          <p class="card-text">Platz: {{space}}m x {{space}}m x {{space}}m</p>
         </div>
         <div>
           <div class="row align-items-center">
@@ -38,25 +38,35 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'travel-card',
+  data () {
+    return {
+      space: 0
+    }
+  },
   props: {
     id: String,
     date: String,
     title: String,
     seats: Number,
-    height: Number,
-    width: Number,
-    length: Number,
     origin: String,
     layover: String,
     destination: String,
-    price: Number
+    price: Number,
+    vehicle: String
   },
   computed: {
     address: function () {
       return '/detail/' + this.id
     }
+  },
+  mounted () {
+    axios.get('/vehicle/findById/' + this.vehicle).then(response => {
+      this.space = response.data.spaceLength
+    })
   }
 }
 

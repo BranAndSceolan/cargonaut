@@ -76,7 +76,6 @@ button {
 }
 .link{
   color: white;
-  font-size: 2em;
   margin-left: 10px;
 }
 
