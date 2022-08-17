@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="row mx-4">
-        <OverBar title="Fahrzeuge" v-on:contentHidden="carsHidden = $event" address="/createVeh"></OverBar>
+        <OverBar title="Fahrzeuge" v-on:contentHidden="carsHidden = $event" address="/vehicle/new"></OverBar>
         <div class="w-100 mr-5" v-if="!carsHidden">
           <CarEntry v-on:delete="deleteVehicle" v-for="(vehicle, index) in this.userVehicles" v-bind:key="vehicle._id"
                     :id="vehicle._id" :index="index" :name="vehicle.type" :seats="vehicle.numberOfSeats" :room="vehicle.spaceLength"></CarEntry>

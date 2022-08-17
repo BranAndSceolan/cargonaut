@@ -46,9 +46,11 @@ export default {
       seat: Number,
       space: Number,
       desc: '',
-      id: '',
       warning: false
     }
+  },
+  props: {
+    id: String
   },
   methods: {
     create () {
@@ -75,6 +77,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.id)
     this.warning = false
   }
 }
