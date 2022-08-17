@@ -6,7 +6,9 @@ import {Vehicle} from "../../models/vehicle.model";
 import {User} from "../../models/user.model";
 import {Ride} from "../../models/ride.model";
 import {Evaluation} from "../../models/evaluation.model";
-import {Req} from "../../models/request.model"
+import {Req, requestStatus} from "../../models/request.model"
+import {printToConsole} from "../util/util.module";
+
 
 /**
  * Basic functions for interacting with MongoDB
@@ -144,6 +146,7 @@ export class MongoModule {
     }
 
     async updateRide(id: mongoose.Types.ObjectId, newRide: Ride): Promise<Ride | null> {
+        printToConsole("new ride:" + newRide.pendingReqs)
         return schemes.rideModel.findOneAndUpdate({_id: id}, {
             $set: {
                 date: newRide.date,
@@ -178,19 +181,72 @@ export class MongoModule {
     }
 
     async linkVehicleToUser(userId: mongoose.Types.ObjectId, newVehId: mongoose.Types.ObjectId): Promise<User| null>{
-        return schemes.userModel.findOneAndUpdate({_id: userId},{
+        const res = await schemes.userModel.findOneAndUpdate({_id: userId},{
           $push: {
-              vehicles: {newVehId}
+              vehicles: newVehId
           }
         })
+        return res
     }
 
     async unlinkVehicleFromUser(userId: mongoose.Types.ObjectId, oldVehId: mongoose.Types.ObjectId): Promise<User| null>{
         return schemes.userModel.findOneAndUpdate({_id: userId}, {
             $pullAll:{
-                vehicles: {oldVehId}
+                vehicles: [oldVehId]
+            }
+        }, {new: true})
+    }
+
+    async setRequestToDeletedRide(reqId: mongoose.Types.ObjectId): Promise<Req | null> {
+        return schemes.requestModel.findOneAndUpdate({_id: reqId},{
+            $set:{
+                requestStatus : requestStatus.rideDeleted
             }
         })
+    }
+
+    async getRideByVehicle(vehicleId: mongoose.Types.ObjectId):Promise<Ride[]> {
+        return schemes.rideModel.find({vehicle: vehicleId})
+    }
+
+    async deleteRidesByVehicle(vehicleId: mongoose.Types.ObjectId): Promise<void>{
+        schemes.rideModel.deleteMany({vehicle: vehicleId})
+    }
+
+    async getRequestByUser(userId: mongoose.Types.ObjectId): Promise<Req[]>{
+        return schemes.requestModel.find({user: userId})
+    }
+
+    async addRequestToRide(reqId: mongoose.Types.ObjectId, rideId: mongoose.Types.ObjectId){
+        return schemes.rideModel.findOneAndUpdate({_id: rideId},{
+            $push:{ pendingReqs: reqId}
+        }, {new: true})
+    }
+
+
+    async unlinkRequestFromRide(reqId : mongoose.Types.ObjectId){
+        await schemes.rideModel.updateMany({accReqs:{ $elemMatch: { $eq: reqId }}},{
+         $pull:{
+             accReqs: reqId
+         }
+        })
+        return schemes.rideModel.findOneAndUpdate({pendingReqs:{ $elemMatch: { $eq: reqId }}},{
+            $pull:{
+                pendingReqs: reqId
+            }
+        }, {new: true})
+    }
+
+    async updateEvaluations(userId: mongoose.Types.ObjectId, newAvg: number){
+        return schemes.userModel.findOneAndUpdate({_id: userId},{
+            $set: {
+                averageEvalOfRides: newAvg
+            }
+        }, {new: true})
+    }
+
+    async deleteEvalsByUser(userId: mongoose.Types.ObjectId){
+        return schemes.userModel.deleteMany({user: userId})
     }
 }
 

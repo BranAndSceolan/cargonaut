@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import {VehicleModule} from "../modules/entities/vehicle.module";
 import {Vehicle, VehicleClass} from "../models/vehicle.model";
 import {printToConsole} from "../modules/util/util.module";
-import {userController} from "./index";
+import {requestController, rideController, userController} from "./index";
 import {User} from "../models/user.model";
 
 /**
@@ -74,23 +74,18 @@ export class VehicleController {
             if (req.body.spaceLength && typeof req.body.spaceLength == 'number'){
                 length = req.body.spaceLength
             }
-            this.vehicleModule.createVehicle(new VehicleClass(req.body.type, req.body.numberOfSeats, req.body.notes, width, height, length)).then( (newCarId: mongoose.Types.ObjectId| null)=> {
+            this.vehicleModule.createVehicle(new VehicleClass(req.body.type, req.body.numberOfSeats, req.body.notes, width, height, length)).then( async (newCarId: mongoose.Types.ObjectId | null) => {
                 if (newCarId) {
-                    userController.userModule.linkVehicle(req.session.singInId, newCarId).then((updatedUser: User | null)=>{
-                        if (updatedUser && updatedUser.vehicles && updatedUser.vehicles.includes(newCarId)){
-                            updatedUser.password = "********"
-                            res.status(201).send(updatedUser)
-                            return
-                        } else{
-                         res.sendStatus(500)
-                            return
-                        }
-                    }).catch((err)=>{
+                    try {
+                        await userController.userModule.linkVehicle(req.session.signInId, newCarId)
+                        res.status(201).send(newCarId)
+                        return
+                    } catch (err) {
                         printToConsole(err)
                         res.sendStatus(500)
                         return
-                    });
-                } else{
+                    }
+                } else {
                     res.sendStatus(500)
                     return
                 }
@@ -158,23 +153,51 @@ export class VehicleController {
      */
     public async deleteAndUnlink(req: Request, res: Response): Promise<void> {
         const id: string | undefined = req.params.id;
-        const objectId = new mongoose.Types.ObjectId(id)
+        const vehicleId = new mongoose.Types.ObjectId(id)
         // remove vehicle id
-        userController.userModule.unlinkVehicle(req.session.singInId, objectId).then((user: User | null) => {
-            if (user?.vehicles?.includes(objectId)) {
+        const user = await userController.userModule.getUserById(req.session.signInId)
+        if (!user?.vehicles?.includes(vehicleId)){
+            res.sendStatus(401)
+            return
+        }
+        userController.userModule.unlinkVehicle(req.session.signInId, vehicleId).then(async (user: User | null) => {
+            if (user?.vehicles?.includes(vehicleId)) {
                 res.sendStatus(500)
             } else {
-                this.vehicleModule.deleteVehicle(new mongoose.Types.ObjectId(id)).then((result: Vehicle | null) => {
+                // remove rides involving this vehicle
+                const rides = await rideController.rideModule.getRidesByVehicle(vehicleId)
+                rideController.rideModule.deleteRidesByVehicle(vehicleId)
+                // Mark requests as rideDeleted
+                for (const ride of rides) {
+                    if (ride.pendingReqs) {
+                        for (const request of ride.pendingReqs) {
+                            requestController.requestModule.setToRideDeleted(request)
+                        }
+                    }
+                    if (ride.accReqs) {
+                        for (const request of ride.accReqs) {
+                            requestController.requestModule.setToRideDeleted(request)
+                        }
+                    }
+                }
+                this.vehicleModule.deleteVehicle(vehicleId).then((result: Vehicle | null) => {
                     if (result) {
                         res.status(200).send(result); //deleted Entity
                         return
                     } else {
+                        printToConsole("no result from delete entity")
                         res.status(500).send("Internal Server Error")
                         return
                     }
-                }).catch(() => res.status(500).send("Internal Server Error"));
+                }).catch((err) => {
+                    printToConsole(err)
+                    res.status(500).send("Internal Server Error")
+                });
             }
-        }).catch(() => res.status(500).send("Internal Server Error"));
+        }).catch((err) => {
+            printToConsole(err)
+            res.status(500).send("Internal Server Error")
+        });
     }
 
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon",
     "build": "npx tsc",
-    "test": "mocha --exit -r ts-node/register src/tests/chai/index.ts"
+    "test": "NODE_ENV=test mocha --exit -r ts-node/register src/tests/chai/index.ts"
   },
   "repository": {
     "type": "git",
@@ -22,12 +22,12 @@
     "@types/express": "^4.17.13",
     "@types/express-session": "^1.17.5",
     "@types/mocha": "^9.1.1",
-    "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.33.0",
-    "@typescript-eslint/parser": "^5.33.0",
+    "@types/node": "^18.7.6",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
-    "eslint": "^8.21.0",
+    "eslint": "^8.22.0",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.19",
     "ts-node": "^10.9.1",
@@ -42,6 +42,6 @@
     "express-session": "^1.17.3",
     "helmet": "^5.1.1",
     "json5": "^2.2.1",
-    "mongoose": "^6.5.1"
+    "mongoose": "^6.5.2"
   }
 }

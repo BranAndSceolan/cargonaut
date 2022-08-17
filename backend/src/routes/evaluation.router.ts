@@ -16,6 +16,9 @@ router.post('/create', (req: Request, res: Response) => {
     authModule.checkLogin(req, res,() => evaluationController.create(req, res))
 })
 
+router.post('/createAndAdd',(req: Request, res: Response) => {
+    authModule.checkLogin(req, res,() => evaluationController.createAndAdd(req, res))
+})
 // GET Routes
 router.get('/getAll', (req: Request, res: Response) => {
     authModule.checkLogin(req, res,() => evaluationController.getAll(req,res))

@@ -35,7 +35,7 @@ declare module "express-session" {
 
     interface Session {
         signInName: string;
-        singInId: mongoose.Types.ObjectId;
+        signInId: mongoose.Types.ObjectId;
     }
 }
 
@@ -45,8 +45,8 @@ export const app: Application = express();
 app.use(express.urlencoded({extended: false}));
 app.use(helmet())
 const rateLimitOptions = rateLimit({
-    windowMs: 60 * 1000, // 1 minute
-    max: 60, // Limit each IP to 60 requests per `window` (here, per 1 minute)
+    windowMs: 3 * 60 * 1000, // 1 minute
+    max:3* 60, // Limit each IP to 60 requests per `window` (here, per 1 minute)
     standardHeaders: false, // Do not return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false,
 })
