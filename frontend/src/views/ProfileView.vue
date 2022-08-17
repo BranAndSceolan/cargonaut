@@ -64,6 +64,7 @@ export default {
       for (const i in this.user.vehicles) {
         axios.get('/vehicle/findById/' + this.user.vehicles[i]).then(response => {
           this.userVehicles.push(response.data)
+          console.log(response.data)
         }).catch((reason) => {
           console.log(reason)
         })
@@ -72,9 +73,7 @@ export default {
     deleteVehicle (id, index) {
       this.userVehicles.splice(index, 1)
       this.user.vehicles.splice(index, 1)
-      axios.delete('/vehicle/delete/' + id).then(() => {
-        axios.post('/user/update/' + this.user._id, this.user)
-      })
+      axios.delete('/vehicle/deleteAndUnlink/' + id)
     },
     getOffers (offers) {
       for (const i in offers) {

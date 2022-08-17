@@ -10,7 +10,7 @@
       <p class="mb-0"> {{name}}</p>
     </div>
     <div class="col-xl-2 col-lg-2 col-md-2 offset-xl-2 offset-lg-1 offset-md-0">
-      <p class="mb-0"> Seats: {{seats}}</p>
+      <p class="mb-0"> Sitze: {{seats}}</p>
     </div>
     <div class="col-lg-2 col-md-2">
       <p class="mb-0"> Platz: {{room}}</p>

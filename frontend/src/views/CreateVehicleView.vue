@@ -57,39 +57,21 @@ export default {
         return
       }
       if (this.title !== '' && this.desc !== '' && this.price !== '') {
-        axios.post('/vehicle/create',
+        axios.post('/vehicle/createAndLink',
           {
             type: this.title,
             numberOfSeats: this.seat,
-            notes: 'looks ugly, but moves'
-          })
-          .then(response => {
-            this.id = response.data
-            this.addVehicleToUser()
-          }).catch(reason => { console.log(reason) })
+            notes: this.desc,
+            spaceLength: Number(this.space)
+          }).then(() => {
+          this.$router.push('/profile')
+        }).catch(reason => { console.log(reason) })
       } else {
         this.warning = true
       }
     },
     selectType (type) {
       this.title = type
-    },
-    addVehicleToUser () {
-      axios.get('/user/current').then(response => {
-        const user = response.data
-        user.vehicles.push(this.id)
-        axios.post('/user/update/' + user._id, user)
-          .then(() => (this.$router.push('/overview')))
-      })
-    },
-    removeVehicleFromUser () {
-      axios.get('/user/current').then(response => {
-        const user = response.data
-        const index = user.vehicles.indexOf(this.id)
-        user.vehicles.splice(index, 1)
-        axios.post('/user/update/' + user._id, user)
-          .then(() => (this.$router.push('/overview')))
-      })
     }
   },
   mounted () {

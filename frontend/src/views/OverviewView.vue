@@ -51,7 +51,7 @@ export default {
       searchVal: '',
       filterString: '',
       filterType: '',
-      baseOffers: true
+      baseOffers: false
     }
   },
   methods: {
