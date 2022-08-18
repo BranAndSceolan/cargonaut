@@ -28,6 +28,15 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col text-center">
+          <b-button @click="modalOpen=true" class="button"> Löschen </b-button>
+        </div>
+        <div class="col text-center">
+          <b-button @click="logout" class="button"> Ausloggen </b-button>
+        </div>
+      </div>
+      <modal v-if="modalOpen" :text="'Willst du deinen Account wirklich?'" @accept="deleteProfile" @decline="modalOpen=false"></modal>
     </div>
 </template>
 
@@ -36,9 +45,10 @@ import OverBar from '../components/OverBar'
 import CarEntry from '../components/CarEntry'
 import axios from 'axios'
 import TravelCard from '../components/travel-card'
+import Modal from '@/components/ModalSM'
 export default {
   name: 'ProfileView',
-  components: { TravelCard, CarEntry, OverBar },
+  components: { Modal, TravelCard, CarEntry, OverBar },
   data () {
     return {
       user: {},
@@ -46,7 +56,8 @@ export default {
       userVehicles: [],
       reviewsHidden: false,
       carsHidden: false,
-      offersHidden: false
+      offersHidden: false,
+      modalOpen: false
     }
   },
   mounted () {
@@ -64,7 +75,6 @@ export default {
       for (const i in this.user.vehicles) {
         axios.get('/vehicle/findById/' + this.user.vehicles[i]).then(response => {
           this.userVehicles.push(response.data)
-          console.log(response.data)
         }).catch((reason) => {
           console.log(reason)
         })
@@ -81,6 +91,16 @@ export default {
           this.offers.push(offers[i])
         }
       }
+    },
+    deleteProfile () {
+      axios.delete('/user/deleteAndUnlink/' + this.user._id).then(() => {
+        this.$router.push('/login')
+      })
+    },
+    logout () {
+      axios.post('/user/logout').then(() => {
+        this.$router.push('/login')
+      })
     }
   }
 }
@@ -113,5 +133,11 @@ p {
 }
 .card-columns {
   column-count: 1;
+}
+.button {
+  margin-left: 2.5rem;
+  width: 25rem;
+  background: #005b52;
+  border-radius: 20px;
 }
 </style>

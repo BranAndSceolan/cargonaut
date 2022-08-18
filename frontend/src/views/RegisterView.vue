@@ -87,7 +87,6 @@ export default {
   margin: auto;
 }
 .create {
-  margin-left: 2.5rem;
   width: 25rem;
   background: #005b52;
   border-radius: 20px;

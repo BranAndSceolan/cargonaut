@@ -55,19 +55,9 @@ export default {
   },
   methods: {
     getOffers () {
-      if (this.baseOffers) {
-        this.offers = [{ _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
-          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
-          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
-          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
-          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
-          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' },
-          { _id: '1', title: 'Yes', origin: 'Origin', destination: 'destination', numberOfFreeSeats: 4, price: 5, date: '11.11.11' }]
-      } else {
-        axios.get('/ride/getAll').then(response => {
-          this.offers = response.data
-        })
-      }
+      axios.get('/ride/getAll').then(response => {
+        this.offers = response.data
+      })
     },
     setFilter (filterString, filterType) {
       this.filterString = filterString
