@@ -6,9 +6,33 @@
             <img class="profilePic" alt="Profile pic" src="../assets/ProfilPicture.jpg">
           </div>
         </div>
-        <div class="col-xl-10">
-          <p class="name m-3">{{this.user.name}}</p>
+        <div v-if="editMode===false" class="col-xl-10">
+          <div class="row">
+            <div class="col-10">
+              <p class="name m-3">{{this.user.name}}</p>
+            </div>
+            <div class="col-2">
+              <b-button @click="buttonsVisible = !buttonsVisible" class="iconButton">
+                <font-awesome-icon class="icon" icon="fa-solid fa-cog"></font-awesome-icon>
+              </b-button>
+            </div>
+          </div>
           <p class="desc m-3">{{this.user.description}}</p>
+        </div>
+        <div v-if="editMode===true" class="col-xl-10">
+          <b-input v-model="user.name" placeholder="Name" class="name m-3"></b-input>
+          <b-textarea v-model="user.description" placeholder="Beschreibung" class="desc m-3"></b-textarea>
+        </div>
+      </div>
+      <div v-if="buttonsVisible" class="row">
+        <div class="col text-center my-3">
+          <b-button @click="initEditMode" class="button"> {{ editButton }} </b-button>
+        </div>
+        <div class="col text-center my-3">
+          <b-button @click="modalOpen = true" class="button"> Löschen </b-button>
+        </div>
+        <div class="col text-center my-3">
+          <b-button @click="logout" class="button"> Ausloggen </b-button>
         </div>
       </div>
       <div class="row mx-4">
@@ -26,14 +50,6 @@
                          :destination="offer.destination" :seats="offer.numberOfFreeSeats" :price="offer.price" :date="offer.date" :vehicle="offer.vehicle">
             </travel-card>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col text-center">
-          <b-button @click="modalOpen=true" class="button"> Löschen </b-button>
-        </div>
-        <div class="col text-center">
-          <b-button @click="logout" class="button"> Ausloggen </b-button>
         </div>
       </div>
       <modal v-if="modalOpen" :text="'Willst du deinen Account wirklich?'" @accept="deleteProfile" @decline="modalOpen=false"></modal>
@@ -57,7 +73,10 @@ export default {
       reviewsHidden: false,
       carsHidden: false,
       offersHidden: false,
-      modalOpen: false
+      modalOpen: false,
+      editMode: false,
+      buttonsVisible: false,
+      editButton: 'Bearbeiten'
     }
   },
   mounted () {
@@ -101,6 +120,21 @@ export default {
       axios.post('/user/logout').then(() => {
         this.$router.push('/login')
       })
+    },
+    editProfile () {
+      axios.put('/user/updateNew/' + this.user._id, this.user).then(response => {
+        this.user = response.data
+      })
+    },
+    initEditMode () {
+      if (!this.editMode) {
+        this.editMode = true
+        this.editButton = 'Bearbeiten abschließen'
+      } else {
+        this.editMode = false
+        this.editButton = 'Bearbeiten'
+        this.editProfile()
+      }
     }
   }
 }
@@ -135,9 +169,19 @@ p {
   column-count: 1;
 }
 .button {
-  margin-left: 2.5rem;
   width: 25rem;
   background: #005b52;
   border-radius: 20px;
+}
+.icon {
+  font-size: 2.2em;
+  color: #005b52;
+}
+.iconButton {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 </style>

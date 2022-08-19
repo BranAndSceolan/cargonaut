@@ -249,11 +249,6 @@ export class UserController {
 
 
     public async updateSafer(req: Request, res: Response) {
-        const password = req.body.password
-        if (!password || password.trim() == "") {
-            res.status(400).send("Password missing")
-            return
-        }
         const description = req.body.description
         if (!description) {
             res.status(400).send("Description missing")
