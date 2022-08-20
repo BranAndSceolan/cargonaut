@@ -11,16 +11,16 @@
             <div class="card-head"> {{ offer.title }} </div>
             <div class="row">
               <div class="col-sm-4"> Sitze: {{ offer.numberOfFreeSeats }} </div>
-              <div class="col-sm-5"> Platz: 5 m&sup3; </div>
-              <div> {{offer.price}}€ </div>
+              <div class="col-sm-4"> Platz: {{ vehicle.spaceLength }} </div>
+              <div class="col-sm-4"> {{ offer.price }}€ </div>
             </div>
           </div>
         </b-card-body>
       </b-card>
      </div>
      <div>
-       <b-button id="book" class="book shadow" v-if="currentUser !== offer.user" v-on:click="book"> Anmelden </b-button>
-       <b-button id="book" class="book shadow" v-if="currentUser === offer.user" v-on:click="deleteOffer"> Löschen </b-button>
+       <b-button class="book shadow" v-if="currentUser !== offer.user" v-on:click="book"> Anmelden </b-button>
+       <b-button class="book shadow" v-if="currentUser === offer.user" v-on:click="deleteOffer"> Löschen </b-button>
      </div>
    </div>
    <div class="area">
@@ -34,6 +34,7 @@
            <p>{{ offer.origin }}</p>
          </div>
        </div>
+       <div class="line line1"></div>
        <div class="col-4">
          <div class="row justify-content-center">
            <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
@@ -42,6 +43,7 @@
            <p>Auf dem Weg!</p>
          </div>
        </div>
+       <div class="line line2"></div>
        <div class="col-4">
          <div class="row justify-content-center">
            <font-awesome-icon class="icon" icon="fa-solid fa-circle-dot"></font-awesome-icon>
@@ -53,14 +55,14 @@
      </div>
    </div>
    <div class="area">
-     <div class="title"> Bescheibung </div>
+     <div class="title"> Beschreibung </div>
      <div class="desc-content">
        {{ offer.description }}
      </div>
    </div>
    <div class="area">
      <div class="title"> Fahrzeug </div>
-     <CarEntry v-for="(car, index) in cars" v-bind:key="index" :name="car.name" :seats="car.seats" :room="car.room"></CarEntry>
+     <CarEntry :name="vehicle.type" :seats="vehicle.numberOfSeats" :room="vehicle.spaceLength"></CarEntry>
    </div>
    <div class="area">
      <OverBar class="mb-4" title="Reviews" v-on:contentHidden="reviewsHidden = $event" :address=address ></OverBar>
@@ -105,18 +107,21 @@ export default {
       },
       { name: 'Max Mustermann', date: 'Juni 2020', desc: 'Schlechte Fahrt, schlechter Fahrer, 5/7 niewieder!', stars: 1 }],
       reviewsHidden: false,
-      currentUser: ''
+      currentUser: '',
+      vehicle: {}
     }
   },
   mounted () {
     document.title = 'Detail - Cargonaut'
     axios.get('/ride/findById/' + this.id).then(response => {
       this.offer = response.data
+
+      axios.get('/vehicle/findById/' + this.offer.vehicle).then(response => {
+        this.vehicle = response.data
+      })
+
       axios.get('/user/current').then(response => {
-        console.log('current User: ')
-        console.log(response)
         this.currentUser = response.data._id
-        console.log('Hey : ' + this.currentUser + ' ' + this.offer.user)
       }).catch(reason => console.log(reason))
     })
   },
@@ -164,6 +169,8 @@ export default {
   font-weight: bold;
   color: gray;
   text-align: left;
+  margin-left: 3px;
+  font-size: larger;
 }
 .bar {
   overflow: hidden;
@@ -204,6 +211,19 @@ export default {
   color: #005b52;
   font-size: 1.5em;
   text-align: center;
+}
+.line{
+  position: absolute;
+  width: 27%;
+  height: 2px;
+  background: #005b52;
+  margin-top: 10px;
+}
+.line1{
+  left:330px;
+}
+.line2 {
+  right:330px;
 }
 
 </style>

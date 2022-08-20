@@ -102,6 +102,7 @@ export default {
       this.vehicleId = vehicle._id
       this.seat = vehicle.numberOfSeats
       this.desc = vehicle.notes
+      this.space = vehicle.spaceLength
     }
   },
   mounted () {

@@ -11,7 +11,7 @@
             <div class="col-10">
               <p class="name m-3">{{this.user.name}}</p>
             </div>
-            <div class="col-2">
+            <div class="col-2 mt-2">
               <b-button @click="buttonsVisible = !buttonsVisible" class="iconButton">
                 <font-awesome-icon class="icon" icon="fa-solid fa-cog"></font-awesome-icon>
               </b-button>
