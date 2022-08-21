@@ -5,7 +5,7 @@
   >
     <b-card-body class="body">
       <div class="info">
-        <div class="head"> Create Vehicle </div>
+        <div class="head"> {{headline}} </div>
         <b-dropdown :text="title" variant="secondary" class="title row">
           <b-dropdown-item-btn v-on:click="selectType('pick up truck')">pick up truck</b-dropdown-item-btn>
           <b-dropdown-item-btn v-on:click="selectType('standard car')">standard car</b-dropdown-item-btn>
@@ -27,7 +27,7 @@
       </div>
     </b-card-body>
     <b-card-footer class="foot">
-      <b-button id="create" v-on:click="create" class="create"> Create </b-button>
+      <b-button id="create" v-on:click="buttonClick" class="create"> {{buttonName}} </b-button>
     </b-card-footer>
     <warning-component v-if="warning"></warning-component>
   </b-card>
@@ -46,9 +46,14 @@ export default {
       seat: Number,
       space: Number,
       desc: '',
-      id: '',
-      warning: false
+      warning: false,
+      buttonName: 'Erstellen',
+      headline: 'Fahrzeug anlegen',
+      editMode: false
     }
+  },
+  props: {
+    id: String
   },
   methods: {
     create () {
@@ -57,42 +62,53 @@ export default {
         return
       }
       if (this.title !== '' && this.desc !== '' && this.price !== '') {
-        axios.post('/vehicle/create',
+        axios.post('/vehicle/createAndLink',
           {
             type: this.title,
             numberOfSeats: this.seat,
-            notes: 'looks ugly, but moves'
-          })
-          .then(response => {
-            this.id = response.data
-            this.addVehicleToUser()
-          }).catch(reason => { console.log(reason) })
+            notes: this.desc,
+            spaceLength: Number(this.space)
+          }).then(() => {
+          this.$router.push('/profile')
+        }).catch(reason => { console.log(reason) })
       } else {
         this.warning = true
       }
     },
+    edit () {
+      axios.delete('/vehicle/deleteAndUnlink/' + this.id).then(() => {
+        this.create()
+      })
+    },
     selectType (type) {
       this.title = type
     },
-    addVehicleToUser () {
-      axios.get('/user/current').then(response => {
-        const user = response.data
-        user.vehicles.push(this.id)
-        axios.post('/user/update/' + user._id, user)
-          .then(() => (this.$router.push('/overview')))
+    getVehicle () {
+      axios.get('/vehicle/findById/' + this.id).then(response => {
+        this.selectType(response.data.type)
+        this.desc = response.data.notes
+        this.seat = response.data.numberOfSeats
+        this.space = response.data.spaceLength
+      }).catch(() => {
+        this.$router.push('/profile')
       })
     },
-    removeVehicleFromUser () {
-      axios.get('/user/current').then(response => {
-        const user = response.data
-        const index = user.vehicles.indexOf(this.id)
-        user.vehicles.splice(index, 1)
-        axios.post('/user/update/' + user._id, user)
-          .then(() => (this.$router.push('/overview')))
-      })
+    initEdit () {
+      this.buttonName = 'Ändern'
+      this.headline = 'Fahrzeug anpassen'
+      this.editMode = true
+      this.getVehicle()
+    },
+    buttonClick () {
+      if (!this.editMode) this.create()
+      else this.edit()
     }
   },
   mounted () {
+    document.title = 'Vehicle - Cargonaut'
+    if (this.id !== '' && this.id.length >= 5) {
+      this.initEdit()
+    }
     this.warning = false
   }
 }

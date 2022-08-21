@@ -5,11 +5,11 @@
         <img class="card-img-top" src="../assets/amarok-d8f.png" alt="Card image cap">
       </div>
       <div class="card-body">
-        <div class="dateBubble px-2"> {{ date }}</div>
+        <div class="dateBubble px-2"> {{ formDate }}</div>
         <h3 class="card-title mb-1"> {{ title }}</h3>
         <div class="mb-3">
           <p class="card-text my-0">Sitze: {{seats}}</p>
-          <p class="card-text">Platz: {{height}}m x {{length}}m x {{width}}m</p>
+          <p class="card-text">Platz: {{space}}m x {{space}}m x {{space}}m</p>
         </div>
         <div>
           <div class="row align-items-center">
@@ -29,7 +29,7 @@
             <div class="col-7 ml-3">
               <p class="card-text cityText">{{destination}}</p>
             </div>
-            <div class="text-right mt-1" style="color: grey; font-size: 1.1em">{{price}}€</div>
+            <div class="text-right mt-1 col" style="color: grey; font-size: 1.1em">{{price}}€</div>
           </div>
         </div>
       </div>
@@ -38,25 +38,39 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'travel-card',
+  data () {
+    return {
+      space: 0
+    }
+  },
   props: {
     id: String,
     date: String,
     title: String,
     seats: Number,
-    height: Number,
-    width: Number,
-    length: Number,
     origin: String,
     layover: String,
     destination: String,
-    price: Number
+    price: Number,
+    vehicle: String
   },
   computed: {
     address: function () {
       return '/detail/' + this.id
+    },
+    formDate () {
+      const dateParts = this.date.slice(0, 10).split('-')
+      return dateParts[2] + '.' + dateParts[1] + '.' + dateParts[0]
     }
+  },
+  mounted () {
+    axios.get('/vehicle/findById/' + this.vehicle).then(response => {
+      this.space = response.data.spaceLength
+    })
   }
 }
 

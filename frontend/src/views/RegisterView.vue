@@ -59,7 +59,7 @@ export default {
         const formDate = this.dateMaker()
         axios.post('/user/create',
           { name: this.name, birthdate: formDate, email: this.email, description: this.desc, password: this.password1 })
-          .then(() => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
+          .then(() => (this.$router.push('/profile'))).catch(reason => { console.log(reason) })
       } else {
         this.warning = true
       }
@@ -70,6 +70,7 @@ export default {
     }
   },
   mounted () {
+    document.title = 'Register - Cargonaut'
     this.warning = false
   }
 }
@@ -86,7 +87,6 @@ export default {
   margin: auto;
 }
 .create {
-  margin-left: 2.5rem;
   width: 25rem;
   background: #005b52;
   border-radius: 20px;

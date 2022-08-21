@@ -43,6 +43,9 @@ export default {
           .then(() => (this.$router.push('/overview'))).catch(reason => { console.log(reason) })
       }
     }
+  },
+  mounted () {
+    document.title = 'Review - Cargonaut'
   }
 }
 </script>

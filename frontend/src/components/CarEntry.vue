@@ -10,15 +10,15 @@
       <p class="mb-0"> {{name}}</p>
     </div>
     <div class="col-xl-2 col-lg-2 col-md-2 offset-xl-2 offset-lg-1 offset-md-0">
-      <p class="mb-0"> Seats: {{seats}}</p>
+      <p class="mb-0"> Sitze: {{seats}}</p>
     </div>
     <div class="col-lg-2 col-md-2">
       <p class="mb-0"> Platz: {{room}}</p>
     </div>
     <div class="col-2">
-      <button>
+      <router-link :to=address class="link">
         <font-awesome-icon class="icon mr-lg-4" icon="fa-solid fa-pen"></font-awesome-icon>
-      </button>
+      </router-link>
       <button v-on:click="sendDelete">
         <font-awesome-icon class="icon ml-lg-4" icon="fa-solid fa-trash"></font-awesome-icon>
       </button>
@@ -39,6 +39,11 @@ export default {
   methods: {
     sendDelete () {
       this.$emit('delete', this.id, this.index)
+    }
+  },
+  computed: {
+    address () {
+      return '/vehicle/' + this.id
     }
   }
 }
@@ -68,6 +73,10 @@ img {
 button {
   border: none;
   background-color: transparent;
+}
+.link{
+  color: white;
+  margin-left: 10px;
 }
 
 </style>

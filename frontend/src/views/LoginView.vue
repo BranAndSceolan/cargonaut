@@ -12,8 +12,8 @@
         <b-form-input placeholder="Passwort" type="password" v-model="password"
                       className="input shadow-sm"></b-form-input>
       </b-input-group>
-      <b-card-text className="text">
-        Forgot your <span className="link">Password</span>?
+      <b-card-text class="text">
+        Forgot your <span class="link">Password</span>?
       </b-card-text>
       <b-btn className="button" v-on:click="login"> Login</b-btn>
       <b-card-text className="text">
@@ -57,6 +57,7 @@ export default {
     }
   },
   mounted () {
+    document.title = 'Login - Cargonaut'
     this.warning = false
   }
 }
@@ -65,12 +66,6 @@ export default {
 <style scoped>
 #login {
   padding-bottom: 15px;
-}
-
-.button {
-  width: 100%;
-  border-radius: 20px;
-  background: #005b52;
 }
 
 .text {

@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     create () {
-      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '' && this.vehicleId === '') {
+      if (this.title !== '' && this.seat !== '' && this.desc !== '' && this.price !== '' && this.vehicleId !== '') {
         axios.post('/ride/create',
           {
             date: this.navData[0].date,
@@ -102,9 +102,11 @@ export default {
       this.vehicleId = vehicle._id
       this.seat = vehicle.numberOfSeats
       this.desc = vehicle.notes
+      this.space = vehicle.spaceLength
     }
   },
   mounted () {
+    document.title = 'Ride - Cargonaut'
     axios.get('/user/current').then(response => {
       const vehicleIdArray = response.data.vehicles
       for (const i in vehicleIdArray) {
